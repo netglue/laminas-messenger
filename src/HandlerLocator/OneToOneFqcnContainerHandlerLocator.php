@@ -4,12 +4,12 @@ declare(strict_types=1);
 namespace Netglue\PsrContainer\Messenger\HandlerLocator;
 
 use Netglue\PsrContainer\Messenger\Exception\ConfigurationError;
-use Netglue\PsrContainer\Messenger\MessageBusOptions;
 use Psr\Container\ContainerInterface;
 use Symfony\Component\Messenger\Envelope;
 use Symfony\Component\Messenger\Handler\HandlerDescriptor;
 use Symfony\Component\Messenger\Handler\HandlersLocatorInterface;
 use Symfony\Component\Messenger\Stamp\ReceivedStamp;
+use function assert;
 use function get_class;
 use function is_string;
 
@@ -55,11 +55,12 @@ class OneToOneFqcnContainerHandlerLocator implements HandlersLocatorInterface
 
     private function shouldHandle(Envelope $envelope, HandlerDescriptor $handlerDescriptor) : bool
     {
-        /** @var ReceivedStamp|null $received */
         $received = $envelope->last(ReceivedStamp::class);
         if ($received === null) {
             return true;
         }
+
+        assert($received instanceof ReceivedStamp);
 
         $expectedTransport = $handlerDescriptor->getOption('from_transport');
         if ($expectedTransport === null) {

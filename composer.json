@@ -39,6 +39,16 @@
             "Netglue\\PsrContainer\\MessengerTest\\": "tests"
         }
     },
+    "scripts": {
+        "check": [
+            "@cs-check",
+            "@test"
+        ],
+        "cs-check": "phpcs",
+        "cs-fix": "phpcbf",
+        "test": "phpunit --colors=always",
+        "test-coverage": "phpunit --colors=always --coverage-html build/report"
+    },
     "extra": {
         "laminas": {
             "config-provider": [

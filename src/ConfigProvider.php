@@ -40,6 +40,7 @@ class ConfigProvider
     private function messengerConfig() : array
     {
         return [
+            // This logger is used by the console commands:
             'logger' => null,
             'serializer' => [
                 'format' => 'json',

@@ -67,6 +67,7 @@ class MessageBusOptionsTest extends TestCase
         $this->options->setHandlerLocator(self::class);
     }
 
+    /** @return mixed[] */
     public function handlerLocatorTypes() : iterable
     {
         return [

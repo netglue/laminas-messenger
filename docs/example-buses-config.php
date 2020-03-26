@@ -2,8 +2,8 @@
 declare(strict_types=1);
 
 use Netglue\PsrContainer\Messenger\Container\MessageBusStaticFactory;
-use Netglue\PsrContainer\Messenger\Container\MessageHandlerMiddlewareStaticFactory;
-use Netglue\PsrContainer\Messenger\Container\MessageSenderMiddlewareStaticFactory;
+use Netglue\PsrContainer\Messenger\Container\Middleware\MessageHandlerMiddlewareStaticFactory;
+use Netglue\PsrContainer\Messenger\Container\Middleware\MessageSenderMiddlewareStaticFactory;
 use Netglue\PsrContainer\Messenger\HandlerLocator\OneToManyFqcnContainerHandlerLocator;
 
 return [

@@ -25,6 +25,7 @@ class DefaultCommandBusConfigProviderTest extends TestCase
         foreach ($config['symfony']['messenger']['buses'] as $optionArray) {
             new MessageBusOptions($optionArray);
         }
+
         $this->addToAssertionCount(1);
     }
 }

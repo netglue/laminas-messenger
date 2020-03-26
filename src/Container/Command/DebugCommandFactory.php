@@ -5,16 +5,29 @@ namespace Netglue\PsrContainer\Messenger\Container\Command;
 
 use Psr\Container\ContainerInterface;
 use Symfony\Component\Messenger\Command\DebugCommand;
-use function array_combine;
-use function array_keys;
+use function is_string;
 
 class DebugCommandFactory
 {
     public function __invoke(ContainerInterface $container) : DebugCommand
     {
         $config = $container->has('config') ? $container->get('config') : [];
-        $busConfig = $config['symfony']['messenger']['buses'] ?: [];
-        $map = array_combine(array_keys($busConfig), array_keys($busConfig));
+        $busList = $config['symfony']['messenger']['buses'] ?: [];
+        $map = [];
+        foreach ($busList as $bus => $busConfig) {
+            $handlers = $busConfig['handlers'] ?: [];
+            $map[$bus] = [];
+            foreach ($handlers as $message => $handlerList) {
+                $map[$bus][$message] = [];
+                if (is_string($handlerList)) {
+                    $handlerList = [$handlerList];
+                }
+
+                foreach ($handlerList as $handler) {
+                    $map[$bus][$message][] = [$handler, []];
+                }
+            }
+        }
 
         return new DebugCommand($map);
     }

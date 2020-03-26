@@ -24,8 +24,9 @@ class DefaultCommandBusConfigProvider
         return [
             'factories' => [
                 'command_bus' => [Container\MessageBusStaticFactory::class, 'command_bus'],
-                'command_bus.middleware.sender' => [Container\MessageSenderMiddlewareStaticFactory::class, 'command_bus'],
-                'command_bus.middleware.handler' => [Container\MessageHandlerMiddlewareStaticFactory::class, 'command_bus'],
+                'command_bus.middleware.add_bus_name_stamp' => [Container\Middleware\BusNameStampMiddlewareStaticFactory::class, 'command_bus'],
+                'command_bus.middleware.send_message' => [Container\Middleware\MessageSenderMiddlewareStaticFactory::class, 'command_bus'],
+                'command_bus.middleware.handle_message' => [Container\Middleware\MessageHandlerMiddlewareStaticFactory::class, 'command_bus'],
             ],
         ];
     }
@@ -37,6 +38,7 @@ class DefaultCommandBusConfigProvider
             'command_bus' => [
                 'allows_zero_handlers' => false,
                 'middleware' => [
+                    'command_bus.middleware.add_bus_name_stamp',
                     'command_bus.middleware.sender',
                     'command_bus.middleware.handler',
                 ],

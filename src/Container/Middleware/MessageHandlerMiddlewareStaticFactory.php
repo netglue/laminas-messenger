@@ -1,8 +1,10 @@
 <?php
 declare(strict_types=1);
 
-namespace Netglue\PsrContainer\Messenger\Container;
+namespace Netglue\PsrContainer\Messenger\Container\Middleware;
 
+use Netglue\PsrContainer\Messenger\Container\MessageBusOptionsRetrievalBehaviour;
+use Netglue\PsrContainer\Messenger\Container\StaticFactoryContainerAssertion;
 use Psr\Container\ContainerInterface;
 use Symfony\Component\Messenger\Middleware\HandleMessageMiddleware;
 
