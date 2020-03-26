@@ -18,7 +18,7 @@ return [
         'messenger' => [
             'buses' => [
                 'my.command.bus' => [
-                    'allow_zero_handlers' => false, // Means that it's an error if no handlers are defined for a given message
+                    'allows_zero_handlers' => false, // Means that it's an error if no handlers are defined for a given message
 
                     /**
                      * Each bus needs middleware to do anything useful.

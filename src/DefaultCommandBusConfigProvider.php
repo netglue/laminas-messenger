@@ -35,7 +35,7 @@ class DefaultCommandBusConfigProvider
     {
         return [
             'command_bus' => [
-                'allow_zero_handlers' => false,
+                'allows_zero_handlers' => false,
                 'middleware' => [
                     'command_bus.middleware.sender',
                     'command_bus.middleware.handler',
