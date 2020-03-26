@@ -42,6 +42,8 @@ class ConfigProvider
         return [
             // This logger is used by the console commands:
             'logger' => null,
+            // The name of the failure transport should be retrievable by name from the container:
+            'failure_transport' => null, //'failed',
             'serializer' => [
                 'format' => 'json',
                 'context' => [],

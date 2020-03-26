@@ -8,6 +8,7 @@ use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Messenger\Command\ConsumeMessagesCommand;
 use Symfony\Component\Messenger\RoutableMessageBus;
+use function array_key_exists;
 use function array_keys;
 
 class ConsumeCommandFactory
@@ -17,6 +18,11 @@ class ConsumeCommandFactory
         $config = $container->has('config') ? $container->get('config') : [];
         $logger = $config['symfony']['messenger']['logger'] ?? null;
         $receivers = $config['symfony']['messenger']['transports'] ?? [];
+
+        $failureTransport = $config['symfony']['messenger']['failure_transport'] ?? null;
+        if ($failureTransport && array_key_exists($failureTransport, $receivers)) {
+            unset($receivers[$failureTransport]);
+        }
 
         if ($container->has(EventDispatcherInterface::class)) {
             $dispatcher = $container->get(EventDispatcherInterface::class);

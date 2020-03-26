@@ -53,7 +53,8 @@
         "laminas": {
             "config-provider": [
                 "Netglue\\PsrContainer\\Messenger\\ConfigProvider",
-                "Netglue\\PsrContainer\\Messenger\\DefaultCommandBusConfigProvider"
+                "Netglue\\PsrContainer\\Messenger\\DefaultCommandBusConfigProvider",
+                "Netglue\\PsrContainer\\Messenger\\FailureCommandsConfigProvider"
             ]
         }
     }
