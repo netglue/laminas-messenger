@@ -55,8 +55,8 @@ class TransportFactory
         switch ($scheme) {
             case 'amqp':
                 return new AmqpTransportFactory();
-            case 'doctrine': // Unsupported so far
-                break;
+            case 'doctrine':
+                return new DoctrineTransportFactory($container);
             case 'in-memory':
                 return new InMemoryTransportFactory();
             case 'redis':

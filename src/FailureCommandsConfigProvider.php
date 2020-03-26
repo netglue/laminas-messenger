@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace Netglue\PsrContainer\Messenger;
 
+use Netglue\PsrContainer\Messenger\Container\Command\FailedMessagesRetryCommandFactory;
 use Netglue\PsrContainer\Messenger\Container\Command\FailureCommandAbstractFactory;
 use Symfony\Component\Messenger\Command\FailedMessagesRemoveCommand;
 use Symfony\Component\Messenger\Command\FailedMessagesRetryCommand;
@@ -25,7 +26,7 @@ class FailureCommandsConfigProvider
         return [
             'factories' => [
                 FailedMessagesRemoveCommand::class => [FailureCommandAbstractFactory::class, FailedMessagesRemoveCommand::class],
-                //FailedMessagesRetryCommand::class => [FailureCommandAbstractFactory::class, FailedMessagesRetryCommand::class],
+                FailedMessagesRetryCommand::class => FailedMessagesRetryCommandFactory::class,
                 FailedMessagesShowCommand::class => [FailureCommandAbstractFactory::class, FailedMessagesShowCommand::class],
             ],
         ];
@@ -37,7 +38,7 @@ class FailureCommandsConfigProvider
         return [
             'commands' => [
                 FailedMessagesRemoveCommand::getDefaultName() => FailedMessagesRemoveCommand::class,
-                //FailedMessagesRetryCommand::getDefaultName() => FailedMessagesRetryCommand::class,
+                FailedMessagesRetryCommand::getDefaultName() => FailedMessagesRetryCommand::class,
                 FailedMessagesShowCommand::getDefaultName() => FailedMessagesShowCommand::class,
             ],
         ];
