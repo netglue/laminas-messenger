@@ -39,8 +39,8 @@ class DefaultCommandBusConfigProvider
                 'allows_zero_handlers' => false,
                 'middleware' => [
                     'command_bus.middleware.add_bus_name_stamp',
-                    'command_bus.middleware.sender',
-                    'command_bus.middleware.handler',
+                    'command_bus.middleware.send_message',
+                    'command_bus.middleware.handle_message',
                 ],
                 'handler_locator' => HandlerLocator\OneToOneFqcnContainerHandlerLocator::class,
                 'handlers' => [],
