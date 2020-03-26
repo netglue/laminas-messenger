@@ -21,7 +21,6 @@ class FailureCommandAbstractFactory
     /** @var string[] */
     private static $canCreate = [
         FailedMessagesRemoveCommand::class,
-        FailedMessagesRetryCommand::class,
         FailedMessagesShowCommand::class,
     ];
 

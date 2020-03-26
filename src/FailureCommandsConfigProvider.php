@@ -25,7 +25,7 @@ class FailureCommandsConfigProvider
         return [
             'factories' => [
                 FailedMessagesRemoveCommand::class => [FailureCommandAbstractFactory::class, FailedMessagesRemoveCommand::class],
-                FailedMessagesRetryCommand::class => [FailureCommandAbstractFactory::class, FailedMessagesRetryCommand::class],
+                //FailedMessagesRetryCommand::class => [FailureCommandAbstractFactory::class, FailedMessagesRetryCommand::class],
                 FailedMessagesShowCommand::class => [FailureCommandAbstractFactory::class, FailedMessagesShowCommand::class],
             ],
         ];
@@ -37,7 +37,7 @@ class FailureCommandsConfigProvider
         return [
             'commands' => [
                 FailedMessagesRemoveCommand::getDefaultName() => FailedMessagesRemoveCommand::class,
-                FailedMessagesRetryCommand::getDefaultName() => FailedMessagesRetryCommand::class,
+                //FailedMessagesRetryCommand::getDefaultName() => FailedMessagesRetryCommand::class,
                 FailedMessagesShowCommand::getDefaultName() => FailedMessagesShowCommand::class,
             ],
         ];

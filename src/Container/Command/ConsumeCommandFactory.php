@@ -20,6 +20,7 @@ class ConsumeCommandFactory
     {
         $config = $container->has('config') ? $container->get('config') : [];
         $logger = $config['symfony']['messenger']['logger'] ?? null;
+        $logger ? $container->get($logger) : null;
         $receivers = $config['symfony']['messenger']['transports'] ?? [];
 
         $failureTransport = $config['symfony']['messenger']['failure_transport'] ?? null;
@@ -43,7 +44,7 @@ class ConsumeCommandFactory
             new RoutableMessageBus($container),
             $container,
             $dispatcher,
-            $logger ? $container->get($logger) : null,
+            $logger,
             array_keys($receivers)
         );
     }
