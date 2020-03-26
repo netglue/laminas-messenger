@@ -4,10 +4,13 @@ declare(strict_types=1);
 namespace Netglue\PsrContainer\Messenger\Container\Command;
 
 use Psr\Container\ContainerInterface;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Messenger\Command\ConsumeMessagesCommand;
+use Symfony\Component\Messenger\EventListener\SendFailedMessageToFailureTransportListener;
 use Symfony\Component\Messenger\RoutableMessageBus;
+use Symfony\Component\Messenger\Transport\TransportInterface;
 use function array_key_exists;
 use function array_keys;
 
@@ -30,6 +33,12 @@ class ConsumeCommandFactory
             $dispatcher = new EventDispatcher();
         }
 
+        $this->attachFailureTransportListener(
+            $dispatcher,
+            $this->getFailureTransport($container),
+            $logger
+        );
+
         return new ConsumeMessagesCommand(
             new RoutableMessageBus($container),
             $container,
@@ -37,5 +46,30 @@ class ConsumeCommandFactory
             $logger ? $container->get($logger) : null,
             array_keys($receivers)
         );
+    }
+
+    private function getFailureTransport(ContainerInterface $container) :? TransportInterface
+    {
+        $config = $container->has('config') ? $container->get('config') : [];
+        $transportName = $config['symfony']['messenger']['failure_transport'] ?? null;
+
+        if ($transportName && $container->has($transportName)) {
+            return $container->get($transportName);
+        }
+
+        return null;
+    }
+
+    private function attachFailureTransportListener(
+        EventDispatcher $dispatcher,
+        ?TransportInterface $transport,
+        ?LoggerInterface $logger
+    ) : void {
+        if (! $transport) {
+            return;
+        }
+
+        $listener = new SendFailedMessageToFailureTransportListener($transport, $logger);
+        $dispatcher->addSubscriber($listener);
     }
 }
