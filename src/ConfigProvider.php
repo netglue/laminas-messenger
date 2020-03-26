@@ -14,14 +14,7 @@ class ConfigProvider
         return [
             'dependencies' => $this->dependencies(),
             'symfony' => [
-                'messenger' => [
-                    'serializer' => [
-                        'format' => 'json',
-                        'context' => [],
-                    ],
-                    'buses' => [],
-                    'transports' => [],
-                ],
+                'messenger' => $this->messengerConfig(),
             ],
             'console' => $this->consoleConfig(),
         ];
@@ -32,6 +25,8 @@ class ConfigProvider
     {
         return [
             'factories' => [
+                SymfonyMessenger\Command\ConsumeMessagesCommand::class => Container\Command\ConsumeCommandFactory::class,
+                SymfonyMessenger\Command\DebugCommand::class => Container\Command\DebugCommandFactory::class,
                 SymfonyMessenger\Transport\Serialization\PhpSerializer::class => InvokableFactory::class,
                 SymfonyMessenger\Transport\Serialization\Serializer::class => Container\SymfonySerializerFactory::class,
             ],
@@ -42,11 +37,26 @@ class ConfigProvider
     }
 
     /** @return mixed[] */
+    private function messengerConfig() : array
+    {
+        return [
+            'logger' => null,
+            'serializer' => [
+                'format' => 'json',
+                'context' => [],
+            ],
+            'buses' => [],
+            'transports' => [],
+        ];
+    }
+
+    /** @return mixed[] */
     private function consoleConfig() : array
     {
         return [
             'commands' => [
                 'messenger:consume' => SymfonyMessenger\Command\ConsumeMessagesCommand::class,
+                'debug:messenger' => SymfonyMessenger\Command\DebugCommand::class,
             ],
         ];
     }
