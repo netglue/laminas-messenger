@@ -1,0 +1,49 @@
+{
+    "name": "netglue/laminas-messenger",
+    "description": "Easy install and configuration for Symfony messenger in a Mezzio/Laminas application",
+    "minimum-stability": "stable",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "George Steel",
+            "email": "george@net-glue.co.uk"
+        }
+    ],
+    "config": {
+        "sort-packages": true
+    },
+    "require": {
+        "php": ">=7.3",
+        "laminas/laminas-stdlib": "^3.2",
+        "netglue/laminas-symfony-console": "^0.0.1",
+        "psr/container": "^1.0",
+        "symfony/messenger": "^5.0",
+        "symfony/serializer": "^5.0"
+    },
+    "require-dev": {
+        "doctrine/coding-standard": "^7.0",
+        "laminas/laminas-component-installer": "^2.1",
+        "laminas/laminas-servicemanager": "^3.4",
+        "phpunit/phpunit": "^9.0",
+        "roave/security-advisories": "dev-master",
+        "squizlabs/php_codesniffer": "^3.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "Netglue\\PsrContainer\\Messenger\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Netglue\\PsrContainer\\MessengerTest\\": "tests"
+        }
+    },
+    "extra": {
+        "laminas": {
+            "config-provider": [
+                "Netglue\\PsrContainer\\Messenger\\ConfigProvider",
+                "Netglue\\PsrContainer\\Messenger\\DefaultCommandBusConfigProvider"
+            ]
+        }
+    }
+}

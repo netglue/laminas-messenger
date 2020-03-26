@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<ruleset name="Custom Coding Standard based on Doctrine">
+    <arg name="basepath" value="."/>
+    <arg name="extensions" value="php"/>
+    <arg name="parallel" value="80"/>
+    <arg name="cache" value=".php_cs.cache"/>
+    <arg name="colors"/>
+
+    <!-- Ignore warnings, show progress of the run and show sniff names -->
+    <arg value="nps"/>
+
+    <!-- Paths to check -->
+    <file>src</file>
+    <file>tests</file>
+
+    <!-- Inherit rules from Doctrine Coding Standard -->
+    <rule ref="Doctrine">
+        <exclude name="SlevomatCodingStandard.TypeHints.DeclareStrictTypes.IncorrectWhitespaceBetweenOpenTagAndDeclare"/>
+        <!-- I like return types to look like this: ") :? Type" or ") : Type" -->
+        <exclude name="SlevomatCodingStandard.TypeHints.ReturnTypeHintSpacing.WhitespaceAfterNullabilitySymbol" />
+        <exclude name="SlevomatCodingStandard.TypeHints.ReturnTypeHintSpacing.NoSpaceBetweenColonAndNullabilitySymbol" />
+
+        <!-- Whilst this lib is compatible with 7.3, exclude this sniff -->
+        <exclude name="SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint" />
+    </rule>
+
+    <rule ref="Generic.Formatting.MultipleStatementAlignment.NotSame">
+        <severity>0</severity>
+    </rule>
+</ruleset>
