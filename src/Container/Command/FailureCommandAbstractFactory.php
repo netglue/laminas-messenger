@@ -3,8 +3,8 @@ declare(strict_types=1);
 
 namespace Netglue\PsrContainer\Messenger\Container\Command;
 
+use Netglue\PsrContainer\Messenger\Container\FailureTransportRetrievalBehaviour;
 use Netglue\PsrContainer\Messenger\Container\StaticFactoryContainerAssertion;
-use Netglue\PsrContainer\Messenger\Exception\ConfigurationError;
 use Netglue\PsrContainer\Messenger\Exception\InvalidArgument;
 use Psr\Container\ContainerInterface;
 use Symfony\Component\Console\Command\Command;
@@ -16,6 +16,7 @@ use function sprintf;
 class FailureCommandAbstractFactory
 {
     use StaticFactoryContainerAssertion;
+    use FailureTransportRetrievalBehaviour;
 
     /** @var string[] */
     private static $canCreate = [
@@ -40,22 +41,10 @@ class FailureCommandAbstractFactory
 
     public function __invoke(ContainerInterface $container) : Command
     {
-        $config = $container->has('config') ? $container->get('config') : [];
-        $transportName = $config['symfony']['messenger']['failure_transport'] ?? null;
-
-        if (! $transportName) {
-            throw new ConfigurationError('No failure transport has been specified');
-        }
-
-        if (! $container->has($transportName)) {
-            throw new ConfigurationError(sprintf(
-                'The transport "%s" designated as the failure transport is not present in ' .
-                'the DI container',
-                $transportName
-            ));
-        }
-
-        return new $this->commandName($transportName, $container->get($transportName));
+        return new $this->commandName(
+            $this->getFailureTransportName($container),
+            $this->getFailureTransport($container)
+        );
     }
 
     /** @param mixed[] $arguments */
