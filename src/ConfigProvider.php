@@ -27,13 +27,8 @@ class ConfigProvider
             'factories' => [
                 SymfonyMessenger\Command\ConsumeMessagesCommand::class => Container\Command\ConsumeCommandFactory::class,
                 SymfonyMessenger\Command\DebugCommand::class => Container\Command\DebugCommandFactory::class,
-                SymfonyMessenger\Transport\Serialization\PhpSerializer::class => InvokableFactory::class,
-                SymfonyMessenger\Transport\Serialization\Serializer::class => Container\SymfonySerializerFactory::class,
                 RetryStrategyContainer::class => Container\RetryStrategyContainerFactory::class,
                 TransportFactoryFactory::class => InvokableFactory::class,
-            ],
-            'aliases' => [
-                SymfonyMessenger\Transport\Serialization\SerializerInterface::class => SymfonyMessenger\Transport\Serialization\Serializer::class,
             ],
         ];
     }
@@ -46,10 +41,6 @@ class ConfigProvider
             'logger' => null,
             // The name of the failure transport should be retrievable by name from the container:
             'failure_transport' => null, //'failed',
-            'serializer' => [
-                'format' => 'json',
-                'context' => [],
-            ],
             'buses' => [],
             'transports' => [],
         ];
