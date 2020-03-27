@@ -9,7 +9,6 @@ use Netglue\PsrContainer\Messenger\Exception\InvalidArgument;
 use Psr\Container\ContainerInterface;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Messenger\Command\FailedMessagesRemoveCommand;
-use Symfony\Component\Messenger\Command\FailedMessagesRetryCommand;
 use Symfony\Component\Messenger\Command\FailedMessagesShowCommand;
 use function in_array;
 use function sprintf;

@@ -9,6 +9,9 @@ use Psr\Container\ContainerInterface;
 use Symfony\Component\Messenger\Retry\MultiplierRetryStrategy;
 use Symfony\Component\Messenger\Retry\RetryStrategyInterface;
 use function array_key_exists;
+use function get_class;
+use function gettype;
+use function is_object;
 use function sprintf;
 
 class RetryStrategyContainer implements ContainerInterface
@@ -54,7 +57,7 @@ class RetryStrategyContainer implements ContainerInterface
         $config = $this->strategyConfig[$id];
         $serviceName = $config['service'] ?? null;
         if ($serviceName) {
-            $strategy = $this->applicationServices->get($id);
+            $strategy = $this->applicationServices->get($serviceName);
             if ($strategy instanceof RetryStrategyInterface) {
                 $this->strategiesIndexedByTransport[$id] = $strategy;
 
@@ -62,18 +65,20 @@ class RetryStrategyContainer implements ContainerInterface
             }
 
             throw new InvalidServiceType(sprintf(
-                'The retry strategy identified by "%s" is not an instance of "%s"',
+                'The retry strategy identified by "%s" for the transport "%s" is not an instance of "%s". Received %s',
+                $serviceName,
                 $id,
-                RetryStrategyInterface::class
+                RetryStrategyInterface::class,
+                is_object($strategy) ? get_class($strategy) : gettype($strategy)
             ));
         }
 
-        $maxTries = $config['max_retries'] ? (int) $config['max_retries'] : 3;
-        $delay = $config['delay'] ? (int) $config['delay'] : 1000;
-        $multiplier = $config['multiplier'] ? (int) $config['multiplier'] : 2;
-        $maxDelay = $config['max_delay'] ? (int) $config['max_delay'] : 0;
+        $maxTries = $config['max_retries'] ?? 3;
+        $delay = $config['delay'] ?? 1000;
+        $multiplier = $config['multiplier'] ?? 2;
+        $maxDelay = $config['max_delay'] ?? 0;
 
-        $strategy = new MultiplierRetryStrategy($maxTries, $delay, $multiplier, $maxDelay);
+        $strategy = new MultiplierRetryStrategy((int) $maxTries, (int) $delay, (int) $multiplier, (int) $maxDelay);
         $this->strategiesIndexedByTransport[$id] = $strategy;
 
         return $strategy;

@@ -16,7 +16,7 @@ class RetryStrategyContainerFactory
 
         $retryConfig = [];
         foreach ($config as $transportName => $transportConfig) {
-            if (! is_array($transportConfig['retry_strategy'])) {
+            if (! isset($transportConfig['retry_strategy']) || ! is_array($transportConfig['retry_strategy'])) {
                 continue;
             }
 
