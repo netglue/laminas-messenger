@@ -30,6 +30,7 @@ class ConfigProvider
                 SymfonyMessenger\Transport\Serialization\PhpSerializer::class => InvokableFactory::class,
                 SymfonyMessenger\Transport\Serialization\Serializer::class => Container\SymfonySerializerFactory::class,
                 RetryStrategyContainer::class => Container\RetryStrategyContainerFactory::class,
+                TransportFactoryFactory::class => InvokableFactory::class,
             ],
             'aliases' => [
                 SymfonyMessenger\Transport\Serialization\SerializerInterface::class => SymfonyMessenger\Transport\Serialization\Serializer::class,
