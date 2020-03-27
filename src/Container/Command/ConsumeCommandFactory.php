@@ -3,11 +3,13 @@ declare(strict_types=1);
 
 namespace Netglue\PsrContainer\Messenger\Container\Command;
 
+use Netglue\PsrContainer\Messenger\RetryStrategyContainer;
 use Psr\Container\ContainerInterface;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Messenger\Command\ConsumeMessagesCommand;
+use Symfony\Component\Messenger\EventListener\SendFailedMessageForRetryListener;
 use Symfony\Component\Messenger\EventListener\SendFailedMessageToFailureTransportListener;
 use Symfony\Component\Messenger\RoutableMessageBus;
 use Symfony\Component\Messenger\Transport\TransportInterface;
@@ -33,6 +35,12 @@ class ConsumeCommandFactory
         } else {
             $dispatcher = new EventDispatcher();
         }
+
+        $this->attachRetryListener(
+            $dispatcher,
+            $container,
+            $logger
+        );
 
         $this->attachFailureTransportListener(
             $dispatcher,
@@ -71,6 +79,20 @@ class ConsumeCommandFactory
         }
 
         $listener = new SendFailedMessageToFailureTransportListener($transport, $logger);
+        $dispatcher->addSubscriber($listener);
+    }
+
+    private function attachRetryListener(
+        EventDispatcher $dispatcher,
+        ContainerInterface $container,
+        ?LoggerInterface $logger
+    ) : void {
+        $listener = new SendFailedMessageForRetryListener(
+            $container,
+            $container->get(RetryStrategyContainer::class),
+            $logger
+        );
+
         $dispatcher->addSubscriber($listener);
     }
 }
