@@ -61,9 +61,6 @@ class OneToOneFqcnContainerHandlerLocatorTest extends TestCase
         $envelope = Envelope::wrap(new stdClass());
         $this->expectException(ConfigurationError::class);
         $this->expectExceptionMessage('Handler should be a string representing a single handler to retrieve from the container');
-        // phpcs:ignore
-        foreach ($locator->getHandlers($envelope) as $description) {
-            // noop
-        }
+        iterator_to_array($locator->getHandlers($envelope));
     }
 }
