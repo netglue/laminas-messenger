@@ -1,5 +1,8 @@
 # Mezzio/Laminas Factories for Symfony Messenger
 
+![PHPUnit Test Suite](https://github.com/netglue/laminas-messenger/workflows/PHPUnit%20Test%20Suite/badge.svg)
+[![codecov](https://codecov.io/gh/netglue/laminas-messenger/branch/master/graph/badge.svg)](https://codecov.io/gh/netglue/laminas-messenger)
+
 ### Introduction
 
 This library aims to provide a way of getting Symfony Messenger up and running in a Laminas/Mezzio application with minimum fuss.
