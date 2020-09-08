@@ -23,14 +23,14 @@ final class LaminasCliIntegrationTest extends TestCase
     /** @var ServiceManager */
     private $container;
 
-    protected function setUp() : void
+    protected function setUp(): void
     {
         parent::setUp();
 
         $this->cliApplication = (new ApplicationFactory())($this->getContainer());
     }
 
-    private function getContainer() : ContainerInterface
+    private function getContainer(): ContainerInterface
     {
         if ($this->container) {
             return $this->container;
@@ -69,7 +69,7 @@ final class LaminasCliIntegrationTest extends TestCase
     }
 
     /** @dataProvider expectedCommandNameDataProvider */
-    public function testCommandsAreAvailableToTheCliApplication(string $commandName) : void
+    public function testCommandsAreAvailableToTheCliApplication(string $commandName): void
     {
         self::assertTrue($this->cliApplication->has($commandName));
     }
