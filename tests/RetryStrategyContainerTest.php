@@ -5,8 +5,8 @@ namespace Netglue\PsrContainer\MessengerTest;
 
 use Netglue\PsrContainer\Messenger\Exception\ServiceNotFound;
 use Netglue\PsrContainer\Messenger\RetryStrategyContainer;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use Prophecy\Prophecy\ObjectProphecy;
 use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\ContainerInterface;
 use stdClass;
@@ -14,20 +14,20 @@ use Symfony\Component\Messenger\Retry\MultiplierRetryStrategy;
 
 class RetryStrategyContainerTest extends TestCase
 {
-    /** @var ObjectProphecy|ContainerInterface */
+    /** @var MockObject|ContainerInterface */
     private $container;
 
     protected function setUp() : void
     {
         parent::setUp();
-        $this->container = $this->prophesize(ContainerInterface::class);
+        $this->container = $this->createMock(ContainerInterface::class);
     }
 
     /** @param mixed[] $config */
     private function subject(array $config) : RetryStrategyContainer
     {
         return new RetryStrategyContainer(
-            $this->container->reveal(),
+            $this->container,
             $config
         );
     }
@@ -35,17 +35,17 @@ class RetryStrategyContainerTest extends TestCase
     public function testThatNoConfigIsRequiredToGetADefaultStrategy() : void
     {
         $subject = $this->subject(['name' => []]);
-        $this->assertTrue($subject->has('name'));
+        self::assertTrue($subject->has('name'));
         $strategy = $subject->get('name');
-        $this->assertInstanceOf(MultiplierRetryStrategy::class, $strategy);
+        self::assertInstanceOf(MultiplierRetryStrategy::class, $strategy);
     }
 
     public function testThatRepeatedRetrievalWillYieldSameInstance() : void
     {
         $subject = $this->subject(['name' => []]);
-        $this->assertTrue($subject->has('name'));
+        self::assertTrue($subject->has('name'));
         $strategy = $subject->get('name');
-        $this->assertSame($strategy, $subject->get('name'));
+        self::assertSame($strategy, $subject->get('name'));
     }
 
     public function testThatCallingGetIsExceptionalWhenNotExists() : void
@@ -59,20 +59,24 @@ class RetryStrategyContainerTest extends TestCase
     public function testThatStrategyWillBeLoadedFromParentContainerWhenServiceKeyIsDefined() : void
     {
         $expect = new MultiplierRetryStrategy();
-        $this->container->get('special')
-            ->shouldBeCalled()
+        $this->container
+            ->expects(self::once())
+            ->method('get')
+            ->with('special')
             ->willReturn($expect);
         $subject = $this->subject(['name' => ['service' => 'special']]);
 
         $result = $subject->get('name');
-        $this->assertSame($expect, $result);
+        self::assertSame($expect, $result);
     }
 
     public function testExceptionThrownWhenReferencedServiceIsNotAStrategyType() : void
     {
         $expect = new stdClass();
-        $this->container->get('special')
-            ->shouldBeCalled()
+        $this->container
+            ->expects(self::once())
+            ->method('get')
+            ->with('special')
             ->willReturn($expect);
         $subject = $this->subject(['name' => ['service' => 'special']]);
 

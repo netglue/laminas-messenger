@@ -5,8 +5,8 @@ namespace Netglue\PsrContainer\MessengerTest\HandlerLocator;
 
 use Netglue\PsrContainer\Messenger\Exception\ConfigurationError;
 use Netglue\PsrContainer\Messenger\HandlerLocator\OneToOneFqcnContainerHandlerLocator;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use Prophecy\Prophecy\ObjectProphecy;
 use Psr\Container\ContainerInterface;
 use stdClass;
 use Symfony\Component\Messenger\Envelope;
@@ -15,19 +15,21 @@ use function iterator_to_array;
 
 class OneToOneFqcnContainerHandlerLocatorTest extends TestCase
 {
-    /** @var ObjectProphecy|ContainerInterface */
+    /** @var MockObject|ContainerInterface */
     private $container;
 
     protected function setUp() : void
     {
         parent::setUp();
-        $this->container = $this->prophesize(ContainerInterface::class);
+        $this->container = $this->createMock(ContainerInterface::class);
     }
 
     private function injectMessageHandlerPair(string $handlerName) : void
     {
-        $this->container->get($handlerName)
-            ->shouldBeCalled()
+        $this->container
+            ->expects(self::atLeast(1))
+            ->method('get')
+            ->with($handlerName)
             ->willReturn(static function () : void {
             });
     }
@@ -36,28 +38,28 @@ class OneToOneFqcnContainerHandlerLocatorTest extends TestCase
     {
         $this->injectMessageHandlerPair('myHandler');
         $map = [stdClass::class => 'myHandler'];
-        $locator = new OneToOneFqcnContainerHandlerLocator($map, $this->container->reveal());
+        $locator = new OneToOneFqcnContainerHandlerLocator($map, $this->container);
 
         $envelope = Envelope::wrap(new stdClass());
         $descriptors = iterator_to_array($locator->getHandlers($envelope));
-        $this->assertCount(1, $descriptors);
-        $this->assertContainsOnlyInstancesOf(HandlerDescriptor::class, $descriptors);
+        self::assertCount(1, $descriptors);
+        self::assertContainsOnlyInstancesOf(HandlerDescriptor::class, $descriptors);
     }
 
     public function testDescriptorWillNotBeReturnedWhenThereIsNoMatch() : void
     {
         $map = [self::class => 'myHandler'];
-        $locator = new OneToOneFqcnContainerHandlerLocator($map, $this->container->reveal());
+        $locator = new OneToOneFqcnContainerHandlerLocator($map, $this->container);
 
         $envelope = Envelope::wrap(new stdClass());
         $descriptors = iterator_to_array($locator->getHandlers($envelope));
-        $this->assertCount(0, $descriptors);
+        self::assertCount(0, $descriptors);
     }
 
     public function testExceptionThrownWhenHandlerIsNotAString() : void
     {
         $map = ['whatever' => ['foo' => 'bar']];
-        $locator = new OneToOneFqcnContainerHandlerLocator($map, $this->container->reveal());
+        $locator = new OneToOneFqcnContainerHandlerLocator($map, $this->container);
         $envelope = Envelope::wrap(new stdClass());
         $this->expectException(ConfigurationError::class);
         $this->expectExceptionMessage('Handler should be a string representing a single handler to retrieve from the container');

@@ -16,13 +16,26 @@ class RetryStrategyContainerFactoryTest extends TestCase
     protected function setUp() : void
     {
         parent::setUp();
-        $this->container = $this->prophesize(ContainerInterface::class);
+        $this->container = $this->createMock(ContainerInterface::class);
+    }
+
+    /** @param mixed[] $config */
+    private function configWillBe(array $config) : void
+    {
+        $this->container->expects(self::atLeast(1))
+            ->method('has')
+            ->with('config')
+            ->willReturn(true);
+
+        $this->container->expects(self::atLeast(1))
+            ->method('get')
+            ->with('config')
+            ->willReturn($config);
     }
 
     public function testThatStrategyIsNotAvailableWhenTransportDoesNotSpecifyStrategy() : void
     {
-        $this->container->has('config')->shouldBeCalled()->willReturn(true);
-        $this->container->get('config')->willReturn([
+        $this->configWillBe([
             'symfony' => [
                 'messenger' => [
                     'transports' => [
@@ -36,14 +49,13 @@ class RetryStrategyContainerFactoryTest extends TestCase
         ]);
 
         $factory = new RetryStrategyContainerFactory();
-        $locator = $factory($this->container->reveal());
-        $this->assertFalse($locator->has('my_transport'));
+        $locator = $factory($this->container);
+        self::assertFalse($locator->has('my_transport'));
     }
 
     public function testThatStrategyIsAvailableWhenTransportDoesSpecifyStrategy() : void
     {
-        $this->container->has('config')->shouldBeCalled()->willReturn(true);
-        $this->container->get('config')->willReturn([
+        $this->configWillBe([
             'symfony' => [
                 'messenger' => [
                     'transports' => [
@@ -57,7 +69,7 @@ class RetryStrategyContainerFactoryTest extends TestCase
         ]);
 
         $factory = new RetryStrategyContainerFactory();
-        $locator = $factory($this->container->reveal());
-        $this->assertTrue($locator->has('my_transport'));
+        $locator = $factory($this->container);
+        self::assertTrue($locator->has('my_transport'));
     }
 }

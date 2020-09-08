@@ -5,8 +5,8 @@ namespace Netglue\PsrContainer\MessengerTest\Container;
 
 use Netglue\PsrContainer\Messenger\Container\MessageBusOptionsRetrievalBehaviour;
 use Netglue\PsrContainer\Messenger\MessageBusOptions;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use Prophecy\Prophecy\ObjectProphecy;
 use Psr\Container\ContainerInterface;
 use function assert;
 
@@ -15,7 +15,7 @@ class MessageBusOptionsRetrievalBehaviourTest extends TestCase
     /** @var object */
     private $subject;
 
-    /** @var ObjectProphecy|ContainerInterface */
+    /** @var MockObject|ContainerInterface */
     private $container;
 
     protected function setUp() : void
@@ -30,43 +30,55 @@ class MessageBusOptionsRetrievalBehaviourTest extends TestCase
             }
         };
 
-        $this->container = $this->prophesize(ContainerInterface::class);
+        $this->container = $this->createMock(ContainerInterface::class);
+    }
+
+    private function thereIsNoConfig() : void
+    {
+        $this->container->expects(self::atLeast(1))
+            ->method('has')
+            ->with('config')
+            ->willReturn(false);
     }
 
     public function testOptionsAreReturnedWhenThereIsNoConfig() : void
     {
-        $this->container->has('config')
-            ->shouldBeCalled()
-            ->willReturn(false);
+        $this->thereIsNoConfig();
 
-        $this->container->get('config')->shouldNotBeCalled();
-
-        $options = $this->subject->getOptions($this->container->reveal(), 'foo');
+        $options = $this->subject->getOptions($this->container, 'foo');
         $emptyOptions = new MessageBusOptions();
 
-        $this->assertEquals($emptyOptions->toArray(), $options->toArray());
+        self::assertEquals($emptyOptions->toArray(), $options->toArray());
+    }
+
+    /** @param mixed[] $config */
+    private function configWillBe(array $config) : void
+    {
+        $this->container->expects(self::atLeast(1))
+            ->method('has')
+            ->with('config')
+            ->willReturn(true);
+
+        $this->container->expects(self::atLeast(1))
+            ->method('get')
+            ->with('config')
+            ->willReturn($config);
     }
 
     public function testOptionsWillBeRelevantToTheBusIdentifierProvided() : void
     {
-        $this->container->has('config')
-            ->shouldBeCalled()
-            ->willReturn(true);
-
-        $this->container->get('config')
-            ->shouldBeCalled()
-            ->willReturn([
-                'symfony' => [
-                    'messenger' => [
-                        'buses' => [
-                            'my_bus' => ['logger' => 'MyLogger'],
-                        ],
+        $this->configWillBe([
+            'symfony' => [
+                'messenger' => [
+                    'buses' => [
+                        'my_bus' => ['logger' => 'MyLogger'],
                     ],
                 ],
-            ]);
+            ],
+        ]);
 
-        $options = $this->subject->getOptions($this->container->reveal(), 'my_bus');
+        $options = $this->subject->getOptions($this->container, 'my_bus');
         assert($options instanceof MessageBusOptions);
-        $this->assertSame('MyLogger', $options->logger());
+        self::assertSame('MyLogger', $options->logger());
     }
 }

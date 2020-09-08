@@ -36,7 +36,7 @@ class StaticFactoryContainerAssertionTest extends TestCase
 
     public function testTheContainerInTheFirstArgumentWillBeReturned() : void
     {
-        $container = $this->prophesize(ContainerInterface::class)->reveal();
-        $this->assertSame($container, $this->subject->callStatic('foo', [$container]));
+        $container = $this->createMock(ContainerInterface::class);
+        self::assertSame($container, $this->subject->callStatic('foo', [$container]));
     }
 }

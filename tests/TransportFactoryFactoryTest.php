@@ -6,8 +6,8 @@ namespace Netglue\PsrContainer\MessengerTest;
 use Netglue\PsrContainer\Messenger\Container\DoctrineTransportFactory;
 use Netglue\PsrContainer\Messenger\Exception\UnknownTransportScheme;
 use Netglue\PsrContainer\Messenger\TransportFactoryFactory;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use Prophecy\Prophecy\ObjectProphecy;
 use Psr\Container\ContainerInterface;
 use Symfony\Component\Messenger\MessageBus;
 use Symfony\Component\Messenger\Transport\AmqpExt\AmqpTransportFactory;
@@ -17,13 +17,13 @@ use Symfony\Component\Messenger\Transport\Sync\SyncTransportFactory;
 
 class TransportFactoryFactoryTest extends TestCase
 {
-    /** @var ObjectProphecy|ContainerInterface */
+    /** @var MockObject|ContainerInterface */
     private $container;
 
     protected function setUp() : void
     {
         parent::setUp();
-        $this->container = $this->prophesize(ContainerInterface::class);
+        $this->container = $this->createMock(ContainerInterface::class);
     }
 
     /** @return string[][] */
@@ -42,16 +42,21 @@ class TransportFactoryFactoryTest extends TestCase
     public function testThatFactoryReturnsExpectedClass(string $dsn, string $expectedClass) : void
     {
         $factory = new TransportFactoryFactory();
-        $result = $factory($dsn, $this->container->reveal());
-        $this->assertInstanceOf($expectedClass, $result);
+        $result = $factory($dsn, $this->container);
+        self::assertInstanceOf($expectedClass, $result);
     }
 
     public function testThatSyncTransportIsCreatedWithRequiredBus() : void
     {
-        $this->container->get('message_bus')->shouldBeCalled()->willReturn(new MessageBus());
+        $this->container
+            ->expects(self::once())
+            ->method('get')
+            ->with('message_bus')
+            ->willReturn(new MessageBus());
+
         $factory = new TransportFactoryFactory();
-        $result = $factory('sync://message_bus', $this->container->reveal());
-        $this->assertInstanceOf(SyncTransportFactory::class, $result);
+        $result = $factory('sync://message_bus', $this->container);
+        self::assertInstanceOf(SyncTransportFactory::class, $result);
     }
 
     public function testExceptionThrownForUnknownTransportScheme() : void
@@ -59,6 +64,6 @@ class TransportFactoryFactoryTest extends TestCase
         $factory = new TransportFactoryFactory();
         $this->expectException(UnknownTransportScheme::class);
         $this->expectExceptionMessage('The scheme/prefix "blargh" is not a known type of transport, or one that this library cannot handle');
-        $factory('blargh://baz', $this->container->reveal());
+        $factory('blargh://baz', $this->container);
     }
 }
