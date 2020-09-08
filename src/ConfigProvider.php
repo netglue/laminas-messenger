@@ -17,7 +17,7 @@ class ConfigProvider
             'symfony' => [
                 'messenger' => $this->messengerConfig(),
             ],
-            'console' => $this->consoleConfig(),
+            'laminas-cli' => $this->consoleConfig(),
         ];
     }
 

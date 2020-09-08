@@ -17,7 +17,7 @@ class FailureCommandsConfigProvider
     {
         return [
             'dependencies' => $this->dependencies(),
-            'console' => $this->consoleConfig(),
+            'laminas-cli' => $this->consoleConfig(),
         ];
     }
 
