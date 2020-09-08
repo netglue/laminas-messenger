@@ -13,7 +13,7 @@ These docs assume that you are familiar with [Symfony Messenger](https://symfony
 
 ### Package Dependencies/Suggestions
 
-Because Messenger provides Symfony cli commands to consume queues and process messages amongst other things, this package suggests [netglue/laminas-symfony-console](https://github.com/netglue/laminas-symfony-console). This Symfony CLI integration works on a convention that commands are available in your DI container configuration as a hash map under `config.console.commands` using the command name as the key and the container identifier as the value. If that's not how you roll, then you'll still be able to benefit from the command factories, you'll just have to wire them up how you like. If you choose to install `netglue/laminas-symfony-console`, then you'll be able to issue a `vendor/bin/cli messenger:consume [options]` without much trouble. 
+Because Messenger provides Symfony cli commands to consume queues and process messages amongst other things, this package suggests [laminas/laminas-cli](https://github.com/laminas/laminas-cli). This Symfony CLI integration works on a convention that commands are available in your DI container configuration as a hash map under `config.laminas-cli.commands` using the command name as the key and the container identifier as the value. If that's not how you roll, then you'll still be able to benefit from the command factories, you'll just have to wire them up how you like. If you choose to install `laminas/laminas-cli`, then you'll be able to issue a `vendor/bin/laminas messenger:consume [options]` without much trouble. 
 
 ### Installation
 
