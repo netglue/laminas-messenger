@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Netglue\PsrContainer\MessengerTest;
@@ -10,6 +11,7 @@ use Netglue\PsrContainer\Messenger\MessageBusOptions;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Messenger\Handler\HandlersLocator;
 use Symfony\Component\Messenger\Handler\HandlersLocatorInterface;
+
 use function is_a;
 
 class MessageBusOptionsTest extends TestCase
@@ -17,34 +19,34 @@ class MessageBusOptionsTest extends TestCase
     /** @var MessageBusOptions */
     private $options;
 
-    protected function setUp() : void
+    protected function setUp(): void
     {
         parent::setUp();
         $this->options = new MessageBusOptions();
     }
 
-    public function testSetAndGetHandlers() : void
+    public function testSetAndGetHandlers(): void
     {
         $this->assertSame([], $this->options->handlers());
         $this->options->setHandlers(['foo']);
         $this->assertSame(['foo'], $this->options->handlers());
     }
 
-    public function testSetAndGetMiddleware() : void
+    public function testSetAndGetMiddleware(): void
     {
         $this->assertSame([], $this->options->middleware());
         $this->options->setMiddleware(['foo']);
         $this->assertSame(['foo'], $this->options->middleware());
     }
 
-    public function testSetAndGetRoutes() : void
+    public function testSetAndGetRoutes(): void
     {
         $this->assertSame([], $this->options->routes());
         $this->options->setRoutes(['foo']);
         $this->assertSame(['foo'], $this->options->routes());
     }
 
-    public function testSetAndGetZeroHandlerFlag() : void
+    public function testSetAndGetZeroHandlerFlag(): void
     {
         $this->assertIsBool($this->options->allowsZeroHandlers());
         $this->options->setAllowsZeroHandlers(true);
@@ -53,14 +55,14 @@ class MessageBusOptionsTest extends TestCase
         $this->assertFalse($this->options->allowsZeroHandlers());
     }
 
-    public function testHandlerLocatorHasDefaultValue() : void
+    public function testHandlerLocatorHasDefaultValue(): void
     {
         $this->assertTrue(
             is_a($this->options->handlerLocator(), HandlersLocatorInterface::class, true)
         );
     }
 
-    public function testExceptionThrownSettingHandlerLocatorToInvalidClassName() : void
+    public function testExceptionThrownSettingHandlerLocatorToInvalidClassName(): void
     {
         $this->expectException(InvalidArgument::class);
         $this->expectExceptionMessage('Handler locators must implement');
@@ -68,7 +70,7 @@ class MessageBusOptionsTest extends TestCase
     }
 
     /** @return mixed[] */
-    public function handlerLocatorTypes() : iterable
+    public function handlerLocatorTypes(): iterable
     {
         return [
             [OneToOneFqcnContainerHandlerLocator::class],
@@ -79,7 +81,7 @@ class MessageBusOptionsTest extends TestCase
     }
 
     /** @dataProvider handlerLocatorTypes */
-    public function testValidKnownLocatorTypes(string $type) : void
+    public function testValidKnownLocatorTypes(string $type): void
     {
         $this->options->setHandlerLocator($type);
         $this->assertSame($type, $this->options->handlerLocator());

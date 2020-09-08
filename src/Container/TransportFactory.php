@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Netglue\PsrContainer\Messenger\Container;
@@ -8,6 +9,7 @@ use Netglue\PsrContainer\Messenger\TransportFactoryFactory;
 use Psr\Container\ContainerInterface;
 use Symfony\Component\Messenger\Transport\Serialization\PhpSerializer;
 use Symfony\Component\Messenger\Transport\TransportInterface;
+
 use function is_string;
 use function sprintf;
 
@@ -23,7 +25,7 @@ class TransportFactory
         $this->id = $id;
     }
 
-    public function __invoke(ContainerInterface $container) : TransportInterface
+    public function __invoke(ContainerInterface $container): TransportInterface
     {
         $options = $this->options($container);
         $options = is_string($options) ? ['dsn' => $options] : $options;
@@ -46,7 +48,7 @@ class TransportFactory
     }
 
     /** @param mixed[] $arguments */
-    public static function __callStatic(string $id, array $arguments) : TransportInterface
+    public static function __callStatic(string $id, array $arguments): TransportInterface
     {
         $container = self::assertContainer($id, $arguments);
 

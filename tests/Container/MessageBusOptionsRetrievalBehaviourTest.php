@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Netglue\PsrContainer\MessengerTest\Container;
@@ -8,6 +9,7 @@ use Netglue\PsrContainer\Messenger\MessageBusOptions;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Psr\Container\ContainerInterface;
+
 use function assert;
 
 class MessageBusOptionsRetrievalBehaviourTest extends TestCase
@@ -18,13 +20,13 @@ class MessageBusOptionsRetrievalBehaviourTest extends TestCase
     /** @var MockObject|ContainerInterface */
     private $container;
 
-    protected function setUp() : void
+    protected function setUp(): void
     {
         parent::setUp();
-        $this->subject = new class() {
+        $this->subject = new class () {
             use MessageBusOptionsRetrievalBehaviour;
 
-            public function getOptions(ContainerInterface $container, string $id) : MessageBusOptions
+            public function getOptions(ContainerInterface $container, string $id): MessageBusOptions
             {
                 return $this->options($container, $id);
             }
@@ -33,7 +35,7 @@ class MessageBusOptionsRetrievalBehaviourTest extends TestCase
         $this->container = $this->createMock(ContainerInterface::class);
     }
 
-    private function thereIsNoConfig() : void
+    private function thereIsNoConfig(): void
     {
         $this->container->expects(self::atLeast(1))
             ->method('has')
@@ -41,7 +43,7 @@ class MessageBusOptionsRetrievalBehaviourTest extends TestCase
             ->willReturn(false);
     }
 
-    public function testOptionsAreReturnedWhenThereIsNoConfig() : void
+    public function testOptionsAreReturnedWhenThereIsNoConfig(): void
     {
         $this->thereIsNoConfig();
 
@@ -52,7 +54,7 @@ class MessageBusOptionsRetrievalBehaviourTest extends TestCase
     }
 
     /** @param mixed[] $config */
-    private function configWillBe(array $config) : void
+    private function configWillBe(array $config): void
     {
         $this->container->expects(self::atLeast(1))
             ->method('has')
@@ -65,7 +67,7 @@ class MessageBusOptionsRetrievalBehaviourTest extends TestCase
             ->willReturn($config);
     }
 
-    public function testOptionsWillBeRelevantToTheBusIdentifierProvided() : void
+    public function testOptionsWillBeRelevantToTheBusIdentifierProvided(): void
     {
         $this->configWillBe([
             'symfony' => [

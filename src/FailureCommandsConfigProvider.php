@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Netglue\PsrContainer\Messenger;
@@ -12,7 +13,7 @@ use Symfony\Component\Messenger\Command\FailedMessagesShowCommand;
 class FailureCommandsConfigProvider
 {
     /** @return mixed[] */
-    public function __invoke() : array
+    public function __invoke(): array
     {
         return [
             'dependencies' => $this->dependencies(),
@@ -21,7 +22,7 @@ class FailureCommandsConfigProvider
     }
 
     /** @return mixed[] */
-    private function dependencies() : array
+    private function dependencies(): array
     {
         return [
             'factories' => [
@@ -33,7 +34,7 @@ class FailureCommandsConfigProvider
     }
 
     /** @return mixed[] */
-    private function consoleConfig() : array
+    private function consoleConfig(): array
     {
         return [
             'commands' => [

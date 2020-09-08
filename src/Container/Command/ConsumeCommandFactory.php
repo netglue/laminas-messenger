@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Netglue\PsrContainer\Messenger\Container\Command;
@@ -12,13 +13,14 @@ use Symfony\Component\Messenger\Command\ConsumeMessagesCommand;
 use Symfony\Component\Messenger\EventListener\SendFailedMessageForRetryListener;
 use Symfony\Component\Messenger\EventListener\SendFailedMessageToFailureTransportListener;
 use Symfony\Component\Messenger\RoutableMessageBus;
+
 use function array_keys;
 
 class ConsumeCommandFactory
 {
     use FailureTransportRetrievalBehaviour;
 
-    public function __invoke(ContainerInterface $container) : ConsumeMessagesCommand
+    public function __invoke(ContainerInterface $container): ConsumeMessagesCommand
     {
         $config = $container->has('config') ? $container->get('config') : [];
         $logger = $config['symfony']['messenger']['logger'] ?? null;

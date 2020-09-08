@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Netglue\PsrContainer\Messenger;
@@ -9,7 +10,7 @@ use Symfony\Component\Messenger as SymfonyMessenger;
 class ConfigProvider
 {
     /** @return mixed[] */
-    public function __invoke() : array
+    public function __invoke(): array
     {
         return [
             'dependencies' => $this->dependencies(),
@@ -21,7 +22,7 @@ class ConfigProvider
     }
 
     /** @return mixed[] */
-    private function dependencies() : array
+    private function dependencies(): array
     {
         return [
             'factories' => [
@@ -34,7 +35,7 @@ class ConfigProvider
     }
 
     /** @return mixed[] */
-    private function messengerConfig() : array
+    private function messengerConfig(): array
     {
         return [
             // This logger is used by the console commands:
@@ -47,7 +48,7 @@ class ConfigProvider
     }
 
     /** @return mixed[] */
-    private function consoleConfig() : array
+    private function consoleConfig(): array
     {
         return [
             'commands' => [

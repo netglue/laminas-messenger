@@ -1,15 +1,17 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Netglue\PsrContainer\Messenger\Container;
 
 use Netglue\PsrContainer\Messenger\RetryStrategyContainer;
 use Psr\Container\ContainerInterface;
+
 use function is_array;
 
 class RetryStrategyContainerFactory
 {
-    public function __invoke(ContainerInterface $container) : RetryStrategyContainer
+    public function __invoke(ContainerInterface $container): RetryStrategyContainer
     {
         $config = $container->has('config') ? $container->get('config') : [];
         $config = $config['symfony']['messenger']['transports'] ?? [];

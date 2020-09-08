@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Netglue\PsrContainer\Messenger\Container\Command;
@@ -10,6 +11,7 @@ use Psr\Container\ContainerInterface;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Messenger\Command\FailedMessagesRemoveCommand;
 use Symfony\Component\Messenger\Command\FailedMessagesShowCommand;
+
 use function in_array;
 use function sprintf;
 
@@ -39,7 +41,7 @@ class FailureCommandAbstractFactory
         $this->commandName = $commandName;
     }
 
-    public function __invoke(ContainerInterface $container) : Command
+    public function __invoke(ContainerInterface $container): Command
     {
         return new $this->commandName(
             $this->getFailureTransportName($container),
@@ -48,7 +50,7 @@ class FailureCommandAbstractFactory
     }
 
     /** @param mixed[] $arguments */
-    public static function __callStatic(string $name, array $arguments) : Command
+    public static function __callStatic(string $name, array $arguments): Command
     {
         $container = self::assertContainer($name, $arguments);
 

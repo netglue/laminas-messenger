@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Netglue\PsrContainer\Messenger\Container;
@@ -6,12 +7,13 @@ namespace Netglue\PsrContainer\Messenger\Container;
 use Netglue\PsrContainer\Messenger\Exception\ConfigurationError;
 use Psr\Container\ContainerInterface;
 use Symfony\Component\Messenger\Transport\TransportInterface;
+
 use function is_string;
 use function sprintf;
 
 trait FailureTransportRetrievalBehaviour
 {
-    private function hasFailureTransport(ContainerInterface $container) : bool
+    private function hasFailureTransport(ContainerInterface $container): bool
     {
         $config = $container->has('config') ? $container->get('config') : [];
         $transportName = $config['symfony']['messenger']['failure_transport'] ?? null;
@@ -19,7 +21,7 @@ trait FailureTransportRetrievalBehaviour
         return is_string($transportName) && $container->has($transportName);
     }
 
-    private function getFailureTransport(ContainerInterface $container) : TransportInterface
+    private function getFailureTransport(ContainerInterface $container): TransportInterface
     {
         $transportName = $this->getFailureTransportName($container);
         if (! $container->has($transportName)) {
@@ -33,7 +35,7 @@ trait FailureTransportRetrievalBehaviour
         return $container->get($transportName);
     }
 
-    private function getFailureTransportName(ContainerInterface $container) : string
+    private function getFailureTransportName(ContainerInterface $container): string
     {
         $config = $container->has('config') ? $container->get('config') : [];
         $transportName = $config['symfony']['messenger']['failure_transport'] ?? null;

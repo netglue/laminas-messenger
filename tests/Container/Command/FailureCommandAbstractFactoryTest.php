@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Netglue\PsrContainer\MessengerTest\Container\Command;
@@ -13,6 +14,7 @@ use stdClass;
 use Symfony\Component\Messenger\Command\FailedMessagesRemoveCommand;
 use Symfony\Component\Messenger\MessageBus;
 use Symfony\Component\Messenger\Transport\Sync\SyncTransport;
+
 use function call_user_func;
 
 class FailureCommandAbstractFactoryTest extends TestCase
@@ -20,20 +22,20 @@ class FailureCommandAbstractFactoryTest extends TestCase
     /** @var MockObject|ContainerInterface */
     private $container;
 
-    protected function setUp() : void
+    protected function setUp(): void
     {
         parent::setUp();
         $this->container = $this->createMock(ContainerInterface::class);
     }
 
-    public function testExceptionThrownInConstructForUnknownCommandClasses() : void
+    public function testExceptionThrownInConstructForUnknownCommandClasses(): void
     {
         $this->expectException(InvalidArgument::class);
         $this->expectExceptionMessage('I cannot create commands of the type stdClass');
         new FailureCommandAbstractFactory(stdClass::class);
     }
 
-    public function testExceptionThrownWhenFailureTransportIsNotDefined() : void
+    public function testExceptionThrownWhenFailureTransportIsNotDefined(): void
     {
         $this->container
             ->expects(self::once())
@@ -52,7 +54,7 @@ class FailureCommandAbstractFactoryTest extends TestCase
         $factory($this->container);
     }
 
-    public function testThatTheFailureTransportMustBePresentInTheContainer() : void
+    public function testThatTheFailureTransportMustBePresentInTheContainer(): void
     {
         $this->container
             ->expects(self::atLeast(2))
@@ -78,7 +80,7 @@ class FailureCommandAbstractFactoryTest extends TestCase
         $factory($this->container);
     }
 
-    public function testCallStaticWillReturnCommandWhenConfigIsSane() : void
+    public function testCallStaticWillReturnCommandWhenConfigIsSane(): void
     {
         $transport = new SyncTransport(new MessageBus());
 

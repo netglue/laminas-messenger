@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Netglue\PsrContainer\MessengerTest;
@@ -20,14 +21,14 @@ class TransportFactoryFactoryTest extends TestCase
     /** @var MockObject|ContainerInterface */
     private $container;
 
-    protected function setUp() : void
+    protected function setUp(): void
     {
         parent::setUp();
         $this->container = $this->createMock(ContainerInterface::class);
     }
 
     /** @return string[][] */
-    public function transportDataProvider() : iterable
+    public function transportDataProvider(): iterable
     {
         yield 'AMQP' => ['amqp://guest:guest@localhost:5672/%2f/messages', AmqpTransportFactory::class];
 
@@ -39,14 +40,14 @@ class TransportFactoryFactoryTest extends TestCase
     }
 
     /** @dataProvider transportDataProvider */
-    public function testThatFactoryReturnsExpectedClass(string $dsn, string $expectedClass) : void
+    public function testThatFactoryReturnsExpectedClass(string $dsn, string $expectedClass): void
     {
         $factory = new TransportFactoryFactory();
         $result = $factory($dsn, $this->container);
         self::assertInstanceOf($expectedClass, $result);
     }
 
-    public function testThatSyncTransportIsCreatedWithRequiredBus() : void
+    public function testThatSyncTransportIsCreatedWithRequiredBus(): void
     {
         $this->container
             ->expects(self::once())
@@ -59,7 +60,7 @@ class TransportFactoryFactoryTest extends TestCase
         self::assertInstanceOf(SyncTransportFactory::class, $result);
     }
 
-    public function testExceptionThrownForUnknownTransportScheme() : void
+    public function testExceptionThrownForUnknownTransportScheme(): void
     {
         $factory = new TransportFactoryFactory();
         $this->expectException(UnknownTransportScheme::class);

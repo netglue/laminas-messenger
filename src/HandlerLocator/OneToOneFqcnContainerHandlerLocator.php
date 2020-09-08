@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Netglue\PsrContainer\Messenger\HandlerLocator;
@@ -9,6 +10,7 @@ use Symfony\Component\Messenger\Envelope;
 use Symfony\Component\Messenger\Handler\HandlerDescriptor;
 use Symfony\Component\Messenger\Handler\HandlersLocatorInterface;
 use Symfony\Component\Messenger\Stamp\ReceivedStamp;
+
 use function assert;
 use function get_class;
 use function is_string;
@@ -29,7 +31,7 @@ class OneToOneFqcnContainerHandlerLocator implements HandlersLocatorInterface
     }
 
     /** @inheritDoc */
-    public function getHandlers(Envelope $envelope) : iterable
+    public function getHandlers(Envelope $envelope): iterable
     {
         $message = $envelope->getMessage();
         $type = get_class($message);
@@ -53,7 +55,7 @@ class OneToOneFqcnContainerHandlerLocator implements HandlersLocatorInterface
         }
     }
 
-    private function shouldHandle(Envelope $envelope, HandlerDescriptor $handlerDescriptor) : bool
+    private function shouldHandle(Envelope $envelope, HandlerDescriptor $handlerDescriptor): bool
     {
         $received = $envelope->last(ReceivedStamp::class);
         if ($received === null) {

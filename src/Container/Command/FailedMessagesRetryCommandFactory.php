@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Netglue\PsrContainer\Messenger\Container\Command;
@@ -14,7 +15,7 @@ class FailedMessagesRetryCommandFactory
 {
     use FailureTransportRetrievalBehaviour;
 
-    public function __invoke(ContainerInterface $container) : FailedMessagesRetryCommand
+    public function __invoke(ContainerInterface $container): FailedMessagesRetryCommand
     {
         $config = $container->has('config') ? $container->get('config') : [];
         $logger = $config['symfony']['messenger']['logger'] ?? null;

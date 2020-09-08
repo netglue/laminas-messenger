@@ -15,11 +15,6 @@
 
     <!-- Inherit rules from Doctrine Coding Standard -->
     <rule ref="Doctrine">
-        <exclude name="SlevomatCodingStandard.TypeHints.DeclareStrictTypes.IncorrectWhitespaceBetweenOpenTagAndDeclare"/>
-        <!-- I like return types to look like this: ") :? Type" or ") : Type" -->
-        <exclude name="SlevomatCodingStandard.TypeHints.ReturnTypeHintSpacing.WhitespaceAfterNullabilitySymbol" />
-        <exclude name="SlevomatCodingStandard.TypeHints.ReturnTypeHintSpacing.NoSpaceBetweenColonAndNullabilitySymbol" />
-
         <!-- Whilst this lib is compatible with 7.3, exclude this sniff -->
         <exclude name="SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint" />
     </rule>

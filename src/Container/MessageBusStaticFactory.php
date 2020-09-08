@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Netglue\PsrContainer\Messenger\Container;
@@ -20,7 +21,7 @@ class MessageBusStaticFactory
         $this->id = $id;
     }
 
-    public function __invoke(ContainerInterface $container) : MessageBusInterface
+    public function __invoke(ContainerInterface $container): MessageBusInterface
     {
         $options = $this->options($container, $this->id);
         $middlewareNames = $options->middleware();
@@ -33,7 +34,7 @@ class MessageBusStaticFactory
     }
 
     /** @param mixed[] $arguments */
-    public static function __callStatic(string $name, array $arguments) : MessageBusInterface
+    public static function __callStatic(string $name, array $arguments): MessageBusInterface
     {
         $container = self::assertContainer($name, $arguments);
 

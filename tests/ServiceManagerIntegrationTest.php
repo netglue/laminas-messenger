@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Netglue\PsrContainer\MessengerTest;
@@ -25,6 +26,7 @@ use Symfony\Component\Messenger\Command\FailedMessagesShowCommand;
 use Symfony\Component\Messenger\Envelope;
 use Symfony\Component\Messenger\MessageBus;
 use Symfony\Component\Messenger\Transport\InMemoryTransport;
+
 use function assert;
 
 class ServiceManagerIntegrationTest extends TestCase
@@ -32,13 +34,13 @@ class ServiceManagerIntegrationTest extends TestCase
     /** @var mixed[] */
     private $config;
 
-    protected function setUp() : void
+    protected function setUp(): void
     {
         parent::setUp();
         $this->config = $this->minimalCommandBusConfiguration();
     }
 
-    private function container() : ServiceManager
+    private function container(): ServiceManager
     {
         $this->config['dependencies']['services']['config'] = $this->config;
 
@@ -46,7 +48,7 @@ class ServiceManagerIntegrationTest extends TestCase
     }
 
     /** @return mixed[] */
-    private function minimalCommandBusConfiguration() : array
+    private function minimalCommandBusConfiguration(): array
     {
         $aggregator = new ConfigAggregator([
             ConfigProvider::class,
@@ -77,7 +79,7 @@ class ServiceManagerIntegrationTest extends TestCase
         return $aggregator->getMergedConfig();
     }
 
-    private function assertMessageBus(ContainerInterface $container, string $id) : MessageBus
+    private function assertMessageBus(ContainerInterface $container, string $id): MessageBus
     {
         $bus = $container->get($id);
         assert($bus instanceof MessageBus);
@@ -85,7 +87,7 @@ class ServiceManagerIntegrationTest extends TestCase
         return $bus;
     }
 
-    private function assertInMemoryTransport(ContainerInterface $container, string $id) : InMemoryTransport
+    private function assertInMemoryTransport(ContainerInterface $container, string $id): InMemoryTransport
     {
         $transport = $container->get($id);
         assert($transport instanceof InMemoryTransport);
@@ -93,14 +95,14 @@ class ServiceManagerIntegrationTest extends TestCase
         return $transport;
     }
 
-    public function testThatABusCanBeCreated() : void
+    public function testThatABusCanBeCreated(): void
     {
         $container = $this->container();
         $this->assertTrue($container->has('command_bus'));
         $this->assertInstanceOf(MessageBus::class, $container->get('command_bus'));
     }
 
-    public function testThatMessageSentOnDefaultCommandBusIsRoutedToConfiguredTransport() : void
+    public function testThatMessageSentOnDefaultCommandBusIsRoutedToConfiguredTransport(): void
     {
         $this->config['symfony']['messenger']['buses']['command_bus']['handlers'] = [
             TestCommand::class => TestCommandHandler::class,
@@ -118,14 +120,14 @@ class ServiceManagerIntegrationTest extends TestCase
         $this->assertInstanceOf(TestCommand::class, $envelope->getMessage());
     }
 
-    private function setUpFailureTransport() : void
+    private function setUpFailureTransport(): void
     {
         $this->config['symfony']['messenger']['failure_transport'] = 'failure_transport';
         $this->config['symfony']['messenger']['transports']['failure_transport'] = ['dsn' => 'in-memory:///'];
         $this->config['dependencies']['factories']['failure_transport'] = [TransportFactory::class, 'failure_transport'];
     }
 
-    private function consumeOne(ContainerInterface $container, string $receiverTransport) : void
+    private function consumeOne(ContainerInterface $container, string $receiverTransport): void
     {
         $command = $container->get(ConsumeMessagesCommand::class);
         $tester = new CommandTester($command);
@@ -135,7 +137,7 @@ class ServiceManagerIntegrationTest extends TestCase
         ]);
     }
 
-    public function testThatFailedMessagesWillBeSentToFailureTransportWhenConfigured() : void
+    public function testThatFailedMessagesWillBeSentToFailureTransportWhenConfigured(): void
     {
         $this->setUpFailureTransport();
         $this->config['symfony']['messenger']['buses']['command_bus']['handlers'] = [
@@ -156,7 +158,7 @@ class ServiceManagerIntegrationTest extends TestCase
     }
 
     /** @return mixed[] */
-    public function failureCommandNames() : iterable
+    public function failureCommandNames(): iterable
     {
         return [
             FailedMessagesRemoveCommand::class => [FailedMessagesRemoveCommand::class],
@@ -166,7 +168,7 @@ class ServiceManagerIntegrationTest extends TestCase
     }
 
     /** @dataProvider failureCommandNames */
-    public function testThatAnExceptionWillBeThrownWhenTheFailureCommandsAreRegisteredWithoutAFailureTransportAvailable(string $commandName) : void
+    public function testThatAnExceptionWillBeThrownWhenTheFailureCommandsAreRegisteredWithoutAFailureTransportAvailable(string $commandName): void
     {
         $aggregator = new ConfigAggregator([
             FailureCommandsConfigProvider::class,

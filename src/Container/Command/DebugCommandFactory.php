@@ -1,15 +1,17 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Netglue\PsrContainer\Messenger\Container\Command;
 
 use Psr\Container\ContainerInterface;
 use Symfony\Component\Messenger\Command\DebugCommand;
+
 use function is_string;
 
 class DebugCommandFactory
 {
-    public function __invoke(ContainerInterface $container) : DebugCommand
+    public function __invoke(ContainerInterface $container): DebugCommand
     {
         $config = $container->has('config') ? $container->get('config') : [];
         $busList = $config['symfony']['messenger']['buses'] ?: [];

@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Netglue\PsrContainer\MessengerTest;
@@ -17,6 +18,7 @@ use Psr\Container\ContainerInterface;
 use Symfony\Component\Console\Tester\CommandTester;
 use Symfony\Component\Messenger\Command\ConsumeMessagesCommand;
 use Symfony\Component\Messenger\MessageBus;
+
 use function assert;
 
 class ServiceManagerEventBusIntegrationTest extends TestCase
@@ -24,13 +26,13 @@ class ServiceManagerEventBusIntegrationTest extends TestCase
     /** @var mixed[] */
     private $config;
 
-    protected function setUp() : void
+    protected function setUp(): void
     {
         parent::setUp();
         $this->config = $this->minimalCommandBusConfiguration();
     }
 
-    private function container() : ServiceManager
+    private function container(): ServiceManager
     {
         $this->config['dependencies']['services']['config'] = $this->config;
 
@@ -38,7 +40,7 @@ class ServiceManagerEventBusIntegrationTest extends TestCase
     }
 
     /** @return mixed[] */
-    private function minimalCommandBusConfiguration() : array
+    private function minimalCommandBusConfiguration(): array
     {
         $aggregator = new ConfigAggregator([
             ConfigProvider::class,
@@ -69,7 +71,7 @@ class ServiceManagerEventBusIntegrationTest extends TestCase
         return $aggregator->getMergedConfig();
     }
 
-    private function assertMessageBus(ContainerInterface $container, string $id) : MessageBus
+    private function assertMessageBus(ContainerInterface $container, string $id): MessageBus
     {
         $bus = $container->get($id);
         assert($bus instanceof MessageBus);
@@ -77,7 +79,7 @@ class ServiceManagerEventBusIntegrationTest extends TestCase
         return $bus;
     }
 
-    private function consumeOne(ContainerInterface $container, string $receiverTransport) : void
+    private function consumeOne(ContainerInterface $container, string $receiverTransport): void
     {
         $command = $container->get(ConsumeMessagesCommand::class);
         $tester = new CommandTester($command);
@@ -87,7 +89,7 @@ class ServiceManagerEventBusIntegrationTest extends TestCase
         ]);
     }
 
-    public function testThatEventSentOnDefaultEventIsHandledByAllListeners() : void
+    public function testThatEventSentOnDefaultEventIsHandledByAllListeners(): void
     {
         $listenerOne = new EventListenerOne();
         $listenerTwo = new EventListenerTwo();

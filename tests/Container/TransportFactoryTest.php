@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Netglue\PsrContainer\MessengerTest\Container;
@@ -26,31 +27,31 @@ class TransportFactoryTest extends TestCase
     /** @var MockObject|ContainerInterface */
     private $container;
 
-    protected function setUp() : void
+    protected function setUp(): void
     {
         parent::setUp();
         $this->container = $this->createMock(ContainerInterface::class);
-        $this->transport = new class() implements TransportInterface {
+        $this->transport = new class () implements TransportInterface {
             // phpcs:ignore
             public function get() : iterable
             {
                 return [];
             }
 
-            public function ack(Envelope $envelope) : void
+            public function ack(Envelope $envelope): void
             {
             }
 
-            public function reject(Envelope $envelope) : void
+            public function reject(Envelope $envelope): void
             {
             }
 
-            public function send(Envelope $envelope) : Envelope
+            public function send(Envelope $envelope): Envelope
             {
                 return $envelope;
             }
         };
-        $this->factory = new class($this->transport) implements TransportFactoryInterface {
+        $this->factory = new class ($this->transport) implements TransportFactoryInterface {
             /** @var TransportInterface */
             private $transport;
             /** @var SerializerInterface */
@@ -83,7 +84,7 @@ class TransportFactoryTest extends TestCase
         };
     }
 
-    private function thereIsNoConfig() : void
+    private function thereIsNoConfig(): void
     {
         $this->container->expects(self::atLeast(1))
             ->method('has')
@@ -91,7 +92,7 @@ class TransportFactoryTest extends TestCase
             ->willReturn(false);
     }
 
-    public function testThatAnExceptionIsThrownWhenNoDSNCanBeFound() : void
+    public function testThatAnExceptionIsThrownWhenNoDSNCanBeFound(): void
     {
         $this->thereIsNoConfig();
         $this->expectException(ConfigurationError::class);
@@ -99,7 +100,7 @@ class TransportFactoryTest extends TestCase
         TransportFactory::__callStatic('foo', [$this->container]);
     }
 
-    private function factoryMock() : TransportFactoryFactory
+    private function factoryMock(): TransportFactoryFactory
     {
         $factoryFactory = $this->createMock(TransportFactoryFactory::class);
         $factoryFactory
@@ -110,7 +111,7 @@ class TransportFactoryTest extends TestCase
     }
 
     /** @param mixed[] $config */
-    private function injectConfigAndFactory(array $config) : void
+    private function injectConfigAndFactory(array $config): void
     {
         $this->container->expects(self::atLeast(1))
             ->method('has')
@@ -124,7 +125,7 @@ class TransportFactoryTest extends TestCase
     }
 
     /** @param mixed[] $map */
-    private function inject(array $map) : void
+    private function inject(array $map): void
     {
         $this->container->expects(self::atLeast(1))
             ->method('get')
@@ -132,7 +133,7 @@ class TransportFactoryTest extends TestCase
     }
 
     /** @param mixed[] $config */
-    private function injectConfigFactoryAndSerializer(array $config, PhpSerializer $serializer) : void
+    private function injectConfigFactoryAndSerializer(array $config, PhpSerializer $serializer): void
     {
         $this->container->expects(self::atLeast(1))
             ->method('has')
@@ -146,7 +147,7 @@ class TransportFactoryTest extends TestCase
         ]);
     }
 
-    public function testThatTransportCanBeConfiguredWithStringAsDsn() : void
+    public function testThatTransportCanBeConfiguredWithStringAsDsn(): void
     {
         $dsn = 'My DSN!';
         $config = [];
@@ -160,7 +161,7 @@ class TransportFactoryTest extends TestCase
         self::assertInstanceOf(PhpSerializer::class, $this->factory->serializer);
     }
 
-    public function testThatTransportCanBeConfiguredWithCustomOptions() : void
+    public function testThatTransportCanBeConfiguredWithCustomOptions(): void
     {
         $options = ['foo' => 'bar'];
         $config = [];
@@ -177,7 +178,7 @@ class TransportFactoryTest extends TestCase
         self::assertInstanceOf(PhpSerializer::class, $this->factory->serializer);
     }
 
-    public function testSerializerWillBeRetrievedFromContainerIfSpecified() : void
+    public function testSerializerWillBeRetrievedFromContainerIfSpecified(): void
     {
         $serializer = new PhpSerializer();
         $config = [];

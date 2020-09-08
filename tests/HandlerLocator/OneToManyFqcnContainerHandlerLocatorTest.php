@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Netglue\PsrContainer\MessengerTest\HandlerLocator;
@@ -11,6 +12,7 @@ use PHPUnit\Framework\TestCase;
 use Psr\Container\ContainerInterface;
 use stdClass;
 use Symfony\Component\Messenger\Envelope;
+
 use function iterator_to_array;
 
 class OneToManyFqcnContainerHandlerLocatorTest extends TestCase
@@ -18,13 +20,13 @@ class OneToManyFqcnContainerHandlerLocatorTest extends TestCase
     /** @var MockObject|ContainerInterface */
     private $container;
 
-    protected function setUp() : void
+    protected function setUp(): void
     {
         parent::setUp();
         $this->container = $this->createMock(ContainerInterface::class);
     }
 
-    public function testThatHandlersMustBeConfiguredAsAnArray() : void
+    public function testThatHandlersMustBeConfiguredAsAnArray(): void
     {
         $handlers = ['foo' => 'foo'];
         $locator = new OneToManyFqcnContainerHandlerLocator($handlers, $this->container);
@@ -33,10 +35,10 @@ class OneToManyFqcnContainerHandlerLocatorTest extends TestCase
         iterator_to_array($locator->getHandlers(new Envelope(new stdClass())));
     }
 
-    public function testThatHandlersReturnedWillMatchConfigured() : void
+    public function testThatHandlersReturnedWillMatchConfigured(): void
     {
         $handlers = [TestEvent::class => ['handler1'], 'other' => ['handler2']];
-        $handler1 = static function () : void {
+        $handler1 = static function (): void {
         };
         $this->container->expects(self::atLeast(1))
             ->method('get')

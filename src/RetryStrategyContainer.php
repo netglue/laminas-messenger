@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Netglue\PsrContainer\Messenger;
@@ -8,6 +9,7 @@ use Netglue\PsrContainer\Messenger\Exception\ServiceNotFound;
 use Psr\Container\ContainerInterface;
 use Symfony\Component\Messenger\Retry\MultiplierRetryStrategy;
 use Symfony\Component\Messenger\Retry\RetryStrategyInterface;
+
 use function array_key_exists;
 use function get_class;
 use function gettype;
@@ -33,13 +35,13 @@ class RetryStrategyContainer implements ContainerInterface
     }
 
     /** @inheritDoc */
-    public function has($id) : bool
+    public function has($id): bool
     {
         return array_key_exists($id, $this->strategyConfig);
     }
 
     /** @inheritDoc */
-    public function get($id) : RetryStrategyInterface
+    public function get($id): RetryStrategyInterface
     {
         if (! $this->has($id)) {
             throw ServiceNotFound::withRetryStrategy($id);
@@ -52,7 +54,7 @@ class RetryStrategyContainer implements ContainerInterface
         return $this->build($id);
     }
 
-    private function build(string $id) : RetryStrategyInterface
+    private function build(string $id): RetryStrategyInterface
     {
         $config = $this->strategyConfig[$id];
         $serviceName = $config['service'] ?? null;

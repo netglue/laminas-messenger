@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Netglue\PsrContainer\MessengerTest\Container\Middleware;
@@ -10,11 +11,12 @@ use stdClass;
 use Symfony\Component\Messenger\Envelope;
 use Symfony\Component\Messenger\Middleware\StackMiddleware;
 use Symfony\Component\Messenger\Stamp\BusNameStamp;
+
 use function assert;
 
 class BusNameStampMiddlewareStaticFactoryTest extends TestCase
 {
-    public function testCreatedMiddlewareHasCorrectIdentifier() : void
+    public function testCreatedMiddlewareHasCorrectIdentifier(): void
     {
         $container = $this->createMock(ContainerInterface::class);
         $middleware = BusNameStampMiddlewareStaticFactory::__callStatic('whatever', [$container]);

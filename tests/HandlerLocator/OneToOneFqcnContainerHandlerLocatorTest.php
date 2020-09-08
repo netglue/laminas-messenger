@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Netglue\PsrContainer\MessengerTest\HandlerLocator;
@@ -11,6 +12,7 @@ use Psr\Container\ContainerInterface;
 use stdClass;
 use Symfony\Component\Messenger\Envelope;
 use Symfony\Component\Messenger\Handler\HandlerDescriptor;
+
 use function iterator_to_array;
 
 class OneToOneFqcnContainerHandlerLocatorTest extends TestCase
@@ -18,23 +20,23 @@ class OneToOneFqcnContainerHandlerLocatorTest extends TestCase
     /** @var MockObject|ContainerInterface */
     private $container;
 
-    protected function setUp() : void
+    protected function setUp(): void
     {
         parent::setUp();
         $this->container = $this->createMock(ContainerInterface::class);
     }
 
-    private function injectMessageHandlerPair(string $handlerName) : void
+    private function injectMessageHandlerPair(string $handlerName): void
     {
         $this->container
             ->expects(self::atLeast(1))
             ->method('get')
             ->with($handlerName)
-            ->willReturn(static function () : void {
+            ->willReturn(static function (): void {
             });
     }
 
-    public function testDescriptorWillBeReturnedWhenThereIsAMatch() : void
+    public function testDescriptorWillBeReturnedWhenThereIsAMatch(): void
     {
         $this->injectMessageHandlerPair('myHandler');
         $map = [stdClass::class => 'myHandler'];
@@ -46,7 +48,7 @@ class OneToOneFqcnContainerHandlerLocatorTest extends TestCase
         self::assertContainsOnlyInstancesOf(HandlerDescriptor::class, $descriptors);
     }
 
-    public function testDescriptorWillNotBeReturnedWhenThereIsNoMatch() : void
+    public function testDescriptorWillNotBeReturnedWhenThereIsNoMatch(): void
     {
         $map = [self::class => 'myHandler'];
         $locator = new OneToOneFqcnContainerHandlerLocator($map, $this->container);
@@ -56,7 +58,7 @@ class OneToOneFqcnContainerHandlerLocatorTest extends TestCase
         self::assertCount(0, $descriptors);
     }
 
-    public function testExceptionThrownWhenHandlerIsNotAString() : void
+    public function testExceptionThrownWhenHandlerIsNotAString(): void
     {
         $map = ['whatever' => ['foo' => 'bar']];
         $locator = new OneToOneFqcnContainerHandlerLocator($map, $this->container);

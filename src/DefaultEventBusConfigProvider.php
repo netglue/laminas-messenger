@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Netglue\PsrContainer\Messenger;
@@ -6,7 +7,7 @@ namespace Netglue\PsrContainer\Messenger;
 class DefaultEventBusConfigProvider
 {
     /** @return mixed[] */
-    public function __invoke() : array
+    public function __invoke(): array
     {
         return [
             'dependencies' => $this->dependencies(),
@@ -19,7 +20,7 @@ class DefaultEventBusConfigProvider
     }
 
     /** @return mixed[] */
-    private function dependencies() : array
+    private function dependencies(): array
     {
         return [
             'factories' => [
@@ -32,7 +33,7 @@ class DefaultEventBusConfigProvider
     }
 
     /** @return mixed[] */
-    private function busConfig() : array
+    private function busConfig(): array
     {
         return [
             'event_bus' => [

@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Netglue\PsrContainer\Messenger\HandlerLocator;
@@ -7,6 +8,7 @@ use Netglue\PsrContainer\Messenger\Exception\ConfigurationError;
 use Psr\Container\ContainerInterface;
 use Symfony\Component\Messenger\Envelope;
 use Symfony\Component\Messenger\Handler\HandlersLocatorInterface;
+
 use function get_class;
 use function is_array;
 
@@ -26,7 +28,7 @@ class OneToManyFqcnContainerHandlerLocator implements HandlersLocatorInterface
     }
 
     /** @inheritDoc */
-    public function getHandlers(Envelope $envelope) : iterable
+    public function getHandlers(Envelope $envelope): iterable
     {
         $message = $envelope->getMessage();
         $type = get_class($message);

@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Netglue\PsrContainer\MessengerTest;
@@ -12,13 +13,13 @@ class DefaultCommandBusConfigProviderTest extends TestCase
     /** @var DefaultCommandBusConfigProvider */
     private $provider;
 
-    protected function setUp() : void
+    protected function setUp(): void
     {
         parent::setUp();
         $this->provider = new DefaultCommandBusConfigProvider();
     }
 
-    public function testDefaultBusOptionsAreValid() : void
+    public function testDefaultBusOptionsAreValid(): void
     {
         $config = $this->provider->__invoke();
         $this->assertIsArray($config['symfony']['messenger']['buses']);

@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Netglue\PsrContainer\MessengerTest\Container;
@@ -13,14 +14,14 @@ class RetryStrategyContainerFactoryTest extends TestCase
     /** @var ObjectProphecy|ContainerInterface */
     private $container;
 
-    protected function setUp() : void
+    protected function setUp(): void
     {
         parent::setUp();
         $this->container = $this->createMock(ContainerInterface::class);
     }
 
     /** @param mixed[] $config */
-    private function configWillBe(array $config) : void
+    private function configWillBe(array $config): void
     {
         $this->container->expects(self::atLeast(1))
             ->method('has')
@@ -33,7 +34,7 @@ class RetryStrategyContainerFactoryTest extends TestCase
             ->willReturn($config);
     }
 
-    public function testThatStrategyIsNotAvailableWhenTransportDoesNotSpecifyStrategy() : void
+    public function testThatStrategyIsNotAvailableWhenTransportDoesNotSpecifyStrategy(): void
     {
         $this->configWillBe([
             'symfony' => [
@@ -53,7 +54,7 @@ class RetryStrategyContainerFactoryTest extends TestCase
         self::assertFalse($locator->has('my_transport'));
     }
 
-    public function testThatStrategyIsAvailableWhenTransportDoesSpecifyStrategy() : void
+    public function testThatStrategyIsAvailableWhenTransportDoesSpecifyStrategy(): void
     {
         $this->configWillBe([
             'symfony' => [
