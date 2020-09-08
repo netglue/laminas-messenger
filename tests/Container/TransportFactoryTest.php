@@ -6,9 +6,8 @@ namespace Netglue\PsrContainer\MessengerTest\Container;
 use Netglue\PsrContainer\Messenger\Container\TransportFactory;
 use Netglue\PsrContainer\Messenger\Exception\ConfigurationError;
 use Netglue\PsrContainer\Messenger\TransportFactoryFactory;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use Prophecy\Argument;
-use Prophecy\Prophecy\ObjectProphecy;
 use Psr\Container\ContainerInterface;
 use Symfony\Component\Messenger\Envelope;
 use Symfony\Component\Messenger\Transport\Serialization\PhpSerializer;
@@ -24,13 +23,13 @@ class TransportFactoryTest extends TestCase
     /** @var TransportFactoryInterface */
     private $factory;
 
-    /** @var ObjectProphecy|ContainerInterface */
+    /** @var MockObject|ContainerInterface */
     private $container;
 
     protected function setUp() : void
     {
         parent::setUp();
-        $this->container = $this->prophesize(ContainerInterface::class);
+        $this->container = $this->createMock(ContainerInterface::class);
         $this->transport = new class() implements TransportInterface {
             // phpcs:ignore
             public function get() : iterable
@@ -84,30 +83,67 @@ class TransportFactoryTest extends TestCase
         };
     }
 
+    private function thereIsNoConfig() : void
+    {
+        $this->container->expects(self::atLeast(1))
+            ->method('has')
+            ->with('config')
+            ->willReturn(false);
+    }
+
     public function testThatAnExceptionIsThrownWhenNoDSNCanBeFound() : void
     {
-        $this->container->has('config')->willReturn(false);
+        $this->thereIsNoConfig();
         $this->expectException(ConfigurationError::class);
         $this->expectExceptionMessage('There is no DSN configured for the transport with name "foo"');
-        TransportFactory::__callStatic('foo', [$this->container->reveal()]);
+        TransportFactory::__callStatic('foo', [$this->container]);
+    }
+
+    private function factoryMock() : TransportFactoryFactory
+    {
+        $factoryFactory = $this->createMock(TransportFactoryFactory::class);
+        $factoryFactory
+            ->method('__invoke')
+            ->willReturn($this->factory);
+
+        return $factoryFactory;
     }
 
     /** @param mixed[] $config */
-    private function injectConfig(array $config) : void
+    private function injectConfigAndFactory(array $config) : void
     {
-        $this->container->has('config')->shouldBeCalled()->willReturn(true);
-        $this->container->get('config')->shouldBeCalled()->willReturn($config);
+        $this->container->expects(self::atLeast(1))
+            ->method('has')
+            ->with('config')
+            ->willReturn(true);
+
+        $this->inject([
+            ['config', $config],
+            [TransportFactoryFactory::class, $this->factoryMock()],
+        ]);
     }
 
-    private function injectFactory() : void
+    /** @param mixed[] $map */
+    private function inject(array $map) : void
     {
-        $factoryFactory = $this->prophesize(TransportFactoryFactory::class);
-        $factoryFactory->__invoke(Argument::type('string'), Argument::type(ContainerInterface::class))
-            ->shouldBeCalled()
-            ->willReturn($this->factory);
-        $this->container->get(TransportFactoryFactory::class)
-            ->shouldBeCalled()
-            ->willReturn($factoryFactory->reveal());
+        $this->container->expects(self::atLeast(1))
+            ->method('get')
+            ->willReturnMap($map);
+    }
+
+    /** @param mixed[] $config */
+    private function injectConfigFactoryAndSerializer(array $config, PhpSerializer $serializer) : void
+    {
+        $this->container->expects(self::atLeast(1))
+            ->method('has')
+            ->with('config')
+            ->willReturn(true);
+
+        $this->inject([
+            ['config', $config],
+            [TransportFactoryFactory::class, $this->factoryMock()],
+            ['MySerializer', $serializer],
+        ]);
     }
 
     public function testThatTransportCanBeConfiguredWithStringAsDsn() : void
@@ -115,14 +151,13 @@ class TransportFactoryTest extends TestCase
         $dsn = 'My DSN!';
         $config = [];
         $config['symfony']['messenger']['transports']['foo'] = $dsn;
-        $this->injectConfig($config);
-        $this->injectFactory();
-        $result = TransportFactory::__callStatic('foo', [$this->container->reveal()]);
+        $this->injectConfigAndFactory($config);
+        $result = TransportFactory::__callStatic('foo', [$this->container]);
 
-        $this->assertSame($this->transport, $result);
-        $this->assertSame($dsn, $this->factory->dsn);
-        $this->assertEquals([], $this->factory->options);
-        $this->assertInstanceOf(PhpSerializer::class, $this->factory->serializer);
+        self::assertSame($this->transport, $result);
+        self::assertSame($dsn, $this->factory->dsn);
+        self::assertEquals([], $this->factory->options);
+        self::assertInstanceOf(PhpSerializer::class, $this->factory->serializer);
     }
 
     public function testThatTransportCanBeConfiguredWithCustomOptions() : void
@@ -133,32 +168,29 @@ class TransportFactoryTest extends TestCase
             'dsn' => 'foo://bar',
             'options' => $options,
         ];
-        $this->injectConfig($config);
-        $this->injectFactory();
-        $result = TransportFactory::__callStatic('foo', [$this->container->reveal()]);
+        $this->injectConfigAndFactory($config);
+        $result = TransportFactory::__callStatic('foo', [$this->container]);
 
-        $this->assertSame($this->transport, $result);
-        $this->assertSame('foo://bar', $this->factory->dsn);
-        $this->assertEquals($options, $this->factory->options);
-        $this->assertInstanceOf(PhpSerializer::class, $this->factory->serializer);
+        self::assertSame($this->transport, $result);
+        self::assertSame('foo://bar', $this->factory->dsn);
+        self::assertEquals($options, $this->factory->options);
+        self::assertInstanceOf(PhpSerializer::class, $this->factory->serializer);
     }
 
     public function testSerializerWillBeRetrievedFromContainerIfSpecified() : void
     {
         $serializer = new PhpSerializer();
-        $this->container->get('MySerializer')->shouldBeCalled()->willReturn($serializer);
         $config = [];
         $config['symfony']['messenger']['transports']['foo'] = [
             'dsn' => 'foo://bar',
             'serializer' => 'MySerializer',
         ];
-        $this->injectConfig($config);
-        $this->injectFactory();
-        $result = TransportFactory::__callStatic('foo', [$this->container->reveal()]);
+        $this->injectConfigFactoryAndSerializer($config, $serializer);
+        $result = TransportFactory::__callStatic('foo', [$this->container]);
 
-        $this->assertSame($this->transport, $result);
-        $this->assertSame('foo://bar', $this->factory->dsn);
-        $this->assertEquals([], $this->factory->options);
-        $this->assertSame($serializer, $this->factory->serializer);
+        self::assertSame($this->transport, $result);
+        self::assertSame('foo://bar', $this->factory->dsn);
+        self::assertEquals([], $this->factory->options);
+        self::assertSame($serializer, $this->factory->serializer);
     }
 }

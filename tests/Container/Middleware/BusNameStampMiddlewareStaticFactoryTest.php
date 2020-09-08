@@ -16,14 +16,14 @@ class BusNameStampMiddlewareStaticFactoryTest extends TestCase
 {
     public function testCreatedMiddlewareHasCorrectIdentifier() : void
     {
-        $container = $this->prophesize(ContainerInterface::class)->reveal();
+        $container = $this->createMock(ContainerInterface::class);
         $middleware = BusNameStampMiddlewareStaticFactory::__callStatic('whatever', [$container]);
         $envelope = new Envelope(new stdClass());
 
         $stamped = $middleware->handle($envelope, new StackMiddleware());
         $stamp = $stamped->last(BusNameStamp::class);
-        $this->assertInstanceOf(BusNameStamp::class, $stamp);
+        self::assertInstanceOf(BusNameStamp::class, $stamp);
         assert($stamp instanceof BusNameStamp);
-        $this->assertSame('whatever', $stamp->getBusName());
+        self::assertSame('whatever', $stamp->getBusName());
     }
 }
