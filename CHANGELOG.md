@@ -2,6 +2,32 @@
 
 All notable changes to this project will be documented in this file, in reverse chronological order by release.
 
+## 1.0.1 - 2020-11-02
+
+### Added
+
+- Nothing.
+
+### Changed
+
+- Removed the _optional_ config providers from `composer.json` because by default they get injected automatically when
+  installed in an unattended way, for example in CI. This meant that the static factories in your own configuration
+  would get screwed up during configuration merging.
+  
+- Updated the Readme to reflect this change in installation behaviour
+
+### Deprecated
+
+- Nothing.
+
+### Removed
+
+- Nothing.
+
+### Fixed
+
+- Nothing.
+
 ## 1.0.0 - 2020-09-08
 
 ### Added
