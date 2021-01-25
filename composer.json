@@ -22,7 +22,7 @@
     },
     "require-dev": {
         "doctrine/coding-standard": "^8.1",
-        "laminas/laminas-cli": "^0.1.4",
+        "laminas/laminas-cli": "^1.0.0",
         "laminas/laminas-component-installer": "^2.1",
         "laminas/laminas-config-aggregator": "^1.2",
         "laminas/laminas-servicemanager": "^3.4",
