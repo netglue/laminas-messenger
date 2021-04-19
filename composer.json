@@ -21,7 +21,7 @@
         "symfony/serializer": "^5.0"
     },
     "require-dev": {
-        "doctrine/coding-standard": "^8.1",
+        "doctrine/coding-standard": "^9.0",
         "laminas/laminas-cli": "^1.0",
         "laminas/laminas-component-installer": "^2.1",
         "laminas/laminas-config-aggregator": "^1.2",
