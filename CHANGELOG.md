@@ -2,6 +2,30 @@
 
 All notable changes to this project will be documented in this file, in reverse chronological order by release.
 
+## 1.0.2 - TBD
+
+### Added
+
+- Nothing.
+
+### Changed
+
+- Relax psr/container constraint to allow 1.0 || 2.0.
+- Changed CI to use the [laminas continuous integration matrix](https://github.com/laminas/laminas-continuous-integration-action).
+- 
+
+### Deprecated
+
+- Nothing.
+
+### Removed
+
+- Nothing.
+
+### Fixed
+
+- Nothing.
+
 ## 1.0.1 - 2020-11-02
 
 ### Added
