@@ -1,7 +1,7 @@
 # Mezzio/Laminas Factories for Symfony Messenger
 
-![PHPUnit Test Suite](https://github.com/netglue/laminas-messenger/workflows/PHPUnit%20Test%20Suite/badge.svg)
-[![codecov](https://codecov.io/gh/netglue/laminas-messenger/branch/master/graph/badge.svg)](https://codecov.io/gh/netglue/laminas-messenger)
+![Continuous Integration](https://github.com/netglue/laminas-messenger/workflows/Continuous%20Integration/badge.svg)
+[![codecov](https://codecov.io/gh/netglue/laminas-messenger/branch/main/graph/badge.svg)](https://codecov.io/gh/netglue/laminas-messenger)
 
 ### Introduction
 
