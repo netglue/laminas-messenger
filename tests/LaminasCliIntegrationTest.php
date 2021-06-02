@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Netglue\PsrContainer\MessengerTest;
 
-use Laminas\Cli\ApplicationFactory;
+use Laminas\Cli\ContainerCommandLoader;
 use Laminas\ConfigAggregator\ArrayProvider;
 use Laminas\ConfigAggregator\ConfigAggregator;
 use Laminas\ServiceManager\ServiceManager;
@@ -27,7 +27,10 @@ final class LaminasCliIntegrationTest extends TestCase
     {
         parent::setUp();
 
-        $this->cliApplication = (new ApplicationFactory())($this->getContainer());
+        $container = $this->getContainer();
+        $commands = $container->get('config')['laminas-cli']['commands'] ?? [];
+        $this->cliApplication = new Application();
+        $this->cliApplication->setCommandLoader(new ContainerCommandLoader($container, $commands));
     }
 
     private function getContainer(): ContainerInterface
@@ -69,7 +72,7 @@ final class LaminasCliIntegrationTest extends TestCase
     }
 
     /** @dataProvider expectedCommandNameDataProvider */
-    public function testCommandsAreAvailableToTheCliApplication(string $commandName): void
+    public function testCommandsAreAvailableToTheCliApplicationWithTheDefaultConfigProviders(string $commandName): void
     {
         self::assertTrue($this->cliApplication->has($commandName));
     }

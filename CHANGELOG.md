@@ -2,6 +2,28 @@
 
 All notable changes to this project will be documented in this file, in reverse chronological order by release.
 
+## 1.0.3 - 2021-06-02
+
+### Added
+
+- Nothing.
+
+### Changed
+
+- Adds symfony/dependency-injection as a dependency due to symfony/messenger requiring it but not declaring it as a direct dependency. This effectively fixed compatibility with messenger 5.3.
+
+### Deprecated
+
+- Nothing.
+
+### Removed
+
+- Nothing.
+
+### Fixed
+
+- Nothing.
+
 ## 1.0.2 - 2021-04-20
 
 ### Added

@@ -98,8 +98,8 @@ class ServiceManagerIntegrationTest extends TestCase
     public function testThatABusCanBeCreated(): void
     {
         $container = $this->container();
-        $this->assertTrue($container->has('command_bus'));
-        $this->assertInstanceOf(MessageBus::class, $container->get('command_bus'));
+        self::assertTrue($container->has('command_bus'));
+        self::assertInstanceOf(MessageBus::class, $container->get('command_bus'));
     }
 
     public function testThatMessageSentOnDefaultCommandBusIsRoutedToConfiguredTransport(): void
@@ -114,10 +114,10 @@ class ServiceManagerIntegrationTest extends TestCase
         $transport = $this->assertInMemoryTransport($container, 'my_transport');
         $bus->dispatch(new TestCommand());
         $envelopes = $transport->get();
-        $this->assertCount(1, $envelopes);
+        self::assertCount(1, $envelopes);
         $envelope = $envelopes[0];
         assert($envelope instanceof Envelope);
-        $this->assertInstanceOf(TestCommand::class, $envelope->getMessage());
+        self::assertInstanceOf(TestCommand::class, $envelope->getMessage());
     }
 
     private function setUpFailureTransport(): void
@@ -129,12 +129,20 @@ class ServiceManagerIntegrationTest extends TestCase
 
     private function consumeOne(ContainerInterface $container, string $receiverTransport): void
     {
+        $transport = $this->assertInMemoryTransport($container, $receiverTransport);
+        $queued = $transport->get();
+        self::assertCount(1, $queued, 'There should be 1 message to consume');
+
         $command = $container->get(ConsumeMessagesCommand::class);
         $tester = new CommandTester($command);
         $tester->execute([
             '--limit' => 1,
             'receivers' => [$receiverTransport],
         ]);
+
+        self::assertEquals(0, $tester->getStatusCode());
+        $queued = $transport->get();
+        self::assertCount(0, $queued, 'All messages should have been consumed');
     }
 
     public function testThatFailedMessagesWillBeSentToFailureTransportWhenConfigured(): void
@@ -151,10 +159,10 @@ class ServiceManagerIntegrationTest extends TestCase
 
         $failure = $this->assertInMemoryTransport($container, 'failure_transport');
         $envelopes = $failure->get();
-        $this->assertCount(1, $envelopes);
+        self::assertCount(1, $envelopes, 'There should be 1 message stored in the failure queue');
         $envelope = $envelopes[0];
         assert($envelope instanceof Envelope);
-        $this->assertInstanceOf(TestCommand::class, $envelope->getMessage());
+        self::assertInstanceOf(TestCommand::class, $envelope->getMessage());
     }
 
     /** @return mixed[] */
