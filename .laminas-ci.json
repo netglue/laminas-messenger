@@ -10,5 +10,8 @@
                 "command": "vendor/bin/phpunit --coverage-clover coverage.xml"
             }
         }
-    ]
+    ],
+    "ignore_php_platform_requirements": {
+        "8.1": true
+    }
 }
