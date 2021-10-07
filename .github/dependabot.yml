@@ -1,6 +1,15 @@
 version: 2
 updates:
   - package-ecosystem: "composer"
+    labels:
+      - "dependency"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+
+  - package-ecosystem: "github-actions"
+    labels:
+      - "dependency"
     directory: "/"
     schedule:
       interval: "weekly"
