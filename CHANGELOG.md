@@ -2,6 +2,28 @@
 
 All notable changes to this project will be documented in this file, in reverse chronological order by release.
 
+## 1.0.4 - 2021-10-07
+
+### Added
+
+- [#35](https://github.com/netglue/laminas-messenger/pull/35) Adds support for PHP 8.1 thanks to @gsteel
+
+### Changed
+
+- Nothing.
+
+### Deprecated
+
+- Nothing.
+
+### Removed
+
+- Nothing.
+
+### Fixed
+
+- Nothing.
+
 ## 1.0.3 - 2021-06-02
 
 ### Added
