@@ -6,28 +6,116 @@ on:
     branches:
       - main
 
-jobs:
-  matrix:
-    name: Generate job matrix
-    runs-on: ubuntu-latest
-    outputs:
-      matrix: ${{ steps.matrix.outputs.matrix }}
-    steps:
-      - name: Gather CI configuration
-        id: matrix
-        uses: laminas/laminas-ci-matrix-action@v1
+env:
+  php_extensions: ""
+  default_php: 8.1
 
-  qa:
-    name: QA Checks
-    needs: [matrix]
-    runs-on: ${{ matrix.operatingSystem }}
+jobs:
+
+  cs-check:
+    name: CS Checks
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: 7.3
+          extensions: ${{ env.php_extensions }}
+          tools: cs2pr
+
+      - uses: ramsey/composer-install@2.1.0
+        with:
+          dependency-versions: locked
+
+      - name: "Check CS"
+        run: vendor/bin/phpcs --report=checkstyle -q | cs2pr
+
+  psalm:
+    name: Psalm Static Analysis
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        if: hashFiles('psalm.xml') != ''
+
+      - uses: shivammathur/setup-php@v2
+        if: hashFiles('psalm.xml') != ''
+        with:
+          php-version: 7.3
+          extensions: ${{ env.php_extensions }}
+          tools: cs2pr
+
+      - uses: ramsey/composer-install@2.1.0
+        if: hashFiles('psalm.xml') != ''
+        with:
+          dependency-versions: locked
+
+      - name: "Psalm"
+        if: hashFiles('psalm.xml') != ''
+        run: vendor/bin/psalm --output-format=github
+
+  tests:
+
+    name: PHPUnit on ${{ matrix.php-version }}, ${{ matrix.dependencies }} deps
+    runs-on: ubuntu-latest
+
     strategy:
       fail-fast: false
-      matrix: ${{ fromJSON(needs.matrix.outputs.matrix) }}
+      matrix:
+        php-version: [ '7.3', '7.4', '8.0', '8.1', '8.2' ]
+        dependencies: [ 'lowest', 'locked', 'highest' ]
+        include:
+          - php-version: '8.1'
+            dependencies: 'locked'
+            composer-options: "--ignore-platform-reqs"
+          - php-version: '8.2'
+            composer-options: "--ignore-platform-reqs"
+
     steps:
-      - name: ${{ matrix.name }}
-        env:
-          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
-        uses: laminas/laminas-continuous-integration-action@v1
+      - uses: actions/checkout@v3
+
+      - uses: shivammathur/setup-php@v2
         with:
-          job: ${{ matrix.job }}
+          php-version: ${{ matrix.php-version }}
+          extensions: ${{ env.php_extensions }}
+          coverage: pcov
+          ini-values: pcov.enabled=1
+
+      - uses: ramsey/composer-install@2.1.0
+        with:
+          dependency-versions: "${{ matrix.dependencies }}"
+          composer-options: "${{ matrix.composer-options }}"
+
+      - name: "Run Tests"
+        run: php ./vendor/bin/phpunit --coverage-clover=coverage.xml
+
+      - uses: codecov/codecov-action@v3
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          file: ./coverage.xml
+          fail_ci_if_error: false
+
+  composer-require-checker:
+    name: "Check for missing dependencies"
+    runs-on: "ubuntu-latest"
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ env.default_php }}
+          ini-values: memory_limit=-1
+
+      - uses: ramsey/composer-install@2.1.0
+        with:
+          dependency-versions: highest
+
+      - name: "Set global composer bin-dir"
+        run: composer global config bin-dir /usr/local/bin
+
+      - name: "Install require checker"
+        run: composer global require -W maglnet/composer-require-checker
+
+      - name: "Check"
+        run: /usr/local/bin/composer-require-checker --config-file=composer-require-checker.json check

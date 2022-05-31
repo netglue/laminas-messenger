@@ -1,0 +1,9 @@
+{
+    "symbol-whitelist" : [
+        "null", "true", "false",
+        "static", "self", "parent",
+        "array", "string", "int", "float", "bool", "iterable", "callable", "void", "object", "mixed", "never",
+        "Doctrine\\ORM\\EntityManager",
+        "Laminas\\ServiceManager\\Factory\\InvokableFactory"
+    ]
+}
