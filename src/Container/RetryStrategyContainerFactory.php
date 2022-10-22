@@ -14,7 +14,7 @@ class RetryStrategyContainerFactory
     public function __invoke(ContainerInterface $container): RetryStrategyContainer
     {
         $config = $container->has('config') ? $container->get('config') : [];
-        $config = $config['symfony']['messenger']['transports'] ?? [];
+        $config = $config['framework']['messenger']['transports'] ?? [];
 
         $retryConfig = [];
         foreach ($config as $transportName => $transportConfig) {

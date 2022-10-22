@@ -8,7 +8,7 @@ use Netglue\PsrContainer\Messenger\Container\TransportFactory;
  * If you want to use a transport with not supported by Messenger, you can configure a custom transport factory
  */
 return [
-    'symfony' => [
+    'framework' => [
         'messenger' => [
             'transport_factories' => [
                 // a class implementing TransportFactoryInterface

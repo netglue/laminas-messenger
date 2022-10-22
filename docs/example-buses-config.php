@@ -14,7 +14,7 @@ return [
             'my.command.bus.handler-middleware' => [MessageHandlerMiddlewareStaticFactory::class, 'my.command.bus'],
         ],
     ],
-    'symfony' => [
+    'framework' => [
         'messenger' => [
             'buses' => [
                 'my.command.bus' => [

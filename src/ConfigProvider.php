@@ -14,7 +14,7 @@ class ConfigProvider
     {
         return [
             'dependencies' => $this->dependencies(),
-            'symfony' => [
+            'framework' => [
                 'messenger' => $this->messengerConfig(),
             ],
             'laminas-cli' => $this->consoleConfig(),
