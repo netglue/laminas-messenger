@@ -6,6 +6,7 @@ namespace Netglue\PsrContainer\Messenger\Container;
 
 use Netglue\PsrContainer\Messenger\Exception\ConfigurationError;
 use Psr\Container\ContainerInterface;
+use Symfony\Component\DependencyInjection\ServiceLocator;
 use Symfony\Component\Messenger\Transport\TransportInterface;
 
 use function is_string;
@@ -21,7 +22,7 @@ trait FailureTransportRetrievalBehaviour
         return is_string($transportName) && $container->has($transportName);
     }
 
-    private function getFailureTransport(ContainerInterface $container): TransportInterface
+    private function getFailureTransport(ContainerInterface $container): ServiceLocator
     {
         $transportName = $this->getFailureTransportName($container);
         if (! $container->has($transportName)) {
@@ -31,8 +32,12 @@ trait FailureTransportRetrievalBehaviour
                 $transportName
             ));
         }
+        $transport = $container->get($transportName);
 
-        return $container->get($transportName);
+        return new ServiceLocator([
+            $transportName =>
+                static function () use ($transport) { return $transport; },
+        ]);
     }
 
     private function getFailureTransportName(ContainerInterface $container): string
