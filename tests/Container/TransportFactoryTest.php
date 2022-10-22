@@ -151,7 +151,7 @@ class TransportFactoryTest extends TestCase
     {
         $dsn = 'My DSN!';
         $config = [];
-        $config['symfony']['messenger']['transports']['foo'] = $dsn;
+        $config['framework']['messenger']['transports']['foo'] = $dsn;
         $this->injectConfigAndFactory($config);
         $result = TransportFactory::__callStatic('foo', [$this->container]);
 
@@ -165,7 +165,7 @@ class TransportFactoryTest extends TestCase
     {
         $options = ['foo' => 'bar'];
         $config = [];
-        $config['symfony']['messenger']['transports']['foo'] = [
+        $config['framework']['messenger']['transports']['foo'] = [
             'dsn' => 'foo://bar',
             'options' => $options,
         ];
@@ -182,7 +182,7 @@ class TransportFactoryTest extends TestCase
     {
         $serializer = new PhpSerializer();
         $config = [];
-        $config['symfony']['messenger']['transports']['foo'] = [
+        $config['framework']['messenger']['transports']['foo'] = [
             'dsn' => 'foo://bar',
             'serializer' => 'MySerializer',
         ];

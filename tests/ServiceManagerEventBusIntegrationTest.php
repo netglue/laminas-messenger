@@ -46,7 +46,7 @@ class ServiceManagerEventBusIntegrationTest extends TestCase
             ConfigProvider::class,
             DefaultEventBusConfigProvider::class,
             new ArrayProvider([
-                'symfony' => [
+                'framework' => [
                     'messenger' => [
                         'transports' => [
                             'my_transport' => ['dsn' => 'in-memory:///'],
@@ -96,7 +96,7 @@ class ServiceManagerEventBusIntegrationTest extends TestCase
         $this->assertFalse($listenerOne->triggered);
         $this->assertFalse($listenerTwo->triggered);
 
-        $this->config['symfony']['messenger']['buses']['event_bus']['handlers'] = [
+        $this->config['framework']['messenger']['buses']['event_bus']['handlers'] = [
             TestEvent::class => [
                 EventListenerOne::class,
                 EventListenerTwo::class,

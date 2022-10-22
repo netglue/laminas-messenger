@@ -70,7 +70,7 @@ class MessageBusOptionsRetrievalBehaviourTest extends TestCase
     public function testOptionsWillBeRelevantToTheBusIdentifierProvided(): void
     {
         $this->configWillBe([
-            'symfony' => [
+            'framework' => [
                 'messenger' => [
                     'buses' => [
                         'my_bus' => ['logger' => 'MyLogger'],

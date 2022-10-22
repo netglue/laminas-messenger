@@ -72,7 +72,7 @@ class TransportFactoryFactoryTest extends TestCase
             ->willReturn(true);
 
         $config = [
-            'symfony' => [
+            'framework' => [
                 'messenger' => [
                     'transport_factories' => ['test-factory'],
                 ],
@@ -99,7 +99,7 @@ class TransportFactoryFactoryTest extends TestCase
         $invalidFactory = new stdClass();
 
         $config = [
-            'symfony' => [
+            'framework' => [
                 'messenger' => [
                     'transport_factories' => ['test-factory'],
                 ],

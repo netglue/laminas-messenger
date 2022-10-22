@@ -69,7 +69,7 @@ class FailureCommandAbstractFactoryTest extends TestCase
             ->method('get')
             ->with('config')
             ->willReturn([
-                'symfony' => [
+                'framework' => [
                     'messenger' => ['failure_transport' => 'failure'],
                 ],
             ]);
@@ -91,7 +91,7 @@ class FailureCommandAbstractFactoryTest extends TestCase
                 [
                     'config',
                     [
-                        'symfony' => [
+                        'framework' => [
                             'messenger' => ['failure_transport' => 'failure'],
                         ],
                     ],
