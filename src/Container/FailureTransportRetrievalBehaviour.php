@@ -16,7 +16,7 @@ trait FailureTransportRetrievalBehaviour
     private function hasFailureTransport(ContainerInterface $container): bool
     {
         $config = $container->has('config') ? $container->get('config') : [];
-        $transportName = $config['symfony']['messenger']['failure_transport'] ?? null;
+        $transportName = $config['framework']['messenger']['failure_transport'] ?? null;
 
         return is_string($transportName) && $container->has($transportName);
     }
@@ -38,7 +38,7 @@ trait FailureTransportRetrievalBehaviour
     private function getFailureTransportName(ContainerInterface $container): string
     {
         $config = $container->has('config') ? $container->get('config') : [];
-        $transportName = $config['symfony']['messenger']['failure_transport'] ?? null;
+        $transportName = $config['framework']['messenger']['failure_transport'] ?? null;
 
         if (! $transportName) {
             throw new ConfigurationError('No failure transport has been specified');

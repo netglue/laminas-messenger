@@ -60,6 +60,6 @@ class TransportFactory
     {
         $config = $container->has('config') ? $container->get('config') : [];
 
-        return $config['symfony']['messenger']['transports'][$this->id] ?? [];
+        return $config['framework']['messenger']['transports'][$this->id] ?? [];
     }
 }

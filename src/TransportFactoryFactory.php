@@ -48,7 +48,7 @@ class TransportFactoryFactory
         parse_str(parse_url($dsn, PHP_URL_QUERY) ?? '', $options);
 
         $config = $container->has('config') ? $container->get('config') : [];
-        $transportFactories = $config['symfony']['messenger']['transport_factories'] ?? [];
+        $transportFactories = $config['framework']['messenger']['transport_factories'] ?? [];
         foreach ($transportFactories as $name) {
             $factory = $container->get($name);
             if (! $factory instanceof TransportFactoryInterface) {

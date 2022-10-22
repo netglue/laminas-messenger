@@ -18,7 +18,7 @@ class FailedMessagesRetryCommandFactory
     public function __invoke(ContainerInterface $container): FailedMessagesRetryCommand
     {
         $config = $container->has('config') ? $container->get('config') : [];
-        $logger = $config['symfony']['messenger']['logger'] ?? null;
+        $logger = $config['framework']['messenger']['logger'] ?? null;
         $logger = $logger ? $container->get($logger) : null;
 
         if ($container->has(EventDispatcherInterface::class)) {
