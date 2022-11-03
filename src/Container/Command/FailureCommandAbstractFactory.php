@@ -34,7 +34,7 @@ class FailureCommandAbstractFactory
         if (! in_array($commandName, self::$canCreate, true)) {
             throw new InvalidArgument(sprintf(
                 'I cannot create commands of the type %s',
-                $commandName
+                $commandName,
             ));
         }
 
@@ -45,7 +45,7 @@ class FailureCommandAbstractFactory
     {
         return new $this->commandName(
             $this->getFailureTransportName($container),
-            $this->getFailureTransport($container)
+            $this->getFailureTransport($container),
         );
     }
 

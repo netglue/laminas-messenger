@@ -29,15 +29,15 @@ class MessageSenderMiddlewareStaticFactory
 
         $transportRouter = new SendersLocator(
             $options->routes(),
-            $container
+            $container,
         );
 
         $middleware = new SendMessageMiddleware($transportRouter);
         if ($options->logger()) {
             $middleware->setLogger(
                 $container->get(
-                    $options->logger()
-                )
+                    $options->logger(),
+                ),
             );
         }
 

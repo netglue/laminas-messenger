@@ -28,7 +28,7 @@ trait FailureTransportRetrievalBehaviour
             throw new ConfigurationError(sprintf(
                 'The transport "%s" designated as the failure transport is not present in ' .
                 'the DI container',
-                $transportName
+                $transportName,
             ));
         }
 

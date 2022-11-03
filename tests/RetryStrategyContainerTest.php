@@ -29,7 +29,7 @@ class RetryStrategyContainerTest extends TestCase
     {
         return new RetryStrategyContainer(
             $this->container,
-            $config
+            $config,
         );
     }
 

@@ -58,7 +58,7 @@ class MessageBusOptionsTest extends TestCase
     public function testHandlerLocatorHasDefaultValue(): void
     {
         $this->assertTrue(
-            is_a($this->options->handlerLocator(), HandlersLocatorInterface::class, true)
+            is_a($this->options->handlerLocator(), HandlersLocatorInterface::class, true),
         );
     }
 

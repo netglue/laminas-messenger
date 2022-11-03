@@ -61,7 +61,7 @@ class MessageBusOptions extends AbstractOptions
         if (! is_a($handlerLocator, HandlersLocatorInterface::class, true)) {
             throw new InvalidArgument(sprintf(
                 'Handler locators must implement %s',
-                HandlersLocatorInterface::class
+                HandlersLocatorInterface::class,
             ));
         }
 

@@ -12,7 +12,7 @@ class UnknownTransportScheme extends InvalidArgument
     {
         return new static(sprintf(
             'The scheme/prefix "%s" is not a known type of transport, or one that this library cannot handle',
-            $scheme
+            $scheme,
         ));
     }
 }
