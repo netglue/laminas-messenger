@@ -24,7 +24,7 @@ use function assert;
 class ServiceManagerEventBusIntegrationTest extends TestCase
 {
     /** @var mixed[] */
-    private $config;
+    private array $config;
 
     protected function setUp(): void
     {

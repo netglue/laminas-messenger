@@ -17,14 +17,11 @@ use Symfony\Component\Messenger\Transport\TransportInterface;
 use function sprintf;
 use function strpos;
 
+/** @final */
 class DoctrineTransportFactory implements TransportFactoryInterface
 {
-    /** @var ContainerInterface */
-    private $container;
-
-    public function __construct(ContainerInterface $container)
+    public function __construct(private ContainerInterface $container)
     {
-        $this->container = $container;
     }
 
     /** @param mixed[] $options */

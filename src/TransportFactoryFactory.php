@@ -15,7 +15,6 @@ use Symfony\Component\Messenger\Transport\Sync\SyncTransportFactory;
 use Symfony\Component\Messenger\Transport\TransportFactoryInterface;
 
 use function explode;
-use function get_class;
 use function parse_str;
 use function parse_url;
 use function sprintf;
@@ -54,7 +53,7 @@ class TransportFactoryFactory
             if (! $factory instanceof TransportFactoryInterface) {
                 throw new ConfigurationError(sprintf(
                     "Transport factory '%s' must implement '%s'",
-                    get_class($factory),
+                    $factory::class,
                     TransportFactoryInterface::class,
                 ));
             }

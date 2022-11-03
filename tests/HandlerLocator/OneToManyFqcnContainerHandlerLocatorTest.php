@@ -17,8 +17,7 @@ use function iterator_to_array;
 
 class OneToManyFqcnContainerHandlerLocatorTest extends TestCase
 {
-    /** @var MockObject|ContainerInterface */
-    private $container;
+    private MockObject|ContainerInterface $container;
 
     protected function setUp(): void
     {

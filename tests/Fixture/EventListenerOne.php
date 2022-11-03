@@ -6,8 +6,7 @@ namespace Netglue\PsrContainer\MessengerTest\Fixture;
 
 class EventListenerOne
 {
-    /** @var bool */
-    public $triggered = false;
+    public bool $triggered = false;
 
     public function __invoke(TestEvent $event): void
     {

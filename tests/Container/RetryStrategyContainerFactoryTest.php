@@ -11,8 +11,7 @@ use Psr\Container\ContainerInterface;
 
 class RetryStrategyContainerFactoryTest extends TestCase
 {
-    /** @var ObjectProphecy|ContainerInterface */
-    private $container;
+    private ObjectProphecy|ContainerInterface $container;
 
     protected function setUp(): void
     {

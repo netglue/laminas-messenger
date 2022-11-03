@@ -15,30 +15,26 @@ use Symfony\Component\Messenger\Command\FailedMessagesShowCommand;
 use function in_array;
 use function sprintf;
 
+/** @final */
 class FailureCommandAbstractFactory
 {
     use StaticFactoryContainerAssertion;
     use FailureTransportRetrievalBehaviour;
 
-    /** @var string[] */
-    private static $canCreate = [
+    private const CAN_CREATE = [
         FailedMessagesRemoveCommand::class,
         FailedMessagesShowCommand::class,
     ];
 
-    /** @var string */
-    private $commandName;
-
-    public function __construct(string $commandName)
+    /** @param value-of<self::CAN_CREATE> $commandName */
+    public function __construct(private string $commandName)
     {
-        if (! in_array($commandName, self::$canCreate, true)) {
+        if (! in_array($commandName, self::CAN_CREATE, true)) {
             throw new InvalidArgument(sprintf(
                 'I cannot create commands of the type %s',
                 $commandName,
             ));
         }
-
-        $this->commandName = $commandName;
     }
 
     public function __invoke(ContainerInterface $container): Command
@@ -49,11 +45,14 @@ class FailureCommandAbstractFactory
         );
     }
 
-    /** @param mixed[] $arguments */
+    /**
+     * @param value-of<self::CAN_CREATE> $name
+     * @param mixed[]                    $arguments
+     */
     public static function __callStatic(string $name, array $arguments): Command
     {
         $container = self::assertContainer($name, $arguments);
 
-        return (new static($name))($container);
+        return (new self($name))($container);
     }
 }

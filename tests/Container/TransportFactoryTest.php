@@ -18,14 +18,10 @@ use Symfony\Component\Messenger\Transport\TransportInterface;
 
 class TransportFactoryTest extends TestCase
 {
-    /** @var TransportInterface */
-    private $transport;
-
-    /** @var TransportFactoryInterface */
-    private $factory;
-
-    /** @var MockObject|ContainerInterface */
-    private $container;
+    private TransportInterface $transport;
+    private TransportFactoryInterface $factory;
+    /** @var MockObject&ContainerInterface */
+    private ContainerInterface $container;
 
     protected function setUp(): void
     {
@@ -52,18 +48,12 @@ class TransportFactoryTest extends TestCase
             }
         };
         $this->factory = new class ($this->transport) implements TransportFactoryInterface {
-            /** @var TransportInterface */
-            private $transport;
-            /** @var SerializerInterface */
-            public $serializer;
-            /** @var string */
-            public $dsn;
-            /** @var mixed[] */
-            public $options;
+            public SerializerInterface|null $serializer = null;
+            public string|null $dsn = null;
+            public array|null $options = null;
 
-            public function __construct(TransportInterface $transport)
+            public function __construct(private TransportInterface $transport)
             {
-                $this->transport = $transport;
             }
 
             // phpcs:ignore
@@ -124,7 +114,7 @@ class TransportFactoryTest extends TestCase
         ]);
     }
 
-    /** @param mixed[] $map */
+    /** @param list<list<mixed>> $map */
     private function inject(array $map): void
     {
         $this->container->expects(self::atLeast(1))

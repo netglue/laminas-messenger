@@ -11,8 +11,7 @@ use Psr\Container\ContainerInterface;
 
 class StaticFactoryContainerAssertionTest extends TestCase
 {
-    /** @var object */
-    private $subject;
+    private object $subject;
 
     protected function setUp(): void
     {

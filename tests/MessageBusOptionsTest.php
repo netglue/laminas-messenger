@@ -16,8 +16,7 @@ use function is_a;
 
 class MessageBusOptionsTest extends TestCase
 {
-    /** @var MessageBusOptions */
-    private $options;
+    private MessageBusOptions $options;
 
     protected function setUp(): void
     {
@@ -27,37 +26,36 @@ class MessageBusOptionsTest extends TestCase
 
     public function testSetAndGetHandlers(): void
     {
-        $this->assertSame([], $this->options->handlers());
+        self::assertSame([], $this->options->handlers());
         $this->options->setHandlers(['foo']);
-        $this->assertSame(['foo'], $this->options->handlers());
+        self::assertSame(['foo'], $this->options->handlers());
     }
 
     public function testSetAndGetMiddleware(): void
     {
-        $this->assertSame([], $this->options->middleware());
+        self::assertSame([], $this->options->middleware());
         $this->options->setMiddleware(['foo']);
-        $this->assertSame(['foo'], $this->options->middleware());
+        self::assertSame(['foo'], $this->options->middleware());
     }
 
     public function testSetAndGetRoutes(): void
     {
-        $this->assertSame([], $this->options->routes());
+        self::assertSame([], $this->options->routes());
         $this->options->setRoutes(['foo']);
-        $this->assertSame(['foo'], $this->options->routes());
+        self::assertSame(['foo'], $this->options->routes());
     }
 
     public function testSetAndGetZeroHandlerFlag(): void
     {
-        $this->assertIsBool($this->options->allowsZeroHandlers());
         $this->options->setAllowsZeroHandlers(true);
-        $this->assertTrue($this->options->allowsZeroHandlers());
+        self::assertTrue($this->options->allowsZeroHandlers());
         $this->options->setAllowsZeroHandlers(false);
-        $this->assertFalse($this->options->allowsZeroHandlers());
+        self::assertFalse($this->options->allowsZeroHandlers());
     }
 
     public function testHandlerLocatorHasDefaultValue(): void
     {
-        $this->assertTrue(
+        self::assertTrue(
             is_a($this->options->handlerLocator(), HandlersLocatorInterface::class, true),
         );
     }
@@ -84,6 +82,6 @@ class MessageBusOptionsTest extends TestCase
     public function testValidKnownLocatorTypes(string $type): void
     {
         $this->options->setHandlerLocator($type);
-        $this->assertSame($type, $this->options->handlerLocator());
+        self::assertSame($type, $this->options->handlerLocator());
     }
 }
