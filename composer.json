@@ -12,15 +12,14 @@
     "config": {
         "sort-packages": true,
         "allow-plugins": {
-            "dealerdirect/phpcodesniffer-composer-installer": true,
-            "laminas/laminas-component-installer": true
+            "dealerdirect/phpcodesniffer-composer-installer": true
         },
         "platform": {
             "php": "7.3.99"
         }
     },
     "require": {
-        "php": "^7.3 || ~8.0 || ~8.1",
+        "php": "^7.3 || ~8.0 || ~8.1 || ~8.2",
         "laminas/laminas-stdlib": "^3.6",
         "psr/container": "^1.0 || ^2.0",
         "symfony/console": "^5.4",
@@ -32,7 +31,6 @@
     "require-dev": {
         "doctrine/coding-standard": "^10.0.0",
         "laminas/laminas-cli": "^1.2.0",
-        "laminas/laminas-component-installer": "^2.5.1",
         "laminas/laminas-config-aggregator": "^1.7",
         "laminas/laminas-servicemanager": "^3.7.0",
         "lctrs/psalm-psr-container-plugin": "^1.6",
