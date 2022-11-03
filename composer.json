@@ -26,7 +26,7 @@
         "symfony/console": "^5.4",
         "symfony/dependency-injection": "^5.3.8",
         "symfony/event-dispatcher": "^5.3.7",
-        "symfony/messenger": "^5.3.9",
+        "symfony/messenger": "^5.3.9 || ^6.0.0",
         "symfony/serializer": "^5.3.8"
     },
     "require-dev": {
