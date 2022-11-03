@@ -32,7 +32,7 @@ class FailedMessagesRetryCommandFactory
             $this->getFailureTransport($container),
             new RoutableMessageBus($container),
             $dispatcher,
-            $logger
+            $logger,
         );
     }
 }

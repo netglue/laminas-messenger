@@ -19,7 +19,7 @@ trait StaticFactoryContainerAssertion
             throw new BadMethodCall(sprintf(
                 'The first argument to %s must be an instance of %s',
                 $methodName,
-                ContainerInterface::class
+                ContainerInterface::class,
             ));
         }
 

@@ -34,7 +34,7 @@ class TransportFactory
         if (! $dsn) {
             throw new ConfigurationError(sprintf(
                 'There is no DSN configured for the transport with name "%s"',
-                $this->id
+                $this->id,
             ));
         }
 

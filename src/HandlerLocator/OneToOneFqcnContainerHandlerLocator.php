@@ -38,7 +38,7 @@ class OneToOneFqcnContainerHandlerLocator implements HandlersLocatorInterface
         foreach ($this->handlers as $messageName => $handlerName) {
             if (! is_string($handlerName)) {
                 throw new ConfigurationError(
-                    'Handler should be a string representing a single handler to retrieve from the container'
+                    'Handler should be a string representing a single handler to retrieve from the container',
                 );
             }
 

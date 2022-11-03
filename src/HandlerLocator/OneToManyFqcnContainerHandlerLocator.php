@@ -35,7 +35,7 @@ class OneToManyFqcnContainerHandlerLocator implements HandlersLocatorInterface
         foreach ($this->handlers as $messageName => $handlers) {
             if (! is_array($handlers)) {
                 throw new ConfigurationError(
-                    'Expected an array of handler identifiers to retrieve from the container'
+                    'Expected an array of handler identifiers to retrieve from the container',
                 );
             }
 
@@ -46,7 +46,7 @@ class OneToManyFqcnContainerHandlerLocator implements HandlersLocatorInterface
             foreach ($handlers as $handlerName) {
                 $singleLocator = new OneToOneFqcnContainerHandlerLocator(
                     [$messageName => $handlerName],
-                    $this->container
+                    $this->container,
                 );
 
                 yield from $singleLocator->getHandlers($envelope);

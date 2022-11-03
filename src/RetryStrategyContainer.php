@@ -71,7 +71,7 @@ class RetryStrategyContainer implements ContainerInterface
                 $serviceName,
                 $id,
                 RetryStrategyInterface::class,
-                is_object($strategy) ? get_class($strategy) : gettype($strategy)
+                is_object($strategy) ? get_class($strategy) : gettype($strategy),
             ));
         }
 

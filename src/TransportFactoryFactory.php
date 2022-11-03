@@ -55,7 +55,7 @@ class TransportFactoryFactory
                 throw new ConfigurationError(sprintf(
                     "Transport factory '%s' must implement '%s'",
                     get_class($factory),
-                    TransportFactoryInterface::class
+                    TransportFactoryInterface::class,
                 ));
             }
 
