@@ -4,7 +4,7 @@
 
 ![Continuous Integration](https://github.com/netglue/laminas-messenger/workflows/Continuous%20Integration/badge.svg)
 [![codecov](https://codecov.io/gh/netglue/laminas-messenger/branch/main/graph/badge.svg)](https://codecov.io/gh/netglue/laminas-messenger)
-
+[![Type Coverage](https://shepherd.dev/github/netglue/laminas-messenger/coverage.svg)](https://shepherd.dev/github/netglue/laminas-messenger)
 ### Introduction
 
 This library aims to provide a way of getting Symfony Messenger up and running in a Laminas/Mezzio application with minimum fuss.
