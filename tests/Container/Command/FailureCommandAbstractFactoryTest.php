@@ -19,8 +19,8 @@ use function call_user_func;
 
 class FailureCommandAbstractFactoryTest extends TestCase
 {
-    /** @var MockObject|ContainerInterface */
-    private $container;
+    /** @var ContainerInterface&MockObject */
+    private MockObject|ContainerInterface $container;
 
     protected function setUp(): void
     {
@@ -32,6 +32,7 @@ class FailureCommandAbstractFactoryTest extends TestCase
     {
         $this->expectException(InvalidArgument::class);
         $this->expectExceptionMessage('I cannot create commands of the type stdClass');
+        /** @psalm-suppress InvalidArgument */
         new FailureCommandAbstractFactory(stdClass::class);
     }
 

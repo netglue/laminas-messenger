@@ -8,16 +8,13 @@ use Netglue\PsrContainer\Messenger\Container\StaticFactoryContainerAssertion;
 use Psr\Container\ContainerInterface;
 use Symfony\Component\Messenger\Middleware\AddBusNameStampMiddleware;
 
+/** @final */
 class BusNameStampMiddlewareStaticFactory
 {
     use StaticFactoryContainerAssertion;
 
-    /** @var string */
-    private $busIdentifier;
-
-    public function __construct(string $busIdentifier)
+    public function __construct(private string $busIdentifier)
     {
-        $this->busIdentifier = $busIdentifier;
     }
 
     public function __invoke(ContainerInterface $container): AddBusNameStampMiddleware
@@ -30,6 +27,6 @@ class BusNameStampMiddlewareStaticFactory
     {
         $container = self::assertContainer($name, $arguments);
 
-        return (new static($name))($container);
+        return (new self($name))($container);
     }
 }

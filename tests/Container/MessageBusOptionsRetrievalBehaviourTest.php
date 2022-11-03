@@ -14,11 +14,9 @@ use function assert;
 
 class MessageBusOptionsRetrievalBehaviourTest extends TestCase
 {
-    /** @var object */
-    private $subject;
+    private object $subject;
 
-    /** @var MockObject|ContainerInterface */
-    private $container;
+    private MockObject|ContainerInterface $container;
 
     protected function setUp(): void
     {

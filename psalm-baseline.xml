@@ -57,14 +57,9 @@
     </MixedAssignment>
   </file>
   <file src="src/Container/Command/FailureCommandAbstractFactory.php">
-    <InvalidStringClass occurrences="1"/>
-    <LessSpecificReturnStatement occurrences="1"/>
-    <MoreSpecificReturnType occurrences="1">
-      <code>Command</code>
-    </MoreSpecificReturnType>
-    <UnsafeInstantiation occurrences="1">
-      <code>new static($name)</code>
-    </UnsafeInstantiation>
+    <DocblockTypeContradiction occurrences="1">
+      <code>in_array($commandName, self::CAN_CREATE, true)</code>
+    </DocblockTypeContradiction>
   </file>
   <file src="src/Container/DoctrineTransportFactory.php">
     <MixedArgument occurrences="1">
@@ -122,14 +117,6 @@
     <PossiblyInvalidArgument occurrences="1">
       <code>$middleware</code>
     </PossiblyInvalidArgument>
-    <UnsafeInstantiation occurrences="1">
-      <code>new static($name)</code>
-    </UnsafeInstantiation>
-  </file>
-  <file src="src/Container/Middleware/BusNameStampMiddlewareStaticFactory.php">
-    <UnsafeInstantiation occurrences="1">
-      <code>new static($name)</code>
-    </UnsafeInstantiation>
   </file>
   <file src="src/Container/Middleware/MessageHandlerMiddlewareStaticFactory.php">
     <InvalidStringClass occurrences="1">
@@ -142,24 +129,12 @@
     <MixedAssignment occurrences="1">
       <code>$locator</code>
     </MixedAssignment>
-    <PossiblyNullArgument occurrences="1">
-      <code>$options-&gt;logger()</code>
-    </PossiblyNullArgument>
-    <UnsafeInstantiation occurrences="1">
-      <code>new static($name)</code>
-    </UnsafeInstantiation>
   </file>
   <file src="src/Container/Middleware/MessageSenderMiddlewareStaticFactory.php">
     <MixedArgument occurrences="1"/>
     <MixedArgumentTypeCoercion occurrences="1">
       <code>$options-&gt;routes()</code>
     </MixedArgumentTypeCoercion>
-    <PossiblyNullArgument occurrences="1">
-      <code>$options-&gt;logger()</code>
-    </PossiblyNullArgument>
-    <UnsafeInstantiation occurrences="1">
-      <code>new static($name)</code>
-    </UnsafeInstantiation>
   </file>
   <file src="src/Container/RetryStrategyContainerFactory.php">
     <MixedArrayAccess occurrences="1">
@@ -197,24 +172,19 @@
     <InvalidArrayOffset occurrences="1"/>
   </file>
   <file src="src/HandlerLocator/OneToManyFqcnContainerHandlerLocator.php">
-    <MixedArgumentTypeCoercion occurrences="1">
-      <code>[$messageName =&gt; $handlerName]</code>
-    </MixedArgumentTypeCoercion>
-    <MixedArrayOffset occurrences="1">
-      <code>[$messageName =&gt; $handlerName]</code>
-    </MixedArrayOffset>
-    <MixedAssignment occurrences="2">
-      <code>$handlerName</code>
-      <code>$messageName</code>
-    </MixedAssignment>
+    <DocblockTypeContradiction occurrences="1">
+      <code>is_array($handlers)</code>
+    </DocblockTypeContradiction>
   </file>
   <file src="src/HandlerLocator/OneToOneFqcnContainerHandlerLocator.php">
+    <DocblockTypeContradiction occurrences="1">
+      <code>is_string($handlerName)</code>
+    </DocblockTypeContradiction>
     <MixedArgument occurrences="1">
       <code>$this-&gt;container-&gt;get($handlerName)</code>
     </MixedArgument>
-    <MixedAssignment occurrences="2">
+    <MixedAssignment occurrences="1">
       <code>$expectedTransport</code>
-      <code>$messageName</code>
     </MixedAssignment>
   </file>
   <file src="src/RetryStrategyContainer.php">
@@ -262,37 +232,6 @@
       <code>$name</code>
       <code>$transportFactories</code>
     </MixedAssignment>
-  </file>
-  <file src="tests/Container/Command/FailureCommandAbstractFactoryTest.php">
-    <MixedMethodCall occurrences="15">
-      <code>method</code>
-      <code>method</code>
-      <code>method</code>
-      <code>method</code>
-      <code>method</code>
-      <code>method</code>
-      <code>willReturn</code>
-      <code>willReturn</code>
-      <code>willReturn</code>
-      <code>willReturnMap</code>
-      <code>willReturnMap</code>
-      <code>willReturnMap</code>
-      <code>with</code>
-      <code>with</code>
-      <code>with</code>
-    </MixedMethodCall>
-    <PossiblyInvalidArgument occurrences="2">
-      <code>$this-&gt;container</code>
-      <code>$this-&gt;container</code>
-    </PossiblyInvalidArgument>
-    <PossiblyUndefinedMethod occurrences="6">
-      <code>expects</code>
-      <code>expects</code>
-      <code>expects</code>
-      <code>expects</code>
-      <code>expects</code>
-      <code>expects</code>
-    </PossiblyUndefinedMethod>
   </file>
   <file src="tests/Container/MessageBusOptionsRetrievalBehaviourTest.php">
     <MixedAssignment occurrences="1">
@@ -426,36 +365,18 @@
     <InternalMethod occurrences="1">
       <code>new ContainerCommandLoader($container, $commands)</code>
     </InternalMethod>
-    <MixedArgument occurrences="2">
+    <MixedArgument occurrences="1">
       <code>$commands</code>
-      <code>$dependencies</code>
     </MixedArgument>
-    <MixedArrayAccess occurrences="2">
-      <code>$dependencies['services']</code>
-      <code>$this-&gt;getContainer()-&gt;get('config')['laminas-cli']</code>
-    </MixedArrayAccess>
-    <MixedArrayAssignment occurrences="1">
-      <code>$dependencies['services']</code>
-    </MixedArrayAssignment>
-    <MixedAssignment occurrences="5">
-      <code>$commandName</code>
+    <MixedAssignment occurrences="1">
       <code>$commands</code>
-      <code>$config</code>
-      <code>$dependencies</code>
-      <code>$identifier</code>
     </MixedAssignment>
-    <MixedReturnTypeCoercion occurrences="1">
-      <code>iterable&lt;string, string[]&gt;</code>
-    </MixedReturnTypeCoercion>
-    <RedundantConditionGivenDocblockType occurrences="2">
-      <code>$this-&gt;container</code>
-      <code>$this-&gt;container</code>
-    </RedundantConditionGivenDocblockType>
-    <UnusedForeachValue occurrences="1">
-      <code>$identifier</code>
-    </UnusedForeachValue>
   </file>
   <file src="tests/MessageBusOptionsTest.php">
+    <DocblockTypeContradiction occurrences="2">
+      <code>assertSame</code>
+      <code>assertSame</code>
+    </DocblockTypeContradiction>
     <InvalidArgument occurrences="2">
       <code>['foo']</code>
       <code>['foo']</code>

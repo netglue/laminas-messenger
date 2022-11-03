@@ -10,8 +10,7 @@ use PHPUnit\Framework\TestCase;
 
 class DefaultCommandBusConfigProviderTest extends TestCase
 {
-    /** @var DefaultCommandBusConfigProvider */
-    private $provider;
+    private DefaultCommandBusConfigProvider $provider;
 
     protected function setUp(): void
     {

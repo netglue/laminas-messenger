@@ -12,25 +12,19 @@ use Symfony\Component\Messenger\Handler\HandlersLocatorInterface;
 use function is_a;
 use function sprintf;
 
+/** @final */
 class MessageBusOptions extends AbstractOptions
 {
     /** @var string[] */
-    private $middleware = [];
-
+    private array $middleware = [];
     /** @var string[][] */
-    private $handlers = [];
-
+    private array $handlers = [];
     /** @var string[][] */
-    private $routes = [];
-
-    /** @var string|null */
-    private $logger;
-
-    /** @var bool */
-    private $allowsZeroHandlers = false;
-
-    /** @var string */
-    private $handlerLocator = OneToManyFqcnContainerHandlerLocator::class;
+    private array $routes = [];
+    private string|null $logger = null;
+    private bool $allowsZeroHandlers = false;
+    /** @var class-string */
+    private string $handlerLocator = OneToManyFqcnContainerHandlerLocator::class;
 
     /** @param string[] $middleware */
     public function setMiddleware(iterable $middleware): void

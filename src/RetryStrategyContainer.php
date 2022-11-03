@@ -15,22 +15,15 @@ use function gettype;
 use function is_object;
 use function sprintf;
 
+/** @final */
 class RetryStrategyContainer implements ContainerInterface
 {
-    /** @var mixed[] */
-    private $strategyConfig;
-
     /** @var RetryStrategyInterface[] */
-    private $strategiesIndexedByTransport = [];
-
-    /** @var ContainerInterface */
-    private $applicationServices;
+    private array $strategiesIndexedByTransport = [];
 
     /** @param mixed[] $strategyConfig */
-    public function __construct(ContainerInterface $applicationServices, array $strategyConfig)
+    public function __construct(private ContainerInterface $applicationServices, private array $strategyConfig)
     {
-        $this->applicationServices = $applicationServices;
-        $this->strategyConfig = $strategyConfig;
     }
 
     /** @inheritDoc */

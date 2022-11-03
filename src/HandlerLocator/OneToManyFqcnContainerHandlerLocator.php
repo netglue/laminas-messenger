@@ -11,19 +11,12 @@ use Symfony\Component\Messenger\Handler\HandlersLocatorInterface;
 
 use function is_array;
 
+/** @final */
 class OneToManyFqcnContainerHandlerLocator implements HandlersLocatorInterface
 {
-    /** @var ContainerInterface */
-    private $container;
-
-    /** @var iterable|string[][] */
-    private $handlers;
-
     /** @param string[][] $handlers */
-    public function __construct(iterable $handlers, ContainerInterface $container)
+    public function __construct(private iterable $handlers, private ContainerInterface $container)
     {
-        $this->container = $container;
-        $this->handlers = $handlers;
     }
 
     /** @inheritDoc */

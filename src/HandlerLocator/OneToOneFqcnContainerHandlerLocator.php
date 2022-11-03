@@ -14,19 +14,12 @@ use Symfony\Component\Messenger\Stamp\ReceivedStamp;
 use function assert;
 use function is_string;
 
+/** @final */
 class OneToOneFqcnContainerHandlerLocator implements HandlersLocatorInterface
 {
-    /** @var ContainerInterface */
-    private $container;
-
-    /** @var iterable|string[] */
-    private $handlers;
-
     /** @param string[] $handlers */
-    public function __construct(iterable $handlers, ContainerInterface $container)
+    public function __construct(private iterable $handlers, private ContainerInterface $container)
     {
-        $this->container = $container;
-        $this->handlers = $handlers;
     }
 
     /** @inheritDoc */

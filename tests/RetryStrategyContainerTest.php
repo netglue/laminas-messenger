@@ -15,8 +15,7 @@ use Symfony\Component\Messenger\Retry\MultiplierRetryStrategy;
 
 class RetryStrategyContainerTest extends TestCase
 {
-    /** @var MockObject|ContainerInterface */
-    private $container;
+    private MockObject|ContainerInterface $container;
 
     protected function setUp(): void
     {

@@ -21,8 +21,7 @@ use Symfony\Component\Messenger\Transport\TransportFactoryInterface;
 
 class TransportFactoryFactoryTest extends TestCase
 {
-    /** @var MockObject|ContainerInterface */
-    private $container;
+    private MockObject|ContainerInterface $container;
 
     protected function setUp(): void
     {

@@ -32,7 +32,7 @@ use function assert;
 class ServiceManagerIntegrationTest extends TestCase
 {
     /** @var mixed[] */
-    private $config;
+    private array $config;
 
     protected function setUp(): void
     {
