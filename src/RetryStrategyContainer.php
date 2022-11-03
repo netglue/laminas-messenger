@@ -11,7 +11,6 @@ use Symfony\Component\Messenger\Retry\MultiplierRetryStrategy;
 use Symfony\Component\Messenger\Retry\RetryStrategyInterface;
 
 use function array_key_exists;
-use function get_class;
 use function gettype;
 use function is_object;
 use function sprintf;
@@ -71,7 +70,7 @@ class RetryStrategyContainer implements ContainerInterface
                 $serviceName,
                 $id,
                 RetryStrategyInterface::class,
-                is_object($strategy) ? get_class($strategy) : gettype($strategy),
+                is_object($strategy) ? $strategy::class : gettype($strategy),
             ));
         }
 

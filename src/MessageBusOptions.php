@@ -90,7 +90,7 @@ class MessageBusOptions extends AbstractOptions
         $this->logger = $loggerId;
     }
 
-    public function logger(): ?string
+    public function logger(): string|null
     {
         return $this->logger;
     }

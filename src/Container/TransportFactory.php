@@ -10,41 +10,31 @@ use Psr\Container\ContainerInterface;
 use Symfony\Component\Messenger\Transport\Serialization\PhpSerializer;
 use Symfony\Component\Messenger\Transport\TransportInterface;
 
+use function assert;
+use function is_array;
 use function is_string;
 use function sprintf;
 
+/** @final */
 class TransportFactory
 {
     use StaticFactoryContainerAssertion;
 
-    /** @var string */
-    private $id;
-
-    public function __construct(string $id)
+    public function __construct(private string $id)
     {
-        $this->id = $id;
     }
 
     public function __invoke(ContainerInterface $container): TransportInterface
     {
         $options = $this->options($container);
-        $options = is_string($options) ? ['dsn' => $options] : $options;
-        $dsn = $options['dsn'] ?? null;
-
-        if (! $dsn) {
-            throw new ConfigurationError(sprintf(
-                'There is no DSN configured for the transport with name "%s"',
-                $this->id,
-            ));
-        }
 
         $serializer = $options['serializer'] ?? null;
         $serializer = $serializer ? $container->get($serializer) : null;
         $serializer = $serializer ?: new PhpSerializer();
         $factoryFactory = $container->get(TransportFactoryFactory::class);
-        $factory = $factoryFactory($dsn, $container);
+        $factory = $factoryFactory($options['dsn'], $container);
 
-        return $factory->createTransport($dsn, $options['options'] ?? [], $serializer);
+        return $factory->createTransport($options['dsn'], $options['options'] ?? [], $serializer);
     }
 
     /** @param mixed[] $arguments */
@@ -52,14 +42,27 @@ class TransportFactory
     {
         $container = self::assertContainer($id, $arguments);
 
-        return (new static($id))($container);
+        return (new self($id))($container);
     }
 
-    /** @return mixed[]|string */
-    private function options(ContainerInterface $container)
+    /** @return array{dsn: string}&array<string, mixed> */
+    private function options(ContainerInterface $container): array
     {
         $config = $container->has('config') ? $container->get('config') : [];
+        assert(is_array($config));
 
-        return $config['symfony']['messenger']['transports'][$this->id] ?? [];
+        $options = $config['symfony']['messenger']['transports'][$this->id] ?? [];
+        if (is_string($options)) {
+            $options = ['dsn' => $options];
+        }
+
+        if (! is_array($options) || ! isset($options['dsn']) || ! is_string($options['dsn'])) {
+            throw new ConfigurationError(sprintf(
+                'There is no DSN configured for the transport with name "%s"',
+                $this->id,
+            ));
+        }
+
+        return $options;
     }
 }

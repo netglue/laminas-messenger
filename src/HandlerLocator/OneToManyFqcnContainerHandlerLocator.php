@@ -9,7 +9,6 @@ use Psr\Container\ContainerInterface;
 use Symfony\Component\Messenger\Envelope;
 use Symfony\Component\Messenger\Handler\HandlersLocatorInterface;
 
-use function get_class;
 use function is_array;
 
 class OneToManyFqcnContainerHandlerLocator implements HandlersLocatorInterface
@@ -31,7 +30,7 @@ class OneToManyFqcnContainerHandlerLocator implements HandlersLocatorInterface
     public function getHandlers(Envelope $envelope): iterable
     {
         $message = $envelope->getMessage();
-        $type = get_class($message);
+        $type = $message::class;
         foreach ($this->handlers as $messageName => $handlers) {
             if (! is_array($handlers)) {
                 throw new ConfigurationError(

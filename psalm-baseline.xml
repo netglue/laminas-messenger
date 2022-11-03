@@ -176,31 +176,16 @@
     </MixedAssignment>
   </file>
   <file src="src/Container/TransportFactory.php">
-    <MixedArgument occurrences="4">
-      <code>$dsn</code>
+    <MixedArgument occurrences="3">
       <code>$options['options'] ?? []</code>
       <code>$serializer</code>
       <code>$serializer</code>
     </MixedArgument>
-    <MixedArrayAccess occurrences="1">
-      <code>$config['symfony']</code>
-    </MixedArrayAccess>
-    <MixedAssignment occurrences="5">
-      <code>$config</code>
-      <code>$dsn</code>
+    <MixedAssignment occurrences="3">
       <code>$serializer</code>
       <code>$serializer</code>
       <code>$serializer</code>
     </MixedAssignment>
-    <MixedInferredReturnType occurrences="1">
-      <code>mixed[]|string</code>
-    </MixedInferredReturnType>
-    <MixedReturnStatement occurrences="1">
-      <code>$config['symfony']['messenger']['transports'][$this-&gt;id] ?? []</code>
-    </MixedReturnStatement>
-    <UnsafeInstantiation occurrences="1">
-      <code>new static($id)</code>
-    </UnsafeInstantiation>
   </file>
   <file src="src/Exception/ServiceNotFound.php">
     <UnsafeInstantiation occurrences="1"/>
@@ -265,9 +250,8 @@
     <InvalidReturnType occurrences="1">
       <code>TransportFactoryInterface</code>
     </InvalidReturnType>
-    <MixedArgument occurrences="3">
+    <MixedArgument occurrences="2">
       <code>$container-&gt;get(trim($config, '/'))</code>
-      <code>$factory</code>
       <code>$name</code>
     </MixedArgument>
     <MixedArrayAccess occurrences="1">
@@ -369,19 +353,6 @@
     </MixedMethodCall>
   </file>
   <file src="tests/Container/TransportFactoryTest.php">
-    <MixedMethodCall occurrences="11">
-      <code>method</code>
-      <code>method</code>
-      <code>method</code>
-      <code>method</code>
-      <code>willReturn</code>
-      <code>willReturn</code>
-      <code>willReturn</code>
-      <code>willReturnMap</code>
-      <code>with</code>
-      <code>with</code>
-      <code>with</code>
-    </MixedMethodCall>
     <NoInterfaceProperties occurrences="9">
       <code>$this-&gt;factory-&gt;dsn</code>
       <code>$this-&gt;factory-&gt;dsn</code>
@@ -393,17 +364,6 @@
       <code>$this-&gt;factory-&gt;serializer</code>
       <code>$this-&gt;factory-&gt;serializer</code>
     </NoInterfaceProperties>
-    <PossiblyUndefinedMethod occurrences="4">
-      <code>expects</code>
-      <code>expects</code>
-      <code>expects</code>
-      <code>expects</code>
-    </PossiblyUndefinedMethod>
-    <PropertyNotSetInConstructor occurrences="3">
-      <code>$dsn</code>
-      <code>$options</code>
-      <code>$serializer</code>
-    </PropertyNotSetInConstructor>
   </file>
   <file src="tests/DefaultCommandBusConfigProviderTest.php">
     <InternalMethod occurrences="1">
@@ -505,9 +465,6 @@
     </MixedInferredReturnType>
   </file>
   <file src="tests/RetryStrategyContainerTest.php">
-    <InvalidArgument occurrences="1">
-      <code>ContainerExceptionInterface::class</code>
-    </InvalidArgument>
     <MixedMethodCall occurrences="6">
       <code>method</code>
       <code>method</code>
@@ -544,9 +501,6 @@
     </MixedArrayAssignment>
   </file>
   <file src="tests/ServiceManagerIntegrationTest.php">
-    <InvalidArgument occurrences="1">
-      <code>ContainerExceptionInterface::class</code>
-    </InvalidArgument>
     <MixedArgument occurrences="1">
       <code>$this-&gt;config['dependencies']</code>
     </MixedArgument>
