@@ -58,12 +58,14 @@
     "scripts": {
         "check": [
             "@cs-check",
-            "@test"
+            "@test",
+            "psalm"
         ],
         "cs-check": "phpcs",
         "cs-fix": "phpcbf",
         "test": "phpunit --colors=always",
-        "test-coverage": "phpunit --colors=always --coverage-html build/report"
+        "test-coverage": "phpunit --colors=always --coverage-html build/report",
+        "static-analysis": "psalm --shepherd --stats"
     },
     "extra": {
         "laminas": {

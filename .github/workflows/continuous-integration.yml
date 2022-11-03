@@ -4,110 +4,47 @@ on:
   pull_request:
   push:
     branches:
-      - main
+      - '[0-9]+.[0-9]+.x'
+    tags:
 
 env:
-  php_extensions: ""
-  default_php: 8.1
+  default_php: '7.3'
+  php_extensions:
 
 jobs:
+  ci:
+    uses: laminas/workflow-continuous-integration/.github/workflows/continuous-integration.yml@1.x
 
-  cs-check:
-    name: CS Checks
+  coverage:
+    name: 'Test Coverage'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-
-      - uses: shivammathur/setup-php@v2
-        with:
-          php-version: 7.3
-          extensions: ${{ env.php_extensions }}
-          tools: cs2pr
-
-      - uses: ramsey/composer-install@2.1.0
-        with:
-          dependency-versions: locked
-
-      - name: "Check CS"
-        run: vendor/bin/phpcs --report=checkstyle -q | cs2pr
-
-  psalm:
-    name: Psalm Static Analysis
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: shivammathur/setup-php@v2
-        with:
-          php-version: 7.3
-          extensions: ${{ env.php_extensions }}
-          tools: cs2pr
-      - uses: ramsey/composer-install@2.1.0
-        with:
-          dependency-versions: locked
-      - run: vendor/bin/psalm --stats --shepherd --output-format=github
-
-  tests:
-
-    name: PHPUnit on ${{ matrix.php-version }}, ${{ matrix.dependencies }} deps
-    runs-on: ubuntu-latest
-
-    strategy:
-      fail-fast: false
-      matrix:
-        php-version: [ '7.3', '7.4', '8.0', '8.1', '8.2' ]
-        dependencies: [ 'lowest', 'locked', 'highest' ]
-        include:
-          - php-version: '8.1'
-            dependencies: 'locked'
-            composer-options: "--ignore-platform-reqs"
-          - php-version: '8.2'
-            composer-options: "--ignore-platform-reqs"
-
-    steps:
-      - uses: actions/checkout@v3
-
-      - uses: shivammathur/setup-php@v2
-        with:
-          php-version: ${{ matrix.php-version }}
-          extensions: ${{ env.php_extensions }}
-          coverage: pcov
-          ini-values: pcov.enabled=1
-
-      - uses: ramsey/composer-install@2.1.0
-        with:
-          dependency-versions: "${{ matrix.dependencies }}"
-          composer-options: "${{ matrix.composer-options }}"
-
-      - name: "Run Tests"
-        run: php ./vendor/bin/phpunit --coverage-clover=coverage.xml
-
-      - uses: codecov/codecov-action@v3
-        with:
-          token: ${{ secrets.CODECOV_TOKEN }}
-          file: ./coverage.xml
-          fail_ci_if_error: false
-
-  composer-require-checker:
-    name: "Check for missing dependencies"
-    runs-on: "ubuntu-latest"
-
-    steps:
-      - uses: actions/checkout@v3
-
       - uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ env.default_php }}
-          ini-values: memory_limit=-1
-
+          extensions: ${{ env.php_extensions }}
+          coverage: pcov
+          ini-values: pcov.enabled=1
       - uses: ramsey/composer-install@2.1.0
+      - run: php ./vendor/bin/phpunit --coverage-clover=coverage.xml
+      - uses: codecov/codecov-action@v3
         with:
-          dependency-versions: highest
-
-      - name: "Set global composer bin-dir"
-        run: composer global config bin-dir /usr/local/bin
-
-      - name: "Install require checker"
-        run: composer global require -W maglnet/composer-require-checker
-
-      - name: "Check"
-        run: /usr/local/bin/composer-require-checker --config-file=composer-require-checker.json check
+          file: ./coverage.xml
+          fail_ci_if_error: false
+  #
+  # Use custom require-checker run - Laminas CI requires it's installed as a dev dependency for now.
+  #
+  composer-require-checker:
+    name: "Check for missing dependencies"
+    runs-on: "ubuntu-latest"
+    steps:
+      - uses: actions/checkout@v3
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: 8.1
+          ini-values: memory_limit=-1
+      - uses: ramsey/composer-install@2.1.0
+      - run: composer global config bin-dir /usr/local/bin
+      - run: composer global require -W maglnet/composer-require-checker
+      - run: /usr/local/bin/composer-require-checker --config-file=.github/composer-require-checker.json check
