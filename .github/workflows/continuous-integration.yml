@@ -36,23 +36,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-        if: hashFiles('psalm.xml') != ''
-
       - uses: shivammathur/setup-php@v2
-        if: hashFiles('psalm.xml') != ''
         with:
           php-version: 7.3
           extensions: ${{ env.php_extensions }}
           tools: cs2pr
-
       - uses: ramsey/composer-install@2.1.0
-        if: hashFiles('psalm.xml') != ''
         with:
           dependency-versions: locked
-
-      - name: "Psalm"
-        if: hashFiles('psalm.xml') != ''
-        run: vendor/bin/psalm --stats --shepherd --output-format=github
+      - run: vendor/bin/psalm --stats --shepherd --output-format=github
 
   tests:
 
