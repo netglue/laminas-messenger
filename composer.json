@@ -30,7 +30,7 @@
         "symfony/serializer": "^5.3.8"
     },
     "require-dev": {
-        "doctrine/coding-standard": "^9.0.2",
+        "doctrine/coding-standard": "^10.0.0",
         "laminas/laminas-cli": "^1.2.0",
         "laminas/laminas-component-installer": "^2.5.1",
         "laminas/laminas-config-aggregator": "^1.7",
