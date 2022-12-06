@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<files psalm-version="4.29.0@7ec5ffbd5f68ae03782d7fd33fff0c45a69f95b3">
+<files psalm-version="5.1.0@4defa177c89397c5e14737a80fe4896584130674">
   <file src="src/Container/Command/ConsumeCommandFactory.php">
     <InvalidArgument occurrences="1">
       <code>$this-&gt;getFailureTransport($container)</code>
@@ -9,9 +9,13 @@
       <code>$logger</code>
       <code>$receivers</code>
     </MixedArgument>
-    <MixedArrayAccess occurrences="3">
+    <MixedArrayAccess occurrences="7">
       <code>$config['symfony']</code>
       <code>$config['symfony']</code>
+      <code>$config['symfony']['messenger']</code>
+      <code>$config['symfony']['messenger']</code>
+      <code>$config['symfony']['messenger']['logger']</code>
+      <code>$config['symfony']['messenger']['transports']</code>
       <code>$receivers[$this-&gt;getFailureTransportName($container)]</code>
     </MixedArrayAccess>
     <MixedAssignment occurrences="4">
@@ -22,14 +26,18 @@
     </MixedAssignment>
   </file>
   <file src="src/Container/Command/DebugCommandFactory.php">
-    <MixedArrayAccess occurrences="2">
+    <MixedArrayAccess occurrences="4">
       <code>$busConfig['handlers']</code>
       <code>$config['symfony']</code>
+      <code>$config['symfony']['messenger']</code>
+      <code>$config['symfony']['messenger']['buses']</code>
     </MixedArrayAccess>
-    <MixedArrayOffset occurrences="3">
+    <MixedArrayOffset occurrences="5">
       <code>$map[$bus]</code>
       <code>$map[$bus]</code>
       <code>$map[$bus]</code>
+      <code>$map[$bus][$message]</code>
+      <code>$map[$bus][$message]</code>
     </MixedArrayOffset>
     <MixedAssignment occurrences="8">
       <code>$bus</code>
@@ -47,8 +55,10 @@
       <code>$logger</code>
       <code>$logger</code>
     </MixedArgument>
-    <MixedArrayAccess occurrences="1">
+    <MixedArrayAccess occurrences="3">
       <code>$config['symfony']</code>
+      <code>$config['symfony']['messenger']</code>
+      <code>$config['symfony']['messenger']['logger']</code>
     </MixedArrayAccess>
     <MixedAssignment occurrences="3">
       <code>$config</code>
@@ -60,6 +70,9 @@
     <DocblockTypeContradiction occurrences="1">
       <code>in_array($commandName, self::CAN_CREATE, true)</code>
     </DocblockTypeContradiction>
+    <NoValue occurrences="1">
+      <code>$commandName</code>
+    </NoValue>
   </file>
   <file src="src/Container/DoctrineTransportFactory.php">
     <MixedArgument occurrences="1">
@@ -83,9 +96,13 @@
     </UndefinedMethod>
   </file>
   <file src="src/Container/FailureTransportRetrievalBehaviour.php">
-    <MixedArrayAccess occurrences="2">
+    <MixedArrayAccess occurrences="6">
       <code>$config['symfony']</code>
       <code>$config['symfony']</code>
+      <code>$config['symfony']['messenger']</code>
+      <code>$config['symfony']['messenger']</code>
+      <code>$config['symfony']['messenger']['failure_transport']</code>
+      <code>$config['symfony']['messenger']['failure_transport']</code>
     </MixedArrayAccess>
     <MixedAssignment occurrences="4">
       <code>$config</code>
@@ -102,8 +119,11 @@
     <MixedArgument occurrences="1">
       <code>$config</code>
     </MixedArgument>
-    <MixedArrayAccess occurrences="1">
+    <MixedArrayAccess occurrences="4">
       <code>$config['symfony']</code>
+      <code>$config['symfony']['messenger']</code>
+      <code>$config['symfony']['messenger']['buses']</code>
+      <code>$config['symfony']['messenger']['buses'][$busIdentifier]</code>
     </MixedArrayAccess>
     <MixedAssignment occurrences="2">
       <code>$config</code>
@@ -137,8 +157,10 @@
     </MixedArgumentTypeCoercion>
   </file>
   <file src="src/Container/RetryStrategyContainerFactory.php">
-    <MixedArrayAccess occurrences="1">
+    <MixedArrayAccess occurrences="3">
       <code>$config['symfony']</code>
+      <code>$config['symfony']['messenger']</code>
+      <code>$config['symfony']['messenger']['transports']</code>
     </MixedArrayAccess>
     <MixedArrayOffset occurrences="1">
       <code>$retryConfig[$transportName]</code>
@@ -224,8 +246,10 @@
       <code>$container-&gt;get(trim($config, '/'))</code>
       <code>$name</code>
     </MixedArgument>
-    <MixedArrayAccess occurrences="1">
+    <MixedArrayAccess occurrences="3">
       <code>$config['symfony']</code>
+      <code>$config['symfony']['messenger']</code>
+      <code>$config['symfony']['messenger']['transport_factories']</code>
     </MixedArrayAccess>
     <MixedAssignment occurrences="3">
       <code>$config</code>
@@ -311,9 +335,10 @@
     <MixedArgument occurrences="1">
       <code>$optionArray</code>
     </MixedArgument>
-    <MixedArrayAccess occurrences="2">
+    <MixedArrayAccess occurrences="3">
       <code>$config['symfony']['messenger']</code>
       <code>$config['symfony']['messenger']</code>
+      <code>$config['symfony']['messenger']['buses']</code>
     </MixedArrayAccess>
     <MixedAssignment occurrences="1">
       <code>$optionArray</code>
@@ -359,6 +384,9 @@
     </PossiblyUndefinedMethod>
   </file>
   <file src="tests/LaminasCliIntegrationTest.php">
+    <ArgumentTypeCoercion occurrences="1">
+      <code>$dependencies</code>
+    </ArgumentTypeCoercion>
     <InternalClass occurrences="1">
       <code>new ContainerCommandLoader($container, $commands)</code>
     </InternalClass>
@@ -368,6 +396,9 @@
     <MixedArgument occurrences="1">
       <code>$commands</code>
     </MixedArgument>
+    <MixedArrayAssignment occurrences="1">
+      <code>$dependencies['services']['config']</code>
+    </MixedArrayAssignment>
     <MixedAssignment occurrences="1">
       <code>$commands</code>
     </MixedAssignment>
@@ -403,10 +434,6 @@
     </PossiblyUndefinedMethod>
   </file>
   <file src="tests/ServiceManagerEventBusIntegrationTest.php">
-    <DocblockTypeContradiction occurrences="2">
-      <code>assertTrue</code>
-      <code>assertTrue</code>
-    </DocblockTypeContradiction>
     <MissingClosureReturnType occurrences="2">
       <code>static function () use ($listenerOne) {</code>
       <code>static function () use ($listenerTwo) {</code>
@@ -414,25 +441,43 @@
     <MixedArgument occurrences="1">
       <code>$this-&gt;config['dependencies']</code>
     </MixedArgument>
-    <MixedArrayAssignment occurrences="4">
+    <MixedArrayAssignment occurrences="10">
       <code>$this-&gt;config['dependencies']['factories']</code>
       <code>$this-&gt;config['dependencies']['factories']</code>
+      <code>$this-&gt;config['dependencies']['factories'][EventListenerOne::class]</code>
+      <code>$this-&gt;config['dependencies']['factories'][EventListenerTwo::class]</code>
       <code>$this-&gt;config['dependencies']['services']</code>
+      <code>$this-&gt;config['dependencies']['services']['config']</code>
       <code>$this-&gt;config['symfony']['messenger']</code>
+      <code>$this-&gt;config['symfony']['messenger']['buses']</code>
+      <code>$this-&gt;config['symfony']['messenger']['buses']['event_bus']</code>
+      <code>$this-&gt;config['symfony']['messenger']['buses']['event_bus']['handlers']</code>
     </MixedArrayAssignment>
   </file>
   <file src="tests/ServiceManagerIntegrationTest.php">
     <MixedArgument occurrences="1">
       <code>$this-&gt;config['dependencies']</code>
     </MixedArgument>
-    <MixedArrayAssignment occurrences="7">
+    <MixedArrayAssignment occurrences="19">
       <code>$this-&gt;config['dependencies']['factories']</code>
       <code>$this-&gt;config['dependencies']['factories']</code>
+      <code>$this-&gt;config['dependencies']['factories']['failure_transport']</code>
+      <code>$this-&gt;config['dependencies']['factories'][TestCommandHandler::class]</code>
       <code>$this-&gt;config['dependencies']['services']</code>
+      <code>$this-&gt;config['dependencies']['services']['config']</code>
       <code>$this-&gt;config['symfony']['messenger']</code>
       <code>$this-&gt;config['symfony']['messenger']</code>
       <code>$this-&gt;config['symfony']['messenger']</code>
       <code>$this-&gt;config['symfony']['messenger']</code>
+      <code>$this-&gt;config['symfony']['messenger']['buses']</code>
+      <code>$this-&gt;config['symfony']['messenger']['buses']</code>
+      <code>$this-&gt;config['symfony']['messenger']['buses']['command_bus']</code>
+      <code>$this-&gt;config['symfony']['messenger']['buses']['command_bus']</code>
+      <code>$this-&gt;config['symfony']['messenger']['buses']['command_bus']['handlers']</code>
+      <code>$this-&gt;config['symfony']['messenger']['buses']['command_bus']['handlers']</code>
+      <code>$this-&gt;config['symfony']['messenger']['failure_transport']</code>
+      <code>$this-&gt;config['symfony']['messenger']['transports']</code>
+      <code>$this-&gt;config['symfony']['messenger']['transports']['failure_transport']</code>
     </MixedArrayAssignment>
     <MixedInferredReturnType occurrences="1">
       <code>mixed[]</code>
