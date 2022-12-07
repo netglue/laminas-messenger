@@ -603,28 +603,28 @@
         },
         {
             "name": "symfony/amqp-messenger",
-            "version": "v5.4.15",
+            "version": "v6.0.15",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/amqp-messenger.git",
-                "reference": "8775f97adc4f3dc8ce21f5d25c330d4081681bb6"
+                "reference": "7ecbb5cdcef1816951b90562974e9d9ba0b76ced"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/amqp-messenger/zipball/8775f97adc4f3dc8ce21f5d25c330d4081681bb6",
-                "reference": "8775f97adc4f3dc8ce21f5d25c330d4081681bb6",
+                "url": "https://api.github.com/repos/symfony/amqp-messenger/zipball/7ecbb5cdcef1816951b90562974e9d9ba0b76ced",
+                "reference": "7ecbb5cdcef1816951b90562974e9d9ba0b76ced",
                 "shasum": ""
             },
             "require": {
-                "php": ">=7.2.5",
-                "symfony/deprecation-contracts": "^2.1|^3",
-                "symfony/messenger": "^5.3|^6.0"
+                "ext-amqp": "*",
+                "php": ">=8.0.2",
+                "symfony/messenger": "^5.4|^6.0"
             },
             "require-dev": {
-                "symfony/event-dispatcher": "^4.4|^5.0|^6.0",
-                "symfony/process": "^4.4|^5.0|^6.0",
-                "symfony/property-access": "^4.4|^5.0|^6.0",
-                "symfony/serializer": "^4.4|^5.0|^6.0"
+                "symfony/event-dispatcher": "^5.4|^6.0",
+                "symfony/process": "^5.4|^6.0",
+                "symfony/property-access": "^5.4|^6.0",
+                "symfony/serializer": "^5.4|^6.0"
             },
             "type": "symfony-messenger-bridge",
             "autoload": {
@@ -652,7 +652,7 @@
             "description": "Symfony AMQP extension Messenger Bridge",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/amqp-messenger/tree/v5.4.15"
+                "source": "https://github.com/symfony/amqp-messenger/tree/v6.0.15"
             },
             "funding": [
                 {
@@ -668,7 +668,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-10-11T16:57:44+00:00"
+            "time": "2022-10-18T13:11:57+00:00"
         },
         {
             "name": "symfony/console",
@@ -4337,12 +4337,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/SecurityAdvisories.git",
-                "reference": "ae7d78fff43ae2c157a04b71f21c58d5009629ba"
+                "reference": "5ff66815edb2a9cb060eed77daa81f20ae6ce5b4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/ae7d78fff43ae2c157a04b71f21c58d5009629ba",
-                "reference": "ae7d78fff43ae2c157a04b71f21c58d5009629ba",
+                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/5ff66815edb2a9cb060eed77daa81f20ae6ce5b4",
+                "reference": "5ff66815edb2a9cb060eed77daa81f20ae6ce5b4",
                 "shasum": ""
             },
             "conflict": {
@@ -4400,7 +4400,7 @@
                 "codeigniter4/shield": "= 1.0.0-beta",
                 "codiad/codiad": "<=2.8.4",
                 "composer/composer": "<1.10.26|>=2-alpha.1,<2.2.12|>=2.3,<2.3.5",
-                "concrete5/concrete5": "<9.1.3|>= 9.0.0RC1, < 9.1.3",
+                "concrete5/concrete5": "<=9.1.3|>= 9.0.0RC1, < 9.1.3",
                 "concrete5/core": "<8.5.8|>=9,<9.1",
                 "contao-components/mediaelement": ">=2.14.2,<2.21.1",
                 "contao/contao": ">=4,<4.4.56|>=4.5,<4.9.18|>=4.10,<4.11.7|>=4.13,<4.13.3",
@@ -4873,7 +4873,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-12-05T19:04:07+00:00"
+            "time": "2022-12-06T16:04:33+00:00"
         },
         {
             "name": "sebastian/cli-parser",
