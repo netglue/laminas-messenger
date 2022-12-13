@@ -29,6 +29,7 @@ class ServiceManagerEventBusIntegrationTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
+
         $this->config = $this->minimalCommandBusConfiguration();
     }
 

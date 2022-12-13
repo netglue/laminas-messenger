@@ -21,6 +21,7 @@ class MessageBusOptionsTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
+
         $this->options = new MessageBusOptions();
     }
 

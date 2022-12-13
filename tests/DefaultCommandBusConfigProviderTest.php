@@ -15,6 +15,7 @@ class DefaultCommandBusConfigProviderTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
+
         $this->provider = new DefaultCommandBusConfigProvider();
     }
 
