@@ -8,8 +8,10 @@ use Laminas\Stdlib\AbstractOptions;
 use Netglue\PsrContainer\Messenger\Exception\InvalidArgument;
 use Netglue\PsrContainer\Messenger\HandlerLocator\OneToManyFqcnContainerHandlerLocator;
 use Symfony\Component\Messenger\Handler\HandlersLocatorInterface;
+use Traversable;
 
 use function is_a;
+use function iterator_to_array;
 use function sprintf;
 
 /** @final */
@@ -17,9 +19,9 @@ class MessageBusOptions extends AbstractOptions
 {
     /** @var string[] */
     private array $middleware = [];
-    /** @var string[][] */
+    /** @var array<string, list<string>> */
     private array $handlers = [];
-    /** @var string[][] */
+    /** @var array<string, list<string>> */
     private array $routes = [];
     private string|null $logger = null;
     private bool $allowsZeroHandlers = false;
@@ -38,10 +40,10 @@ class MessageBusOptions extends AbstractOptions
         return $this->middleware;
     }
 
-    /** @param string[][] $handlers */
+    /** @param iterable<string, list<string>> $handlers */
     public function setHandlers(iterable $handlers): void
     {
-        $this->handlers = $handlers;
+        $this->handlers = $this->iterableToArray($handlers);
     }
 
     /** @return string[][] */
@@ -67,13 +69,13 @@ class MessageBusOptions extends AbstractOptions
         return $this->handlerLocator;
     }
 
-    /** @param string[][] $routes */
+    /** @param iterable<string, list<string>> $routes */
     public function setRoutes(iterable $routes): void
     {
-        $this->routes = $routes;
+        $this->routes = $this->iterableToArray($routes);
     }
 
-    /** @return string[][] */
+    /** @return array<string, list<string>> */
     public function routes(): iterable
     {
         return $this->routes;
@@ -97,5 +99,22 @@ class MessageBusOptions extends AbstractOptions
     public function allowsZeroHandlers(): bool
     {
         return $this->allowsZeroHandlers;
+    }
+
+    /**
+     * @param iterable<TKey, TValue> $data
+     *
+     * @return array<TKey, TValue>
+     *
+     * @template TKey of array-key
+     * @template TValue
+     */
+    private function iterableToArray(iterable $data): array
+    {
+        if ($data instanceof Traversable) {
+            return iterator_to_array($data, true);
+        }
+
+        return $data;
     }
 }
