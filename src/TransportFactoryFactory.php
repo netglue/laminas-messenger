@@ -26,6 +26,7 @@ class TransportFactoryFactory
 {
     public function __invoke(string $dsn, ContainerInterface $container): TransportFactoryInterface
     {
+        /** @psalm-suppress PossiblyUndefinedArrayOffset */
         [$scheme, $config] = explode(':', $dsn, 2);
         switch ($scheme) {
             case 'amqp':
