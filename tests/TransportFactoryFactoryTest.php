@@ -12,10 +12,10 @@ use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Psr\Container\ContainerInterface;
 use stdClass;
+use Symfony\Component\Messenger\Bridge\Amqp\Transport\AmqpTransportFactory;
+use Symfony\Component\Messenger\Bridge\Redis\Transport\RedisTransportFactory;
 use Symfony\Component\Messenger\MessageBus;
-use Symfony\Component\Messenger\Transport\AmqpExt\AmqpTransportFactory;
 use Symfony\Component\Messenger\Transport\InMemoryTransportFactory;
-use Symfony\Component\Messenger\Transport\RedisExt\RedisTransportFactory;
 use Symfony\Component\Messenger\Transport\Sync\SyncTransportFactory;
 use Symfony\Component\Messenger\Transport\TransportFactoryInterface;
 
@@ -27,11 +27,12 @@ class TransportFactoryFactoryTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
+
         $this->container = $this->createMock(ContainerInterface::class);
     }
 
     /** @return string[][] */
-    public function transportDataProvider(): iterable
+    public static function transportDataProvider(): iterable
     {
         yield 'AMQP' => ['amqp://guest:guest@localhost:5672/%2f/messages', AmqpTransportFactory::class];
 

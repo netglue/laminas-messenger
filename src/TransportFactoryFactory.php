@@ -8,14 +8,13 @@ use Netglue\PsrContainer\Messenger\Container\DoctrineTransportFactory;
 use Netglue\PsrContainer\Messenger\Exception\ConfigurationError;
 use Netglue\PsrContainer\Messenger\Exception\UnknownTransportScheme;
 use Psr\Container\ContainerInterface;
-use Symfony\Component\Messenger\Transport\AmqpExt\AmqpTransportFactory;
+use Symfony\Component\Messenger\Bridge\Amqp\Transport\AmqpTransportFactory;
+use Symfony\Component\Messenger\Bridge\Redis\Transport\RedisTransportFactory;
 use Symfony\Component\Messenger\Transport\InMemoryTransportFactory;
-use Symfony\Component\Messenger\Transport\RedisExt\RedisTransportFactory;
 use Symfony\Component\Messenger\Transport\Sync\SyncTransportFactory;
 use Symfony\Component\Messenger\Transport\TransportFactoryInterface;
 
 use function explode;
-use function get_class;
 use function parse_str;
 use function parse_url;
 use function sprintf;
@@ -54,8 +53,8 @@ class TransportFactoryFactory
             if (! $factory instanceof TransportFactoryInterface) {
                 throw new ConfigurationError(sprintf(
                     "Transport factory '%s' must implement '%s'",
-                    get_class($factory),
-                    TransportFactoryInterface::class
+                    $factory::class,
+                    TransportFactoryInterface::class,
                 ));
             }
 
