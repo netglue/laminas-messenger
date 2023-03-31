@@ -22,6 +22,7 @@ class MessageBusOptionsTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
+
         $this->options = new MessageBusOptions();
     }
 
@@ -58,7 +59,7 @@ class MessageBusOptionsTest extends TestCase
     public function testHandlerLocatorHasDefaultValue(): void
     {
         $this->assertTrue(
-            is_a($this->options->handlerLocator(), HandlersLocatorInterface::class, true)
+            is_a($this->options->handlerLocator(), HandlersLocatorInterface::class, true),
         );
     }
 
@@ -70,7 +71,7 @@ class MessageBusOptionsTest extends TestCase
     }
 
     /** @return mixed[] */
-    public function handlerLocatorTypes(): iterable
+    public static function handlerLocatorTypes(): iterable
     {
         return [
             [OneToOneFqcnContainerHandlerLocator::class],

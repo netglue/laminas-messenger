@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace Netglue\PsrContainer\MessengerTest;
 
+use Generator;
 use Laminas\Cli\ContainerCommandLoader;
 use Laminas\ConfigAggregator\ArrayProvider;
 use Laminas\ConfigAggregator\ConfigAggregator;
+use Laminas\ServiceManager\ConfigInterface;
 use Laminas\ServiceManager\ServiceManager;
 use Netglue\PsrContainer\Messenger\ConfigProvider;
 use Netglue\PsrContainer\Messenger\FailureCommandsConfigProvider;
@@ -16,12 +18,11 @@ use Symfony\Component\Console\Application;
 use Symfony\Component\Messenger\MessageBus;
 use Symfony\Component\Messenger\Transport\Sync\SyncTransport;
 
+/** @psalm-import-type ServiceManagerConfigurationType from ConfigInterface */
 final class LaminasCliIntegrationTest extends TestCase
 {
-    /** @var Application */
-    private $cliApplication;
-    /** @var ServiceManager */
-    private $container;
+    private Application $cliApplication;
+    private ServiceManager|null $container = null;
 
     protected function setUp(): void
     {
@@ -33,12 +34,8 @@ final class LaminasCliIntegrationTest extends TestCase
         $this->cliApplication->setCommandLoader(new ContainerCommandLoader($container, $commands));
     }
 
-    private function getContainer(): ContainerInterface
+    private static function getContainer(): ContainerInterface
     {
-        if ($this->container) {
-            return $this->container;
-        }
-
         $aggregator = new ConfigAggregator([
             ConfigProvider::class,
             FailureCommandsConfigProvider::class,
@@ -57,16 +54,22 @@ final class LaminasCliIntegrationTest extends TestCase
         $config = $aggregator->getMergedConfig();
         $dependencies = $config['dependencies'];
         $dependencies['services']['config'] = $config;
-        $this->container = new ServiceManager($dependencies);
 
-        return $this->container;
+        return new ServiceManager($dependencies);
     }
 
-    /** @return iterable<string, string[]> */
-    public function expectedCommandNameDataProvider(): iterable
+    /** @return Generator<string, array{0: string}> */
+    public static function expectedCommandNameDataProvider(): iterable
     {
-        $config = $this->getContainer()->get('config')['laminas-cli']['commands'];
-        foreach ($config as $commandName => $identifier) {
+        $config = self::getContainer()->get('config');
+        self::assertIsArray($config);
+        $commands = $config['laminas-cli']['commands'] ?? [];
+        self::assertIsArray($commands);
+
+        foreach ($commands as $commandName => $identifier) {
+            self::assertIsString($commandName);
+            self::assertIsString($identifier);
+
             yield $commandName => [$commandName];
         }
     }
