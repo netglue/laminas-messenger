@@ -10,11 +10,17 @@
         }
     ],
     "config": {
-        "sort-packages": true
+        "sort-packages": true,
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true
+        },
+        "platform": {
+            "php": "8.1"
+        }
     },
     "require": {
-        "php": "^7.3 || ~8.0 || ~8.1",
-        "laminas/laminas-stdlib": "^3.6",
+        "php": "~8.1 || ~8.2",
+        "laminas/laminas-stdlib": "^3.15.0",
         "psr/container": "^1.0 || ^2.0",
         "symfony/dependency-injection": "^5.3.8 || ^6.0.0",
         "symfony/event-dispatcher": "^5.3.7 || ^6.0.0",
@@ -22,14 +28,18 @@
         "symfony/serializer": "^5.3.12 || ^6.0.0"
     },
     "require-dev": {
-        "doctrine/coding-standard": "^9",
-        "laminas/laminas-cli": "^1.2.0",
-        "laminas/laminas-component-installer": "^2.5.1",
-        "laminas/laminas-config-aggregator": "^1.6.0",
-        "laminas/laminas-servicemanager": "^3.7.0",
-        "phpunit/phpunit": "^9.5.10",
+        "doctrine/coding-standard": "^11.0.0",
+        "laminas/laminas-cli": "^1.7",
+        "laminas/laminas-config-aggregator": "^1.13",
+        "laminas/laminas-servicemanager": "^3.20",
+        "lctrs/psalm-psr-container-plugin": "^1.9",
+        "phpunit/phpunit": "^10.0.0",
+        "psalm/plugin-phpunit": "^0.18.4",
         "roave/security-advisories": "dev-latest",
-        "squizlabs/php_codesniffer": "^3.6"
+        "squizlabs/php_codesniffer": "^3.7.1",
+        "symfony/amqp-messenger": "^5.3.12 || ^6.0.0",
+        "symfony/doctrine-messenger": "^5.3.12 || ^6.0.0",
+        "vimeo/psalm": "^5.2"
     },
     "suggest": {
         "laminas/laminas-cli": "To auto-wire symfony cli commands into your DI container with laminas/laminas-cli"
@@ -47,12 +57,14 @@
     "scripts": {
         "check": [
             "@cs-check",
-            "@test"
+            "@test",
+            "psalm"
         ],
         "cs-check": "phpcs",
         "cs-fix": "phpcbf",
         "test": "phpunit --colors=always",
-        "test-coverage": "phpunit --colors=always --coverage-html build/report"
+        "test-coverage": "phpunit --colors=always --coverage-html build/report",
+        "static-analysis": "psalm --shepherd --stats"
     },
     "extra": {
         "laminas": {

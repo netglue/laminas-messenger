@@ -24,11 +24,12 @@ class TransportFactoryFactoryTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
+
         $this->container = $this->createMock(ContainerInterface::class);
     }
 
     /** @return string[][] */
-    public function transportDataProvider(): iterable
+    public static function transportDataProvider(): iterable
     {
         yield 'AMQP' => ['amqp://guest:guest@localhost:5672/%2f/messages', AmqpTransportFactory::class];
 

@@ -37,6 +37,7 @@ class ServiceManagerIntegrationTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
+
         $this->config = $this->minimalCommandBusConfiguration();
     }
 
@@ -166,7 +167,7 @@ class ServiceManagerIntegrationTest extends TestCase
     }
 
     /** @return mixed[] */
-    public function failureCommandNames(): iterable
+    public static function failureCommandNames(): iterable
     {
         return [
             FailedMessagesRemoveCommand::class => [FailedMessagesRemoveCommand::class],
