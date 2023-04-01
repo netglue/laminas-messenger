@@ -7,9 +7,9 @@ namespace Netglue\PsrContainer\Messenger\Container;
 use Doctrine\ORM\EntityManager;
 use InvalidArgumentException;
 use Psr\Container\ContainerInterface;
-use Symfony\Component\Messenger\Exception\TransportException;
 use Symfony\Component\Messenger\Bridge\Doctrine\Transport\Connection;
 use Symfony\Component\Messenger\Bridge\Doctrine\Transport\DoctrineTransport;
+use Symfony\Component\Messenger\Exception\TransportException;
 use Symfony\Component\Messenger\Transport\Serialization\SerializerInterface;
 use Symfony\Component\Messenger\Transport\TransportFactoryInterface;
 use Symfony\Component\Messenger\Transport\TransportInterface;
@@ -41,7 +41,7 @@ class DoctrineTransportFactory implements TransportFactoryInterface
             throw new TransportException(
                 sprintf('Could not find Doctrine connection from Messenger DSN "%s".', $dsn),
                 0,
-                $e
+                $e,
             );
         }
 

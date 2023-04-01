@@ -35,7 +35,7 @@ class MessageHandlerMiddlewareStaticFactory
         $middleware = new HandleMessageMiddleware($locator, $options->allowsZeroHandlers());
         if ($options->logger()) {
             $middleware->setLogger(
-                $container->get($options->logger())
+                $container->get($options->logger()),
             );
         }
 

@@ -7,7 +7,6 @@ namespace Netglue\PsrContainer\Messenger\Container;
 use Netglue\PsrContainer\Messenger\Exception\ConfigurationError;
 use Psr\Container\ContainerInterface;
 use Symfony\Component\DependencyInjection\ServiceLocator;
-use Symfony\Component\Messenger\Transport\TransportInterface;
 
 use function is_string;
 use function sprintf;
@@ -29,14 +28,17 @@ trait FailureTransportRetrievalBehaviour
             throw new ConfigurationError(sprintf(
                 'The transport "%s" designated as the failure transport is not present in ' .
                 'the DI container',
-                $transportName
+                $transportName,
             ));
         }
+
         $transport = $container->get($transportName);
 
         return new ServiceLocator([
             $transportName =>
-                static function () use ($transport) { return $transport; },
+                static function () use ($transport) {
+                    return $transport;
+                },
         ]);
     }
 

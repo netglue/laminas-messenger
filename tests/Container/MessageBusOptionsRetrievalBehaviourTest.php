@@ -23,6 +23,7 @@ class MessageBusOptionsRetrievalBehaviourTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
+
         $this->subject = new class () {
             use MessageBusOptionsRetrievalBehaviour;
 

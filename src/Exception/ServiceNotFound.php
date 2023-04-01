@@ -15,7 +15,7 @@ class ServiceNotFound extends RuntimeException implements NotFoundExceptionInter
     {
         return new static(sprintf(
             'There is not a retry strategy configured for the transport "%s"',
-            $transportName
+            $transportName,
         ));
     }
 }

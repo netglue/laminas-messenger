@@ -17,6 +17,7 @@ class RetryStrategyContainerFactoryTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
+
         $this->container = $this->createMock(ContainerInterface::class);
     }
 

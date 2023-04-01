@@ -41,14 +41,14 @@ class ConsumeCommandFactory
         $dispatcher->addSubscriber(new SendFailedMessageForRetryListener(
             $container,
             $container->get(RetryStrategyContainer::class),
-            $logger
+            $logger,
         ));
 
         // Attach Failure Queue Listener if a queue has been configured
         if ($this->hasFailureTransport($container)) {
             $dispatcher->addSubscriber(new SendFailedMessageToFailureTransportListener(
                 $this->getFailureTransport($container),
-                $logger
+                $logger,
             ));
         }
 
@@ -57,7 +57,7 @@ class ConsumeCommandFactory
             $container,
             $dispatcher,
             $logger,
-            array_keys($receivers)
+            array_keys($receivers),
         );
     }
 }

@@ -12,7 +12,6 @@ use Symfony\Component\Messenger\Handler\HandlersLocatorInterface;
 use Symfony\Component\Messenger\Stamp\ReceivedStamp;
 
 use function assert;
-use function get_class;
 use function is_string;
 
 class OneToOneFqcnContainerHandlerLocator implements HandlersLocatorInterface
@@ -34,11 +33,11 @@ class OneToOneFqcnContainerHandlerLocator implements HandlersLocatorInterface
     public function getHandlers(Envelope $envelope): iterable
     {
         $message = $envelope->getMessage();
-        $type = get_class($message);
+        $type = $message::class;
         foreach ($this->handlers as $messageName => $handlerName) {
             if (! is_string($handlerName)) {
                 throw new ConfigurationError(
-                    'Handler should be a string representing a single handler to retrieve from the container'
+                    'Handler should be a string representing a single handler to retrieve from the container',
                 );
             }
 
