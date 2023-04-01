@@ -16,14 +16,15 @@ class DefaultCommandBusConfigProviderTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
+
         $this->provider = new DefaultCommandBusConfigProvider();
     }
 
     public function testDefaultBusOptionsAreValid(): void
     {
         $config = $this->provider->__invoke();
-        $this->assertIsArray($config['symfony']['messenger']['buses']);
-        foreach ($config['symfony']['messenger']['buses'] as $optionArray) {
+        $this->assertIsArray($config['framework']['messenger']['buses']);
+        foreach ($config['framework']['messenger']['buses'] as $optionArray) {
             new MessageBusOptions($optionArray);
         }
 

@@ -23,6 +23,7 @@ class MessageBusOptionsRetrievalBehaviourTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
+
         $this->subject = new class () {
             use MessageBusOptionsRetrievalBehaviour;
 
@@ -70,7 +71,7 @@ class MessageBusOptionsRetrievalBehaviourTest extends TestCase
     public function testOptionsWillBeRelevantToTheBusIdentifierProvided(): void
     {
         $this->configWillBe([
-            'symfony' => [
+            'framework' => [
                 'messenger' => [
                     'buses' => [
                         'my_bus' => ['logger' => 'MyLogger'],

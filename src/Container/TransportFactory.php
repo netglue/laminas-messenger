@@ -34,7 +34,7 @@ class TransportFactory
         if (! $dsn) {
             throw new ConfigurationError(sprintf(
                 'There is no DSN configured for the transport with name "%s"',
-                $this->id
+                $this->id,
             ));
         }
 
@@ -56,10 +56,10 @@ class TransportFactory
     }
 
     /** @return mixed[]|string */
-    private function options(ContainerInterface $container)
+    private function options(ContainerInterface $container): array|string
     {
         $config = $container->has('config') ? $container->get('config') : [];
 
-        return $config['symfony']['messenger']['transports'][$this->id] ?? [];
+        return $config['framework']['messenger']['transports'][$this->id] ?? [];
     }
 }

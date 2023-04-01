@@ -5,16 +5,19 @@ declare(strict_types=1);
 namespace Netglue\PsrContainer\MessengerTest;
 
 use Netglue\PsrContainer\Messenger\Container\DoctrineTransportFactory;
+use Netglue\PsrContainer\Messenger\Exception\ConfigurationError;
 use Netglue\PsrContainer\Messenger\Exception\UnknownTransportScheme;
 use Netglue\PsrContainer\Messenger\TransportFactoryFactory;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Psr\Container\ContainerInterface;
+use stdClass;
+use Symfony\Component\Messenger\Bridge\Amqp\Transport\AmqpTransportFactory;
+use Symfony\Component\Messenger\Bridge\Redis\Transport\RedisTransportFactory;
 use Symfony\Component\Messenger\MessageBus;
-use Symfony\Component\Messenger\Transport\AmqpExt\AmqpTransportFactory;
 use Symfony\Component\Messenger\Transport\InMemoryTransportFactory;
-use Symfony\Component\Messenger\Transport\RedisExt\RedisTransportFactory;
 use Symfony\Component\Messenger\Transport\Sync\SyncTransportFactory;
+use Symfony\Component\Messenger\Transport\TransportFactoryInterface;
 
 class TransportFactoryFactoryTest extends TestCase
 {
@@ -59,6 +62,64 @@ class TransportFactoryFactoryTest extends TestCase
         $factory = new TransportFactoryFactory();
         $result = $factory('sync://message_bus', $this->container);
         self::assertInstanceOf(SyncTransportFactory::class, $result);
+    }
+
+    public function testThatConfiguredFactoryReturnsFactory(): void
+    {
+        $dsn = 'valid://foo';
+        $validFactory = $this->createStub(TransportFactoryInterface::class);
+        $validFactory->method('supports')
+            ->with($dsn, [])
+            ->willReturn(true);
+
+        $config = [
+            'framework' => [
+                'messenger' => [
+                    'transport_factories' => ['test-factory'],
+                ],
+            ],
+        ];
+
+        $this->container->method('has')
+            ->with('config')
+            ->willReturn(true);
+        $this->container->method('get')
+            ->willReturnMap([
+                ['config', $config],
+                ['test-factory', $validFactory],
+            ]);
+
+        $factory = new TransportFactoryFactory();
+        $result = $factory('valid://foo', $this->container);
+        self::assertSame($validFactory, $result);
+    }
+
+    public function testThatConfiguredInvalidFactoryThrowsConfigurationException(): void
+    {
+        $dsn = 'invalid://foo';
+        $invalidFactory = new stdClass();
+
+        $config = [
+            'framework' => [
+                'messenger' => [
+                    'transport_factories' => ['test-factory'],
+                ],
+            ],
+        ];
+
+        $this->container->method('has')
+            ->with('config')
+            ->willReturn(true);
+        $this->container->method('get')
+            ->willReturnMap([
+                ['config', $config],
+                ['test-factory', $invalidFactory],
+            ]);
+
+        $factory = new TransportFactoryFactory();
+
+        $this->expectException(ConfigurationError::class);
+        $factory($dsn, $this->container);
     }
 
     public function testExceptionThrownForUnknownTransportScheme(): void

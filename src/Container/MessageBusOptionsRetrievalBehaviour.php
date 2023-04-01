@@ -12,7 +12,7 @@ trait MessageBusOptionsRetrievalBehaviour
     private function options(ContainerInterface $container, string $busIdentifier): MessageBusOptions
     {
         $config = $container->has('config') ? $container->get('config') : [];
-        $config = $config['symfony']['messenger']['buses'][$busIdentifier] ?? [];
+        $config = $config['framework']['messenger']['buses'][$busIdentifier] ?? [];
 
         return new MessageBusOptions($config);
     }

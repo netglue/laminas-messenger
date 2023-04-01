@@ -14,7 +14,7 @@ class DebugCommandFactory
     public function __invoke(ContainerInterface $container): DebugCommand
     {
         $config = $container->has('config') ? $container->get('config') : [];
-        $busList = $config['symfony']['messenger']['buses'] ?: [];
+        $busList = $config['framework']['messenger']['buses'] ?: [];
         $map = [];
         foreach ($busList as $bus => $busConfig) {
             $handlers = $busConfig['handlers'] ?: [];

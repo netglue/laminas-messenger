@@ -17,6 +17,7 @@ class RetryStrategyContainerFactoryTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
+
         $this->container = $this->createMock(ContainerInterface::class);
     }
 
@@ -37,7 +38,7 @@ class RetryStrategyContainerFactoryTest extends TestCase
     public function testThatStrategyIsNotAvailableWhenTransportDoesNotSpecifyStrategy(): void
     {
         $this->configWillBe([
-            'symfony' => [
+            'framework' => [
                 'messenger' => [
                     'transports' => [
                         'my_transport' => [
@@ -57,7 +58,7 @@ class RetryStrategyContainerFactoryTest extends TestCase
     public function testThatStrategyIsAvailableWhenTransportDoesSpecifyStrategy(): void
     {
         $this->configWillBe([
-            'symfony' => [
+            'framework' => [
                 'messenger' => [
                     'transports' => [
                         'my_transport' => [

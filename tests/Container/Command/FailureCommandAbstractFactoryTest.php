@@ -25,6 +25,7 @@ class FailureCommandAbstractFactoryTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
+
         $this->container = $this->createMock(ContainerInterface::class);
     }
 
@@ -69,7 +70,7 @@ class FailureCommandAbstractFactoryTest extends TestCase
             ->method('get')
             ->with('config')
             ->willReturn([
-                'symfony' => [
+                'framework' => [
                     'messenger' => ['failure_transport' => 'failure'],
                 ],
             ]);
@@ -91,7 +92,7 @@ class FailureCommandAbstractFactoryTest extends TestCase
                 [
                     'config',
                     [
-                        'symfony' => [
+                        'framework' => [
                             'messenger' => ['failure_transport' => 'failure'],
                         ],
                     ],

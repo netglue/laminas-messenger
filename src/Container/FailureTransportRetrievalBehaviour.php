@@ -6,7 +6,7 @@ namespace Netglue\PsrContainer\Messenger\Container;
 
 use Netglue\PsrContainer\Messenger\Exception\ConfigurationError;
 use Psr\Container\ContainerInterface;
-use Symfony\Component\Messenger\Transport\TransportInterface;
+use Symfony\Component\DependencyInjection\ServiceLocator;
 
 use function is_string;
 use function sprintf;
@@ -16,29 +16,36 @@ trait FailureTransportRetrievalBehaviour
     private function hasFailureTransport(ContainerInterface $container): bool
     {
         $config = $container->has('config') ? $container->get('config') : [];
-        $transportName = $config['symfony']['messenger']['failure_transport'] ?? null;
+        $transportName = $config['framework']['messenger']['failure_transport'] ?? null;
 
         return is_string($transportName) && $container->has($transportName);
     }
 
-    private function getFailureTransport(ContainerInterface $container): TransportInterface
+    private function getFailureTransport(ContainerInterface $container): ServiceLocator
     {
         $transportName = $this->getFailureTransportName($container);
         if (! $container->has($transportName)) {
             throw new ConfigurationError(sprintf(
                 'The transport "%s" designated as the failure transport is not present in ' .
                 'the DI container',
-                $transportName
+                $transportName,
             ));
         }
 
-        return $container->get($transportName);
+        $transport = $container->get($transportName);
+
+        return new ServiceLocator([
+            $transportName =>
+                static function () use ($transport) {
+                    return $transport;
+                },
+        ]);
     }
 
     private function getFailureTransportName(ContainerInterface $container): string
     {
         $config = $container->has('config') ? $container->get('config') : [];
-        $transportName = $config['symfony']['messenger']['failure_transport'] ?? null;
+        $transportName = $config['framework']['messenger']['failure_transport'] ?? null;
 
         if (! $transportName) {
             throw new ConfigurationError('No failure transport has been specified');

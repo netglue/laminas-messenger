@@ -11,7 +11,7 @@ class DefaultEventBusConfigProvider
     {
         return [
             'dependencies' => $this->dependencies(),
-            'symfony' => [
+            'framework' => [
                 'messenger' => [
                     'buses' => $this->busConfig(),
                 ],

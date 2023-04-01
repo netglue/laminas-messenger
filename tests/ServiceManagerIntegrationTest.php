@@ -55,7 +55,7 @@ class ServiceManagerIntegrationTest extends TestCase
             ConfigProvider::class,
             DefaultCommandBusConfigProvider::class,
             new ArrayProvider([
-                'symfony' => [
+                'framework' => [
                     'messenger' => [
                         'transports' => [
                             'my_transport' => ['dsn' => 'in-memory:///'],
@@ -105,7 +105,7 @@ class ServiceManagerIntegrationTest extends TestCase
 
     public function testThatMessageSentOnDefaultCommandBusIsRoutedToConfiguredTransport(): void
     {
-        $this->config['symfony']['messenger']['buses']['command_bus']['handlers'] = [
+        $this->config['framework']['messenger']['buses']['command_bus']['handlers'] = [
             TestCommand::class => TestCommandHandler::class,
         ];
         $this->config['dependencies']['factories'][TestCommandHandler::class] = InvokableFactory::class;
@@ -123,8 +123,8 @@ class ServiceManagerIntegrationTest extends TestCase
 
     private function setUpFailureTransport(): void
     {
-        $this->config['symfony']['messenger']['failure_transport'] = 'failure_transport';
-        $this->config['symfony']['messenger']['transports']['failure_transport'] = ['dsn' => 'in-memory:///'];
+        $this->config['framework']['messenger']['failure_transport'] = 'failure_transport';
+        $this->config['framework']['messenger']['transports']['failure_transport'] = ['dsn' => 'in-memory:///'];
         $this->config['dependencies']['factories']['failure_transport'] = [TransportFactory::class, 'failure_transport'];
     }
 
@@ -149,7 +149,7 @@ class ServiceManagerIntegrationTest extends TestCase
     public function testThatFailedMessagesWillBeSentToFailureTransportWhenConfigured(): void
     {
         $this->setUpFailureTransport();
-        $this->config['symfony']['messenger']['buses']['command_bus']['handlers'] = [
+        $this->config['framework']['messenger']['buses']['command_bus']['handlers'] = [
             TestCommand::class => ExceptionalCommandHandler::class,
         ];
 

@@ -23,9 +23,9 @@ class ConsumeCommandFactory
     public function __invoke(ContainerInterface $container): ConsumeMessagesCommand
     {
         $config = $container->has('config') ? $container->get('config') : [];
-        $logger = $config['symfony']['messenger']['logger'] ?? null;
+        $logger = $config['framework']['messenger']['logger'] ?? null;
         $logger = $logger ? $container->get($logger) : null;
-        $receivers = $config['symfony']['messenger']['transports'] ?? [];
+        $receivers = $config['framework']['messenger']['transports'] ?? [];
 
         if ($this->hasFailureTransport($container)) {
             unset($receivers[$this->getFailureTransportName($container)]);
@@ -41,14 +41,14 @@ class ConsumeCommandFactory
         $dispatcher->addSubscriber(new SendFailedMessageForRetryListener(
             $container,
             $container->get(RetryStrategyContainer::class),
-            $logger
+            $logger,
         ));
 
         // Attach Failure Queue Listener if a queue has been configured
         if ($this->hasFailureTransport($container)) {
             $dispatcher->addSubscriber(new SendFailedMessageToFailureTransportListener(
                 $this->getFailureTransport($container),
-                $logger
+                $logger,
             ));
         }
 
@@ -57,7 +57,7 @@ class ConsumeCommandFactory
             $container,
             $dispatcher,
             $logger,
-            array_keys($receivers)
+            array_keys($receivers),
         );
     }
 }

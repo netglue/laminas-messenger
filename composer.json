@@ -39,6 +39,7 @@
         "squizlabs/php_codesniffer": "^3.7.1",
         "symfony/amqp-messenger": "^5.3.12 || ^6.0.0",
         "symfony/doctrine-messenger": "^5.3.12 || ^6.0.0",
+        "symfony/redis-messenger": "^5.3.10 || ^6.0.0",
         "vimeo/psalm": "^5.2"
     },
     "suggest": {

@@ -40,7 +40,7 @@ final class LaminasCliIntegrationTest extends TestCase
             ConfigProvider::class,
             FailureCommandsConfigProvider::class,
             new ArrayProvider([
-                'symfony' => [
+                'framework' => [
                     'messenger' => ['failure_transport' => 'failure'],
                 ],
                 'dependencies' => [

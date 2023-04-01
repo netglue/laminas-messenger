@@ -50,7 +50,7 @@ $transports = [
 ];
 
 return [
-    'symfony' => [
+    'framework' => [
         'messenger' => [
             'transports' => $transports,
         ],
