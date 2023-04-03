@@ -4282,12 +4282,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/SecurityAdvisories.git",
-                "reference": "859e034a7425f6fd0c30c58198f831ac6c7e6bfb"
+                "reference": "f8e6718defe2cc1d760f864606aa7d39484227d5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/859e034a7425f6fd0c30c58198f831ac6c7e6bfb",
-                "reference": "859e034a7425f6fd0c30c58198f831ac6c7e6bfb",
+                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/f8e6718defe2cc1d760f864606aa7d39484227d5",
+                "reference": "f8e6718defe2cc1d760f864606aa7d39484227d5",
                 "shasum": ""
             },
             "conflict": {
@@ -4607,6 +4607,7 @@
                 "phpxmlrpc/extras": "<0.6.1",
                 "phpxmlrpc/phpxmlrpc": "<4.9.2",
                 "pimcore/data-hub": "<1.2.4",
+                "pimcore/perspective-editor": "<1.5.1",
                 "pimcore/pimcore": "<10.5.20",
                 "pixelfed/pixelfed": "<=0.11.4",
                 "pocketmine/bedrock-protocol": "<8.0.2",
@@ -4871,7 +4872,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-03-31T23:04:35+00:00"
+            "time": "2023-04-03T19:04:19+00:00"
         },
         {
             "name": "sebastian/cli-parser",
