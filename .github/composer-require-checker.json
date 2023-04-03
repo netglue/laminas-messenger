@@ -4,6 +4,8 @@
         "static", "self", "parent",
         "array", "string", "int", "float", "bool", "iterable", "callable", "void", "object", "mixed", "never",
         "Doctrine\\ORM\\EntityManager",
-        "Laminas\\ServiceManager\\Factory\\InvokableFactory"
+        "Laminas\\ServiceManager\\Factory\\InvokableFactory",
+        "Symfony\\Component\\Messenger\\Bridge\\Amqp\\Transport\\AmqpTransportFactory",
+        "Symfony\\Component\\Messenger\\Bridge\\Redis\\Transport\\RedisTransportFactory"
     ]
 }
