@@ -6,6 +6,6 @@ namespace Netglue\PsrContainer\Messenger\Exception;
 
 use RuntimeException;
 
-class ConfigurationError extends RuntimeException
+final class ConfigurationError extends RuntimeException
 {
 }

@@ -9,7 +9,7 @@ use Symfony\Component\Messenger\Command\DebugCommand;
 
 use function is_string;
 
-class DebugCommandFactory
+final class DebugCommandFactory
 {
     public function __invoke(ContainerInterface $container): DebugCommand
     {

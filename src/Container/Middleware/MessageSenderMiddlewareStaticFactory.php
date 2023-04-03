@@ -10,8 +10,7 @@ use Psr\Container\ContainerInterface;
 use Symfony\Component\Messenger\Middleware\SendMessageMiddleware;
 use Symfony\Component\Messenger\Transport\Sender\SendersLocator;
 
-/** @final */
-class MessageSenderMiddlewareStaticFactory
+final class MessageSenderMiddlewareStaticFactory
 {
     use MessageBusOptionsRetrievalBehaviour;
     use StaticFactoryContainerAssertion;

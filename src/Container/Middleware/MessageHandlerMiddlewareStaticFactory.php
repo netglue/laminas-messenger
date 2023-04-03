@@ -9,8 +9,7 @@ use Netglue\PsrContainer\Messenger\Container\StaticFactoryContainerAssertion;
 use Psr\Container\ContainerInterface;
 use Symfony\Component\Messenger\Middleware\HandleMessageMiddleware;
 
-/** @final */
-class MessageHandlerMiddlewareStaticFactory
+final class MessageHandlerMiddlewareStaticFactory
 {
     use MessageBusOptionsRetrievalBehaviour;
     use StaticFactoryContainerAssertion;

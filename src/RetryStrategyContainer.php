@@ -15,8 +15,7 @@ use function gettype;
 use function is_object;
 use function sprintf;
 
-/** @final */
-class RetryStrategyContainer implements ContainerInterface
+final class RetryStrategyContainer implements ContainerInterface
 {
     /** @var RetryStrategyInterface[] */
     private array $strategiesIndexedByTransport = [];

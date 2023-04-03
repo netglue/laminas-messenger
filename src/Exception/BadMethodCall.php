@@ -6,6 +6,6 @@ namespace Netglue\PsrContainer\Messenger\Exception;
 
 use BadMethodCallException;
 
-class BadMethodCall extends BadMethodCallException
+final class BadMethodCall extends BadMethodCallException
 {
 }

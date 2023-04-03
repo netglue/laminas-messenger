@@ -11,7 +11,7 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Messenger\Command\FailedMessagesRetryCommand;
 use Symfony\Component\Messenger\RoutableMessageBus;
 
-class FailedMessagesRetryCommandFactory
+final class FailedMessagesRetryCommandFactory
 {
     use FailureTransportRetrievalBehaviour;
 

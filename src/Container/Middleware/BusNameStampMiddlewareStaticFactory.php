@@ -8,8 +8,7 @@ use Netglue\PsrContainer\Messenger\Container\StaticFactoryContainerAssertion;
 use Psr\Container\ContainerInterface;
 use Symfony\Component\Messenger\Middleware\AddBusNameStampMiddleware;
 
-/** @final */
-class BusNameStampMiddlewareStaticFactory
+final class BusNameStampMiddlewareStaticFactory
 {
     use StaticFactoryContainerAssertion;
 
