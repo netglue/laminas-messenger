@@ -24,6 +24,7 @@ use function trim;
 
 use const PHP_URL_QUERY;
 
+/** @final */
 class TransportFactoryFactory
 {
     public function __invoke(string $dsn, ContainerInterface $container): TransportFactoryInterface

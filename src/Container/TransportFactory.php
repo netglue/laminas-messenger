@@ -15,8 +15,7 @@ use function is_array;
 use function is_string;
 use function sprintf;
 
-/** @final */
-class TransportFactory
+final class TransportFactory
 {
     use StaticFactoryContainerAssertion;
 

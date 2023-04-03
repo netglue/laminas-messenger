@@ -7,7 +7,7 @@ namespace Netglue\PsrContainer\Messenger;
 use Laminas\ServiceManager\Factory\InvokableFactory;
 use Symfony\Component\Messenger as SymfonyMessenger;
 
-class ConfigProvider
+final class ConfigProvider
 {
     /** @return mixed[] */
     public function __invoke(): array

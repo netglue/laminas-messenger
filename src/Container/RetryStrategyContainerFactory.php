@@ -9,7 +9,7 @@ use Psr\Container\ContainerInterface;
 
 use function is_array;
 
-class RetryStrategyContainerFactory
+final class RetryStrategyContainerFactory
 {
     public function __invoke(ContainerInterface $container): RetryStrategyContainer
     {

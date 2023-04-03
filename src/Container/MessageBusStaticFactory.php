@@ -8,8 +8,7 @@ use Psr\Container\ContainerInterface;
 use Symfony\Component\Messenger\MessageBus;
 use Symfony\Component\Messenger\MessageBusInterface;
 
-/** @final */
-class MessageBusStaticFactory
+final class MessageBusStaticFactory
 {
     use MessageBusOptionsRetrievalBehaviour;
     use StaticFactoryContainerAssertion;

@@ -16,7 +16,7 @@ use Symfony\Component\Messenger\RoutableMessageBus;
 
 use function array_keys;
 
-class ConsumeCommandFactory
+final class ConsumeCommandFactory
 {
     use FailureTransportRetrievalBehaviour;
 

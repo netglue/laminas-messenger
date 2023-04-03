@@ -10,7 +10,7 @@ use Symfony\Component\Messenger\Command\FailedMessagesRemoveCommand;
 use Symfony\Component\Messenger\Command\FailedMessagesRetryCommand;
 use Symfony\Component\Messenger\Command\FailedMessagesShowCommand;
 
-class FailureCommandsConfigProvider
+final class FailureCommandsConfigProvider
 {
     /** @return mixed[] */
     public function __invoke(): array

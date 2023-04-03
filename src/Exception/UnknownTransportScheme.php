@@ -6,8 +6,7 @@ namespace Netglue\PsrContainer\Messenger\Exception;
 
 use function sprintf;
 
-/** @final */
-class UnknownTransportScheme extends InvalidArgument
+final class UnknownTransportScheme extends InvalidArgument
 {
     public static function withOffendingString(string $scheme): self
     {

@@ -15,8 +15,7 @@ use Symfony\Component\Messenger\Command\FailedMessagesShowCommand;
 use function in_array;
 use function sprintf;
 
-/** @final */
-class FailureCommandAbstractFactory
+final class FailureCommandAbstractFactory
 {
     use StaticFactoryContainerAssertion;
     use FailureTransportRetrievalBehaviour;

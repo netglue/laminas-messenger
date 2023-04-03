@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Netglue\PsrContainer\Messenger;
 
-class DefaultEventBusConfigProvider
+final class DefaultEventBusConfigProvider
 {
     /** @return mixed[] */
     public function __invoke(): array
