@@ -12,6 +12,7 @@ use Laminas\ServiceManager\ConfigInterface;
 use Laminas\ServiceManager\ServiceManager;
 use Netglue\PsrContainer\Messenger\ConfigProvider;
 use Netglue\PsrContainer\Messenger\FailureCommandsConfigProvider;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Psr\Container\ContainerInterface;
 use Symfony\Component\Console\Application;
@@ -22,24 +23,19 @@ use Symfony\Component\Messenger\Transport\Sync\SyncTransport;
 final class LaminasCliIntegrationTest extends TestCase
 {
     private Application $cliApplication;
-    private ServiceManager|null $container = null;
 
     protected function setUp(): void
     {
         parent::setUp();
 
-        $container = $this->getContainer();
+        $container = self::getContainer();
         $commands = $container->get('config')['laminas-cli']['commands'] ?? [];
         $this->cliApplication = new Application();
         $this->cliApplication->setCommandLoader(new ContainerCommandLoader($container, $commands));
     }
 
-    private function getContainer(): ContainerInterface
+    private static function getContainer(): ContainerInterface
     {
-        if ($this->container) {
-            return $this->container;
-        }
-
         $aggregator = new ConfigAggregator([
             ConfigProvider::class,
             FailureCommandsConfigProvider::class,
@@ -58,16 +54,16 @@ final class LaminasCliIntegrationTest extends TestCase
         $config = $aggregator->getMergedConfig();
         /** @psalm-var ServiceManagerConfigurationType $dependencies */
         $dependencies = $config['dependencies'];
+        unset($dependencies['services']['config']);
         $dependencies['services']['config'] = $config;
-        $this->container = new ServiceManager($dependencies);
 
-        return $this->container;
+        return new ServiceManager($dependencies);
     }
 
     /** @return Generator<string, array{0: string}> */
-    public function expectedCommandNameDataProvider(): iterable
+    public static function expectedCommandNameDataProvider(): iterable
     {
-        $config = $this->getContainer()->get('config');
+        $config = self::getContainer()->get('config');
         self::assertIsArray($config);
         $commands = $config['laminas-cli']['commands'] ?? [];
         self::assertIsArray($commands);
@@ -80,7 +76,7 @@ final class LaminasCliIntegrationTest extends TestCase
         }
     }
 
-    /** @dataProvider expectedCommandNameDataProvider */
+    #[DataProvider('expectedCommandNameDataProvider')]
     public function testCommandsAreAvailableToTheCliApplicationWithTheDefaultConfigProviders(string $commandName): void
     {
         self::assertTrue($this->cliApplication->has($commandName));
