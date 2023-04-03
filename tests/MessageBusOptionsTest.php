@@ -8,6 +8,7 @@ use Netglue\PsrContainer\Messenger\Exception\InvalidArgument;
 use Netglue\PsrContainer\Messenger\HandlerLocator\OneToManyFqcnContainerHandlerLocator;
 use Netglue\PsrContainer\Messenger\HandlerLocator\OneToOneFqcnContainerHandlerLocator;
 use Netglue\PsrContainer\Messenger\MessageBusOptions;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Messenger\Handler\HandlersLocator;
 use Symfony\Component\Messenger\Handler\HandlersLocatorInterface;
@@ -68,8 +69,8 @@ class MessageBusOptionsTest extends TestCase
         $this->options->setHandlerLocator(self::class);
     }
 
-    /** @return mixed[] */
-    public function handlerLocatorTypes(): iterable
+    /** @return array<array-key, array{0: class-string}> */
+    public static function handlerLocatorTypes(): iterable
     {
         return [
             [OneToOneFqcnContainerHandlerLocator::class],
@@ -79,7 +80,8 @@ class MessageBusOptionsTest extends TestCase
         ];
     }
 
-    /** @dataProvider handlerLocatorTypes */
+    /** @param class-string $type */
+    #[DataProvider('handlerLocatorTypes')]
     public function testValidKnownLocatorTypes(string $type): void
     {
         $this->options->setHandlerLocator($type);

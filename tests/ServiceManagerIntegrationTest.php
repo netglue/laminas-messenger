@@ -15,6 +15,7 @@ use Netglue\PsrContainer\Messenger\FailureCommandsConfigProvider;
 use Netglue\PsrContainer\MessengerTest\Fixture\ExceptionalCommandHandler;
 use Netglue\PsrContainer\MessengerTest\Fixture\TestCommand;
 use Netglue\PsrContainer\MessengerTest\Fixture\TestCommandHandler;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\ContainerInterface;
@@ -166,8 +167,8 @@ class ServiceManagerIntegrationTest extends TestCase
         self::assertInstanceOf(TestCommand::class, $envelope->getMessage());
     }
 
-    /** @return mixed[] */
-    public function failureCommandNames(): iterable
+    /** @return array<class-string, array{0: class-string}> */
+    public static function failureCommandNames(): iterable
     {
         return [
             FailedMessagesRemoveCommand::class => [FailedMessagesRemoveCommand::class],
@@ -176,8 +177,8 @@ class ServiceManagerIntegrationTest extends TestCase
         ];
     }
 
-    /** @dataProvider failureCommandNames */
-    public function testThatAnExceptionWillBeThrownWhenTheFailureCommandsAreRegisteredWithoutAFailureTransportAvailable(string $commandName): void
+    #[DataProvider('failureCommandNames')]
+    public function testThatAnExceptionWillBeThrownWhenTheFailureCommandsAreRegisteredWithoutAFailureTransportAvailable(): void
     {
         $aggregator = new ConfigAggregator([
             FailureCommandsConfigProvider::class,

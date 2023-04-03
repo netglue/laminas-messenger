@@ -8,6 +8,7 @@ use Netglue\PsrContainer\Messenger\Container\DoctrineTransportFactory;
 use Netglue\PsrContainer\Messenger\Exception\ConfigurationError;
 use Netglue\PsrContainer\Messenger\Exception\UnknownTransportScheme;
 use Netglue\PsrContainer\Messenger\TransportFactoryFactory;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Psr\Container\ContainerInterface;
@@ -21,7 +22,8 @@ use Symfony\Component\Messenger\Transport\TransportFactoryInterface;
 
 class TransportFactoryFactoryTest extends TestCase
 {
-    private MockObject|ContainerInterface $container;
+    /** @var ContainerInterface&MockObject */
+    private ContainerInterface $container;
 
     protected function setUp(): void
     {
@@ -30,8 +32,8 @@ class TransportFactoryFactoryTest extends TestCase
         $this->container = $this->createMock(ContainerInterface::class);
     }
 
-    /** @return string[][] */
-    public function transportDataProvider(): iterable
+    /** @return iterable<string, array{0: non-empty-string, 1: class-string}> */
+    public static function transportDataProvider(): iterable
     {
         yield 'AMQP' => ['amqp://guest:guest@localhost:5672/%2f/messages', AmqpTransportFactory::class];
 
@@ -42,7 +44,11 @@ class TransportFactoryFactoryTest extends TestCase
         yield 'Redis' => ['redis://', RedisTransportFactory::class];
     }
 
-    /** @dataProvider transportDataProvider */
+    /**
+     * @param non-empty-string $dsn
+     * @param class-string     $expectedClass
+     */
+    #[DataProvider('transportDataProvider')]
     public function testThatFactoryReturnsExpectedClass(string $dsn, string $expectedClass): void
     {
         $factory = new TransportFactoryFactory();

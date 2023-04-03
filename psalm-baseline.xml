@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<files psalm-version="5.4.0@62db5d4f6a7ae0a20f7cc5a4952d730272fc0863">
+<files psalm-version="5.9.0@8b9ad1eb9e8b7d3101f949291da2b9f7767cd163">
   <file src="src/Container/Command/ConsumeCommandFactory.php">
-    <InvalidArgument occurrences="1">
-      <code>$this-&gt;getFailureTransport($container)</code>
+    <InvalidArgument>
+      <code><![CDATA[$this->getFailureTransport($container)]]></code>
     </InvalidArgument>
-    <MixedArgument occurrences="3">
+    <MixedArgument>
       <code>$logger</code>
       <code>$logger</code>
       <code>$receivers</code>
     </MixedArgument>
-    <MixedArrayAccess occurrences="7">
-      <code>$config['symfony']</code>
-      <code>$config['symfony']</code>
-      <code>$config['symfony']['messenger']</code>
-      <code>$config['symfony']['messenger']</code>
-      <code>$config['symfony']['messenger']['logger']</code>
-      <code>$config['symfony']['messenger']['transports']</code>
-      <code>$receivers[$this-&gt;getFailureTransportName($container)]</code>
+    <MixedArrayAccess>
+      <code><![CDATA[$config['symfony']]]></code>
+      <code><![CDATA[$config['symfony']]]></code>
+      <code><![CDATA[$config['symfony']['messenger']]]></code>
+      <code><![CDATA[$config['symfony']['messenger']]]></code>
+      <code><![CDATA[$config['symfony']['messenger']['logger']]]></code>
+      <code><![CDATA[$config['symfony']['messenger']['transports']]]></code>
+      <code><![CDATA[$receivers[$this->getFailureTransportName($container)]]]></code>
     </MixedArrayAccess>
-    <MixedAssignment occurrences="4">
+    <MixedAssignment>
       <code>$config</code>
       <code>$logger</code>
       <code>$logger</code>
@@ -26,20 +26,20 @@
     </MixedAssignment>
   </file>
   <file src="src/Container/Command/DebugCommandFactory.php">
-    <MixedArrayAccess occurrences="4">
-      <code>$busConfig['handlers']</code>
-      <code>$config['symfony']</code>
-      <code>$config['symfony']['messenger']</code>
-      <code>$config['symfony']['messenger']['buses']</code>
+    <MixedArrayAccess>
+      <code><![CDATA[$busConfig['handlers']]]></code>
+      <code><![CDATA[$config['symfony']]]></code>
+      <code><![CDATA[$config['symfony']['messenger']]]></code>
+      <code><![CDATA[$config['symfony']['messenger']['buses']]]></code>
     </MixedArrayAccess>
-    <MixedArrayOffset occurrences="5">
+    <MixedArrayOffset>
       <code>$map[$bus]</code>
       <code>$map[$bus]</code>
       <code>$map[$bus]</code>
       <code>$map[$bus][$message]</code>
       <code>$map[$bus][$message]</code>
     </MixedArrayOffset>
-    <MixedAssignment occurrences="8">
+    <MixedAssignment>
       <code>$bus</code>
       <code>$busConfig</code>
       <code>$busList</code>
@@ -51,118 +51,122 @@
     </MixedAssignment>
   </file>
   <file src="src/Container/Command/FailedMessagesRetryCommandFactory.php">
-    <MixedArgument occurrences="2">
+    <MixedArgument>
       <code>$logger</code>
       <code>$logger</code>
     </MixedArgument>
-    <MixedArrayAccess occurrences="3">
-      <code>$config['symfony']</code>
-      <code>$config['symfony']['messenger']</code>
-      <code>$config['symfony']['messenger']['logger']</code>
+    <MixedArrayAccess>
+      <code><![CDATA[$config['symfony']]]></code>
+      <code><![CDATA[$config['symfony']['messenger']]]></code>
+      <code><![CDATA[$config['symfony']['messenger']['logger']]]></code>
     </MixedArrayAccess>
-    <MixedAssignment occurrences="3">
+    <MixedAssignment>
       <code>$config</code>
       <code>$logger</code>
       <code>$logger</code>
     </MixedAssignment>
   </file>
   <file src="src/Container/Command/FailureCommandAbstractFactory.php">
-    <DocblockTypeContradiction occurrences="1">
+    <DocblockTypeContradiction>
       <code>in_array($commandName, self::CAN_CREATE, true)</code>
     </DocblockTypeContradiction>
-    <NoValue occurrences="1">
+    <NoValue>
       <code>$commandName</code>
     </NoValue>
   </file>
   <file src="src/Container/DoctrineTransportFactory.php">
-    <MixedArgument occurrences="1">
-      <code>$configuration['connection']</code>
+    <MixedArgument>
+      <code><![CDATA[$configuration['connection']]]></code>
     </MixedArgument>
-    <MixedArrayAccess occurrences="1">
-      <code>$configuration['connection']</code>
+    <MixedArrayAccess>
+      <code><![CDATA[$configuration['connection']]]></code>
     </MixedArrayAccess>
-    <MixedAssignment occurrences="2">
+    <MixedAssignment>
       <code>$configuration</code>
       <code>$driverConnection</code>
     </MixedAssignment>
-    <MixedInferredReturnType occurrences="1">
+    <MixedInferredReturnType>
       <code>TransportInterface</code>
     </MixedInferredReturnType>
-    <UndefinedClass occurrences="1">
+    <UndefinedClass>
       <code>EntityManager</code>
     </UndefinedClass>
-    <UndefinedMethod occurrences="1">
+    <UndefinedMethod>
       <code>Connection::buildConfiguration($dsn, $options)</code>
     </UndefinedMethod>
   </file>
   <file src="src/Container/FailureTransportRetrievalBehaviour.php">
-    <MixedArrayAccess occurrences="6">
-      <code>$config['symfony']</code>
-      <code>$config['symfony']</code>
-      <code>$config['symfony']['messenger']</code>
-      <code>$config['symfony']['messenger']</code>
-      <code>$config['symfony']['messenger']['failure_transport']</code>
-      <code>$config['symfony']['messenger']['failure_transport']</code>
+    <MixedArrayAccess>
+      <code><![CDATA[$config['symfony']]]></code>
+      <code><![CDATA[$config['symfony']]]></code>
+      <code><![CDATA[$config['symfony']['messenger']]]></code>
+      <code><![CDATA[$config['symfony']['messenger']]]></code>
+      <code><![CDATA[$config['symfony']['messenger']['failure_transport']]]></code>
+      <code><![CDATA[$config['symfony']['messenger']['failure_transport']]]></code>
     </MixedArrayAccess>
-    <MixedAssignment occurrences="4">
+    <MixedAssignment>
       <code>$config</code>
       <code>$config</code>
       <code>$transportName</code>
       <code>$transportName</code>
     </MixedAssignment>
-    <MixedInferredReturnType occurrences="2">
+    <MixedInferredReturnType>
       <code>TransportInterface</code>
       <code>string</code>
     </MixedInferredReturnType>
   </file>
   <file src="src/Container/MessageBusOptionsRetrievalBehaviour.php">
-    <MixedArgument occurrences="1">
+    <MixedArgument>
       <code>$config</code>
     </MixedArgument>
-    <MixedArrayAccess occurrences="4">
-      <code>$config['symfony']</code>
-      <code>$config['symfony']['messenger']</code>
-      <code>$config['symfony']['messenger']['buses']</code>
-      <code>$config['symfony']['messenger']['buses'][$busIdentifier]</code>
+    <MixedArrayAccess>
+      <code><![CDATA[$config['symfony']]]></code>
+      <code><![CDATA[$config['symfony']['messenger']]]></code>
+      <code><![CDATA[$config['symfony']['messenger']['buses']]]></code>
+      <code><![CDATA[$config['symfony']['messenger']['buses'][$busIdentifier]]]></code>
     </MixedArrayAccess>
-    <MixedAssignment occurrences="2">
+    <MixedAssignment>
       <code>$config</code>
       <code>$config</code>
     </MixedAssignment>
   </file>
   <file src="src/Container/MessageBusStaticFactory.php">
-    <MixedAssignment occurrences="1">
+    <MixedAssignment>
       <code>$middleware[]</code>
     </MixedAssignment>
-    <PossiblyInvalidArgument occurrences="1">
+    <PossiblyInvalidArgument>
       <code>$middleware</code>
     </PossiblyInvalidArgument>
   </file>
   <file src="src/Container/Middleware/MessageHandlerMiddlewareStaticFactory.php">
-    <InvalidStringClass occurrences="1">
-      <code>new $locatorClass($options-&gt;handlers(), $container)</code>
+    <InvalidStringClass>
+      <code><![CDATA[new $locatorClass($options->handlers(), $container)]]></code>
     </InvalidStringClass>
-    <MixedArgument occurrences="2">
-      <code>$container-&gt;get($options-&gt;logger())</code>
+    <MixedArgument>
+      <code><![CDATA[$container->get($options->logger())]]></code>
       <code>$locator</code>
     </MixedArgument>
-    <MixedAssignment occurrences="1">
+    <MixedAssignment>
       <code>$locator</code>
     </MixedAssignment>
   </file>
   <file src="src/Container/Middleware/MessageSenderMiddlewareStaticFactory.php">
-    <MixedArgument occurrences="1"/>
+    <MixedArgument>
+      <code><![CDATA[$container->get(
+                    $options->logger(),
+                )]]></code>
+    </MixedArgument>
   </file>
   <file src="src/Container/RetryStrategyContainerFactory.php">
-    <MixedArrayAccess occurrences="3">
-      <code>$config['symfony']</code>
-      <code>$config['symfony']['messenger']</code>
-      <code>$config['symfony']['messenger']['transports']</code>
+    <MixedArrayAccess>
+      <code><![CDATA[$config['symfony']]]></code>
+      <code><![CDATA[$config['symfony']['messenger']]]></code>
+      <code><![CDATA[$config['symfony']['messenger']['transports']]]></code>
     </MixedArrayAccess>
-    <MixedArrayOffset occurrences="1">
+    <MixedArrayOffset>
       <code>$retryConfig[$transportName]</code>
     </MixedArrayOffset>
-    <MixedAssignment occurrences="4">
+    <MixedAssignment>
       <code>$config</code>
       <code>$config</code>
       <code>$retryConfig[$transportName]</code>
@@ -170,54 +174,54 @@
     </MixedAssignment>
   </file>
   <file src="src/Container/TransportFactory.php">
-    <MixedArgument occurrences="3">
-      <code>$options['options'] ?? []</code>
+    <MixedArgument>
+      <code><![CDATA[$options['options'] ?? []]]></code>
       <code>$serializer</code>
       <code>$serializer</code>
     </MixedArgument>
-    <MixedAssignment occurrences="3">
+    <MixedAssignment>
       <code>$serializer</code>
       <code>$serializer</code>
       <code>$serializer</code>
     </MixedAssignment>
   </file>
-  <file src="src/Exception/ServiceNotFound.php">
-    <UnsafeInstantiation occurrences="1"/>
-  </file>
-  <file src="src/Exception/UnknownTransportScheme.php">
-    <UnsafeInstantiation occurrences="1"/>
-  </file>
   <file src="src/FailureCommandsConfigProvider.php">
-    <InvalidArrayOffset occurrences="1"/>
+    <InvalidArrayOffset>
+      <code><![CDATA[[
+                FailedMessagesRemoveCommand::getDefaultName() => FailedMessagesRemoveCommand::class,
+                FailedMessagesRetryCommand::getDefaultName() => FailedMessagesRetryCommand::class,
+                FailedMessagesShowCommand::getDefaultName() => FailedMessagesShowCommand::class,
+            ]]]></code>
+    </InvalidArrayOffset>
   </file>
   <file src="src/HandlerLocator/OneToManyFqcnContainerHandlerLocator.php">
-    <DocblockTypeContradiction occurrences="1">
+    <DocblockTypeContradiction>
       <code>is_array($handlers)</code>
     </DocblockTypeContradiction>
   </file>
   <file src="src/HandlerLocator/OneToOneFqcnContainerHandlerLocator.php">
-    <DocblockTypeContradiction occurrences="1">
+    <DocblockTypeContradiction>
       <code>is_string($handlerName)</code>
     </DocblockTypeContradiction>
-    <MixedArgument occurrences="1">
-      <code>$this-&gt;container-&gt;get($handlerName)</code>
+    <MixedArgument>
+      <code><![CDATA[$this->container->get($handlerName)]]></code>
     </MixedArgument>
-    <MixedAssignment occurrences="1">
+    <MixedAssignment>
       <code>$expectedTransport</code>
     </MixedAssignment>
   </file>
   <file src="src/RetryStrategyContainer.php">
-    <MixedArgument occurrences="1">
+    <MixedArgument>
       <code>$serviceName</code>
     </MixedArgument>
-    <MixedArrayAccess occurrences="5">
-      <code>$config['delay']</code>
-      <code>$config['max_delay']</code>
-      <code>$config['max_retries']</code>
-      <code>$config['multiplier']</code>
-      <code>$config['service']</code>
+    <MixedArrayAccess>
+      <code><![CDATA[$config['delay']]]></code>
+      <code><![CDATA[$config['max_delay']]]></code>
+      <code><![CDATA[$config['max_retries']]]></code>
+      <code><![CDATA[$config['multiplier']]]></code>
+      <code><![CDATA[$config['service']]]></code>
     </MixedArrayAccess>
-    <MixedAssignment occurrences="7">
+    <MixedAssignment>
       <code>$config</code>
       <code>$delay</code>
       <code>$maxDelay</code>
@@ -228,37 +232,37 @@
     </MixedAssignment>
   </file>
   <file src="src/TransportFactoryFactory.php">
-    <DeprecatedClass occurrences="2">
+    <DeprecatedClass>
       <code>new AmqpTransportFactory()</code>
       <code>new RedisTransportFactory()</code>
     </DeprecatedClass>
-    <InvalidReturnStatement occurrences="2">
+    <InvalidReturnStatement>
       <code>new AmqpTransportFactory()</code>
       <code>new RedisTransportFactory()</code>
     </InvalidReturnStatement>
-    <InvalidReturnType occurrences="1">
+    <InvalidReturnType>
       <code>TransportFactoryInterface</code>
     </InvalidReturnType>
-    <MixedArgument occurrences="2">
-      <code>$container-&gt;get(trim($config, '/'))</code>
+    <MixedArgument>
+      <code><![CDATA[$container->get(trim($config, '/'))]]></code>
       <code>$name</code>
     </MixedArgument>
-    <MixedArrayAccess occurrences="3">
-      <code>$config['symfony']</code>
-      <code>$config['symfony']['messenger']</code>
-      <code>$config['symfony']['messenger']['transport_factories']</code>
+    <MixedArrayAccess>
+      <code><![CDATA[$config['symfony']]]></code>
+      <code><![CDATA[$config['symfony']['messenger']]]></code>
+      <code><![CDATA[$config['symfony']['messenger']['transport_factories']]]></code>
     </MixedArrayAccess>
-    <MixedAssignment occurrences="3">
+    <MixedAssignment>
       <code>$config</code>
       <code>$name</code>
       <code>$transportFactories</code>
     </MixedAssignment>
   </file>
   <file src="tests/Container/MessageBusOptionsRetrievalBehaviourTest.php">
-    <MixedAssignment occurrences="1">
+    <MixedAssignment>
       <code>$options</code>
     </MixedAssignment>
-    <MixedMethodCall occurrences="12">
+    <MixedMethodCall>
       <code>getOptions</code>
       <code>getOptions</code>
       <code>method</code>
@@ -272,24 +276,24 @@
       <code>with</code>
       <code>with</code>
     </MixedMethodCall>
-    <PossiblyUndefinedMethod occurrences="3">
+    <PossiblyUndefinedMethod>
       <code>expects</code>
       <code>expects</code>
       <code>expects</code>
     </PossiblyUndefinedMethod>
   </file>
   <file src="tests/Container/Middleware/BusNameStampMiddlewareStaticFactoryTest.php">
-    <RedundantConditionGivenDocblockType occurrences="1">
+    <RedundantConditionGivenDocblockType>
       <code>assert($stamp instanceof BusNameStamp)</code>
     </RedundantConditionGivenDocblockType>
   </file>
   <file src="tests/Container/RetryStrategyContainerFactoryTest.php">
-    <MissingDependency occurrences="3">
-      <code>$this-&gt;container</code>
-      <code>$this-&gt;container</code>
+    <MissingDependency>
+      <code><![CDATA[$this->container]]></code>
+      <code><![CDATA[$this->container]]></code>
       <code>ObjectProphecy|ContainerInterface</code>
     </MissingDependency>
-    <MixedMethodCall occurrences="6">
+    <MixedMethodCall>
       <code>method</code>
       <code>method</code>
       <code>willReturn</code>
@@ -297,124 +301,115 @@
       <code>with</code>
       <code>with</code>
     </MixedMethodCall>
-    <PossiblyInvalidArgument occurrences="2">
-      <code>$this-&gt;container</code>
-      <code>$this-&gt;container</code>
+    <PossiblyInvalidArgument>
+      <code><![CDATA[$this->container]]></code>
+      <code><![CDATA[$this->container]]></code>
     </PossiblyInvalidArgument>
-    <UndefinedInterfaceMethod occurrences="2">
+    <UndefinedInterfaceMethod>
       <code>expects</code>
       <code>expects</code>
     </UndefinedInterfaceMethod>
   </file>
   <file src="tests/Container/StaticFactoryContainerAssertionTest.php">
-    <MixedMethodCall occurrences="2">
+    <MixedMethodCall>
       <code>callStatic</code>
       <code>callStatic</code>
     </MixedMethodCall>
   </file>
   <file src="tests/Container/TransportFactoryTest.php">
-    <NoInterfaceProperties occurrences="9">
-      <code>$this-&gt;factory-&gt;dsn</code>
-      <code>$this-&gt;factory-&gt;dsn</code>
-      <code>$this-&gt;factory-&gt;dsn</code>
-      <code>$this-&gt;factory-&gt;options</code>
-      <code>$this-&gt;factory-&gt;options</code>
-      <code>$this-&gt;factory-&gt;options</code>
-      <code>$this-&gt;factory-&gt;serializer</code>
-      <code>$this-&gt;factory-&gt;serializer</code>
-      <code>$this-&gt;factory-&gt;serializer</code>
+    <NoInterfaceProperties>
+      <code><![CDATA[$this->factory->dsn]]></code>
+      <code><![CDATA[$this->factory->dsn]]></code>
+      <code><![CDATA[$this->factory->dsn]]></code>
+      <code><![CDATA[$this->factory->options]]></code>
+      <code><![CDATA[$this->factory->options]]></code>
+      <code><![CDATA[$this->factory->options]]></code>
+      <code><![CDATA[$this->factory->serializer]]></code>
+      <code><![CDATA[$this->factory->serializer]]></code>
+      <code><![CDATA[$this->factory->serializer]]></code>
     </NoInterfaceProperties>
   </file>
   <file src="tests/DefaultCommandBusConfigProviderTest.php">
-    <InternalMethod occurrences="1">
+    <InternalMethod>
       <code>addToAssertionCount</code>
     </InternalMethod>
-    <MixedArgument occurrences="1">
+    <MixedArgument>
       <code>$optionArray</code>
     </MixedArgument>
-    <MixedArrayAccess occurrences="3">
-      <code>$config['symfony']['messenger']</code>
-      <code>$config['symfony']['messenger']</code>
-      <code>$config['symfony']['messenger']['buses']</code>
+    <MixedArrayAccess>
+      <code><![CDATA[$config['symfony']['messenger']]]></code>
+      <code><![CDATA[$config['symfony']['messenger']]]></code>
+      <code><![CDATA[$config['symfony']['messenger']['buses']]]></code>
     </MixedArrayAccess>
-    <MixedAssignment occurrences="1">
+    <MixedAssignment>
       <code>$optionArray</code>
     </MixedAssignment>
   </file>
   <file src="tests/HandlerLocator/OneToManyFqcnContainerHandlerLocatorTest.php">
-    <InvalidArgument occurrences="2">
+    <InvalidArgument>
       <code>$handlers</code>
-      <code>$locator-&gt;getHandlers(new Envelope(new stdClass()))</code>
+      <code><![CDATA[$locator->getHandlers(new Envelope(new stdClass()))]]></code>
     </InvalidArgument>
-    <MixedMethodCall occurrences="3">
+    <MixedMethodCall>
       <code>method</code>
       <code>willReturn</code>
       <code>with</code>
     </MixedMethodCall>
-    <PossiblyInvalidArgument occurrences="2">
-      <code>$this-&gt;container</code>
-      <code>$this-&gt;container</code>
+    <PossiblyInvalidArgument>
+      <code><![CDATA[$this->container]]></code>
+      <code><![CDATA[$this->container]]></code>
     </PossiblyInvalidArgument>
-    <PossiblyUndefinedMethod occurrences="1">
+    <PossiblyUndefinedMethod>
       <code>expects</code>
     </PossiblyUndefinedMethod>
   </file>
   <file src="tests/HandlerLocator/OneToOneFqcnContainerHandlerLocatorTest.php">
-    <InvalidArgument occurrences="4">
-      <code>$locator-&gt;getHandlers($envelope)</code>
-      <code>$locator-&gt;getHandlers($envelope)</code>
-      <code>$locator-&gt;getHandlers($envelope)</code>
+    <InvalidArgument>
+      <code><![CDATA[$locator->getHandlers($envelope)]]></code>
+      <code><![CDATA[$locator->getHandlers($envelope)]]></code>
+      <code><![CDATA[$locator->getHandlers($envelope)]]></code>
       <code>$map</code>
     </InvalidArgument>
-    <MixedMethodCall occurrences="3">
+    <MixedMethodCall>
       <code>method</code>
       <code>willReturn</code>
       <code>with</code>
     </MixedMethodCall>
-    <PossiblyInvalidArgument occurrences="3">
-      <code>$this-&gt;container</code>
-      <code>$this-&gt;container</code>
-      <code>$this-&gt;container</code>
+    <PossiblyInvalidArgument>
+      <code><![CDATA[$this->container]]></code>
+      <code><![CDATA[$this->container]]></code>
+      <code><![CDATA[$this->container]]></code>
     </PossiblyInvalidArgument>
-    <PossiblyUndefinedMethod occurrences="1">
+    <PossiblyUndefinedMethod>
       <code>expects</code>
     </PossiblyUndefinedMethod>
   </file>
   <file src="tests/LaminasCliIntegrationTest.php">
-    <ArgumentTypeCoercion occurrences="1">
-      <code>$dependencies</code>
-    </ArgumentTypeCoercion>
-    <InternalClass occurrences="1">
+    <InternalClass>
       <code>new ContainerCommandLoader($container, $commands)</code>
     </InternalClass>
-    <InternalMethod occurrences="1">
+    <InternalMethod>
       <code>new ContainerCommandLoader($container, $commands)</code>
     </InternalMethod>
-    <MixedArgument occurrences="1">
+    <MixedArgument>
       <code>$commands</code>
     </MixedArgument>
-    <MixedArrayAssignment occurrences="1">
-      <code>$dependencies['services']['config']</code>
-    </MixedArrayAssignment>
-    <MixedAssignment occurrences="1">
+    <MixedAssignment>
       <code>$commands</code>
     </MixedAssignment>
   </file>
   <file src="tests/MessageBusOptionsTest.php">
-    <DocblockTypeContradiction occurrences="2">
+    <DocblockTypeContradiction>
       <code>assertSame</code>
       <code>assertSame</code>
     </DocblockTypeContradiction>
-    <InvalidArgument occurrences="2">
-      <code>['foo']</code>
-      <code>['foo']</code>
+    <InvalidArgument>
+      <code><![CDATA[['foo']]]></code>
+      <code><![CDATA[['foo']]]></code>
     </InvalidArgument>
-    <MixedInferredReturnType occurrences="1">
-      <code>mixed[]</code>
-    </MixedInferredReturnType>
   </file>
   <file src="tests/RetryStrategyContainerTest.php">
-    <MixedMethodCall occurrences="6">
+    <MixedMethodCall>
       <code>method</code>
       <code>method</code>
       <code>willReturn</code>
@@ -422,106 +417,74 @@
       <code>with</code>
       <code>with</code>
     </MixedMethodCall>
-    <PossiblyInvalidArgument occurrences="1">
-      <code>$this-&gt;container</code>
+    <PossiblyInvalidArgument>
+      <code><![CDATA[$this->container]]></code>
     </PossiblyInvalidArgument>
-    <PossiblyUndefinedMethod occurrences="2">
+    <PossiblyUndefinedMethod>
       <code>expects</code>
       <code>expects</code>
     </PossiblyUndefinedMethod>
   </file>
   <file src="tests/ServiceManagerEventBusIntegrationTest.php">
-    <MissingClosureReturnType occurrences="2">
+    <MissingClosureReturnType>
       <code>static function () use ($listenerOne) {</code>
       <code>static function () use ($listenerTwo) {</code>
     </MissingClosureReturnType>
-    <MixedArgument occurrences="1">
-      <code>$this-&gt;config['dependencies']</code>
+    <MixedArgument>
+      <code><![CDATA[$this->config['dependencies']]]></code>
     </MixedArgument>
-    <MixedArrayAssignment occurrences="10">
-      <code>$this-&gt;config['dependencies']['factories']</code>
-      <code>$this-&gt;config['dependencies']['factories']</code>
-      <code>$this-&gt;config['dependencies']['factories'][EventListenerOne::class]</code>
-      <code>$this-&gt;config['dependencies']['factories'][EventListenerTwo::class]</code>
-      <code>$this-&gt;config['dependencies']['services']</code>
-      <code>$this-&gt;config['dependencies']['services']['config']</code>
-      <code>$this-&gt;config['symfony']['messenger']</code>
-      <code>$this-&gt;config['symfony']['messenger']['buses']</code>
-      <code>$this-&gt;config['symfony']['messenger']['buses']['event_bus']</code>
-      <code>$this-&gt;config['symfony']['messenger']['buses']['event_bus']['handlers']</code>
+    <MixedArrayAssignment>
+      <code><![CDATA[$this->config['dependencies']['factories']]]></code>
+      <code><![CDATA[$this->config['dependencies']['factories']]]></code>
+      <code><![CDATA[$this->config['dependencies']['factories'][EventListenerOne::class]]]></code>
+      <code><![CDATA[$this->config['dependencies']['factories'][EventListenerTwo::class]]]></code>
+      <code><![CDATA[$this->config['dependencies']['services']]]></code>
+      <code><![CDATA[$this->config['dependencies']['services']['config']]]></code>
+      <code><![CDATA[$this->config['symfony']['messenger']]]></code>
+      <code><![CDATA[$this->config['symfony']['messenger']['buses']]]></code>
+      <code><![CDATA[$this->config['symfony']['messenger']['buses']['event_bus']]]></code>
+      <code><![CDATA[$this->config['symfony']['messenger']['buses']['event_bus']['handlers']]]></code>
     </MixedArrayAssignment>
   </file>
   <file src="tests/ServiceManagerIntegrationTest.php">
-    <MixedArgument occurrences="1">
-      <code>$this-&gt;config['dependencies']</code>
+    <MixedArgument>
+      <code><![CDATA[$this->config['dependencies']]]></code>
     </MixedArgument>
-    <MixedArrayAssignment occurrences="19">
-      <code>$this-&gt;config['dependencies']['factories']</code>
-      <code>$this-&gt;config['dependencies']['factories']</code>
-      <code>$this-&gt;config['dependencies']['factories']['failure_transport']</code>
-      <code>$this-&gt;config['dependencies']['factories'][TestCommandHandler::class]</code>
-      <code>$this-&gt;config['dependencies']['services']</code>
-      <code>$this-&gt;config['dependencies']['services']['config']</code>
-      <code>$this-&gt;config['symfony']['messenger']</code>
-      <code>$this-&gt;config['symfony']['messenger']</code>
-      <code>$this-&gt;config['symfony']['messenger']</code>
-      <code>$this-&gt;config['symfony']['messenger']</code>
-      <code>$this-&gt;config['symfony']['messenger']['buses']</code>
-      <code>$this-&gt;config['symfony']['messenger']['buses']</code>
-      <code>$this-&gt;config['symfony']['messenger']['buses']['command_bus']</code>
-      <code>$this-&gt;config['symfony']['messenger']['buses']['command_bus']</code>
-      <code>$this-&gt;config['symfony']['messenger']['buses']['command_bus']['handlers']</code>
-      <code>$this-&gt;config['symfony']['messenger']['buses']['command_bus']['handlers']</code>
-      <code>$this-&gt;config['symfony']['messenger']['failure_transport']</code>
-      <code>$this-&gt;config['symfony']['messenger']['transports']</code>
-      <code>$this-&gt;config['symfony']['messenger']['transports']['failure_transport']</code>
+    <MixedArrayAssignment>
+      <code><![CDATA[$this->config['dependencies']['factories']]]></code>
+      <code><![CDATA[$this->config['dependencies']['factories']]]></code>
+      <code><![CDATA[$this->config['dependencies']['factories']['failure_transport']]]></code>
+      <code><![CDATA[$this->config['dependencies']['factories'][TestCommandHandler::class]]]></code>
+      <code><![CDATA[$this->config['dependencies']['services']]]></code>
+      <code><![CDATA[$this->config['dependencies']['services']['config']]]></code>
+      <code><![CDATA[$this->config['symfony']['messenger']]]></code>
+      <code><![CDATA[$this->config['symfony']['messenger']]]></code>
+      <code><![CDATA[$this->config['symfony']['messenger']]]></code>
+      <code><![CDATA[$this->config['symfony']['messenger']]]></code>
+      <code><![CDATA[$this->config['symfony']['messenger']['buses']]]></code>
+      <code><![CDATA[$this->config['symfony']['messenger']['buses']]]></code>
+      <code><![CDATA[$this->config['symfony']['messenger']['buses']['command_bus']]]></code>
+      <code><![CDATA[$this->config['symfony']['messenger']['buses']['command_bus']]]></code>
+      <code><![CDATA[$this->config['symfony']['messenger']['buses']['command_bus']['handlers']]]></code>
+      <code><![CDATA[$this->config['symfony']['messenger']['buses']['command_bus']['handlers']]]></code>
+      <code><![CDATA[$this->config['symfony']['messenger']['failure_transport']]]></code>
+      <code><![CDATA[$this->config['symfony']['messenger']['transports']]]></code>
+      <code><![CDATA[$this->config['symfony']['messenger']['transports']['failure_transport']]]></code>
     </MixedArrayAssignment>
-    <MixedInferredReturnType occurrences="1">
-      <code>mixed[]</code>
-    </MixedInferredReturnType>
-    <RedundantConditionGivenDocblockType occurrences="2">
+    <RedundantConditionGivenDocblockType>
       <code>assert($envelope instanceof Envelope)</code>
       <code>assert($envelope instanceof Envelope)</code>
     </RedundantConditionGivenDocblockType>
   </file>
   <file src="tests/TransportFactoryFactoryTest.php">
-    <ArgumentTypeCoercion occurrences="1">
-      <code>$expectedClass</code>
-    </ArgumentTypeCoercion>
-    <DeprecatedClass occurrences="2">
+    <DeprecatedClass>
       <code>AmqpTransportFactory::class</code>
       <code>RedisTransportFactory::class</code>
     </DeprecatedClass>
-    <InvalidReturnType occurrences="1">
-      <code>string[][]</code>
-    </InvalidReturnType>
-    <MixedMethodCall occurrences="10">
-      <code>method</code>
+    <MixedMethodCall>
       <code>willReturn</code>
-      <code>willReturn</code>
-      <code>willReturn</code>
-      <code>willReturn</code>
-      <code>willReturnMap</code>
-      <code>willReturnMap</code>
-      <code>with</code>
-      <code>with</code>
-      <code>with</code>
     </MixedMethodCall>
-    <PossiblyInvalidArgument occurrences="5">
-      <code>$this-&gt;container</code>
-      <code>$this-&gt;container</code>
-      <code>$this-&gt;container</code>
-      <code>$this-&gt;container</code>
-      <code>$this-&gt;container</code>
-    </PossiblyInvalidArgument>
-    <PossiblyUndefinedMethod occurrences="5">
-      <code>expects</code>
-      <code>method</code>
-      <code>method</code>
-      <code>method</code>
-      <code>method</code>
-    </PossiblyUndefinedMethod>
-    <UndefinedInterfaceMethod occurrences="1">
+    <UndefinedInterfaceMethod>
       <code>with</code>
     </UndefinedInterfaceMethod>
   </file>

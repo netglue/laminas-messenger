@@ -45,7 +45,7 @@ class TransportFactory
         return (new self($id))($container);
     }
 
-    /** @return array{dsn: string}&array<string, mixed> */
+    /** @return array{dsn: string}&array<array-key, mixed> */
     private function options(ContainerInterface $container): array
     {
         $config = $container->has('config') ? $container->get('config') : [];
