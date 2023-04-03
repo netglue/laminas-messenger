@@ -14,6 +14,8 @@ use Symfony\Component\Messenger\Transport\RedisExt\RedisTransportFactory;
 use Symfony\Component\Messenger\Transport\Sync\SyncTransportFactory;
 use Symfony\Component\Messenger\Transport\TransportFactoryInterface;
 
+use function assert;
+use function count;
 use function explode;
 use function parse_str;
 use function parse_url;
@@ -26,8 +28,9 @@ class TransportFactoryFactory
 {
     public function __invoke(string $dsn, ContainerInterface $container): TransportFactoryInterface
     {
-        /** @psalm-suppress PossiblyUndefinedArrayOffset */
-        [$scheme, $config] = explode(':', $dsn, 2);
+        $parts = explode(':', $dsn, 2);
+        assert(count($parts) === 2);
+        [$scheme, $config] = $parts;
         switch ($scheme) {
             case 'amqp':
                 return new AmqpTransportFactory();
