@@ -232,20 +232,8 @@
     </MixedAssignment>
   </file>
   <file src="src/TransportFactoryFactory.php">
-    <DeprecatedClass>
-      <code>new AmqpTransportFactory()</code>
-      <code>new RedisTransportFactory()</code>
-    </DeprecatedClass>
-    <InvalidReturnStatement>
-      <code>new AmqpTransportFactory()</code>
-      <code>new RedisTransportFactory()</code>
-    </InvalidReturnStatement>
-    <InvalidReturnType>
-      <code>TransportFactoryInterface</code>
-    </InvalidReturnType>
     <MixedArgument>
       <code><![CDATA[$container->get(trim($config, '/'))]]></code>
-      <code>$name</code>
     </MixedArgument>
     <MixedArrayAccess>
       <code><![CDATA[$config['symfony']]]></code>
@@ -254,7 +242,6 @@
     </MixedArrayAccess>
     <MixedAssignment>
       <code>$config</code>
-      <code>$name</code>
       <code>$transportFactories</code>
     </MixedAssignment>
   </file>
@@ -477,10 +464,6 @@
     </RedundantConditionGivenDocblockType>
   </file>
   <file src="tests/TransportFactoryFactoryTest.php">
-    <DeprecatedClass>
-      <code>AmqpTransportFactory::class</code>
-      <code>RedisTransportFactory::class</code>
-    </DeprecatedClass>
     <MixedMethodCall>
       <code>willReturn</code>
     </MixedMethodCall>
