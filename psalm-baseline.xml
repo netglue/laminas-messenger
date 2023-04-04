@@ -1,11 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <files psalm-version="5.9.0@8b9ad1eb9e8b7d3101f949291da2b9f7767cd163">
   <file src="src/Container/Command/ConsumeCommandFactory.php">
-    <DeprecatedTrait>
-      <code>FailureTransportRetrievalBehaviour</code>
-    </DeprecatedTrait>
     <InvalidArgument>
-      <code><![CDATA[$this->getFailureTransport($container)]]></code>
+      <code>Util::getGlobalFailureTransport($container)</code>
     </InvalidArgument>
   </file>
   <file src="src/Container/Command/DebugCommandFactory.php">
@@ -13,17 +10,6 @@
       <code>$handler</code>
       <code>$handlerList</code>
     </MixedAssignment>
-  </file>
-  <file src="src/Container/Command/FailedMessagesRetryCommandFactory.php">
-    <DeprecatedTrait>
-      <code>FailureTransportRetrievalBehaviour</code>
-    </DeprecatedTrait>
-  </file>
-  <file src="src/Container/Command/FailureCommandAbstractFactory.php">
-    <DeprecatedTrait>
-      <code>FailureTransportRetrievalBehaviour</code>
-      <code>StaticFactoryContainerAssertion</code>
-    </DeprecatedTrait>
   </file>
   <file src="src/Container/DoctrineTransportFactory.php">
     <MixedArgument>
@@ -46,38 +32,7 @@
       <code>Connection::buildConfiguration($dsn, $options)</code>
     </UndefinedMethod>
   </file>
-  <file src="src/Container/FailureTransportRetrievalBehaviour.php">
-    <MixedInferredReturnType>
-      <code>TransportInterface</code>
-    </MixedInferredReturnType>
-  </file>
-  <file src="src/Container/MessageBusOptionsRetrievalBehaviour.php">
-    <InternalClass>
-      <code>Util::applicationConfig($container)</code>
-    </InternalClass>
-    <MixedArgument>
-      <code>$config</code>
-    </MixedArgument>
-    <MixedAssignment>
-      <code>$config</code>
-    </MixedAssignment>
-  </file>
-  <file src="src/Container/MessageBusStaticFactory.php">
-    <DeprecatedTrait>
-      <code>MessageBusOptionsRetrievalBehaviour</code>
-      <code>StaticFactoryContainerAssertion</code>
-    </DeprecatedTrait>
-  </file>
-  <file src="src/Container/Middleware/BusNameStampMiddlewareStaticFactory.php">
-    <DeprecatedTrait>
-      <code>StaticFactoryContainerAssertion</code>
-    </DeprecatedTrait>
-  </file>
   <file src="src/Container/Middleware/MessageHandlerMiddlewareStaticFactory.php">
-    <DeprecatedTrait>
-      <code>MessageBusOptionsRetrievalBehaviour</code>
-      <code>StaticFactoryContainerAssertion</code>
-    </DeprecatedTrait>
     <InvalidStringClass>
       <code><![CDATA[new $locatorClass($options->handlers(), $container)]]></code>
     </InvalidStringClass>
@@ -90,38 +45,11 @@
     </MixedAssignment>
   </file>
   <file src="src/Container/Middleware/MessageSenderMiddlewareStaticFactory.php">
-    <DeprecatedTrait>
-      <code>MessageBusOptionsRetrievalBehaviour</code>
-      <code>StaticFactoryContainerAssertion</code>
-    </DeprecatedTrait>
     <MixedArgument>
       <code><![CDATA[$container->get(
                     $options->logger(),
                 )]]></code>
     </MixedArgument>
-  </file>
-  <file src="src/Container/TransportFactory.php">
-    <DeprecatedTrait>
-      <code>StaticFactoryContainerAssertion</code>
-    </DeprecatedTrait>
-  </file>
-  <file src="tests/Container/MessageBusOptionsRetrievalBehaviourTest.php">
-    <DeprecatedTrait>
-      <code>MessageBusOptionsRetrievalBehaviour</code>
-    </DeprecatedTrait>
-    <MixedMethodCall>
-      <code>getOptions</code>
-      <code>getOptions</code>
-    </MixedMethodCall>
-  </file>
-  <file src="tests/Container/StaticFactoryContainerAssertionTest.php">
-    <DeprecatedTrait>
-      <code>StaticFactoryContainerAssertion</code>
-    </DeprecatedTrait>
-    <MixedMethodCall>
-      <code>callStatic</code>
-      <code>callStatic</code>
-    </MixedMethodCall>
   </file>
   <file src="tests/Container/TransportFactoryTest.php">
     <NoInterfaceProperties>

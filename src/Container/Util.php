@@ -6,11 +6,17 @@ namespace Netglue\PsrContainer\Messenger\Container;
 
 use GSteel\Dot;
 use Laminas\Stdlib\ArrayUtils;
+use Netglue\PsrContainer\Messenger\Exception\BadMethodCall;
+use Netglue\PsrContainer\Messenger\Exception\ConfigurationError;
+use Netglue\PsrContainer\Messenger\MessageBusOptions;
 use Psr\Container\ContainerInterface;
 use Psr\Log\LoggerInterface;
+use Symfony\Component\Messenger\Transport\TransportInterface;
 
 use function assert;
 use function is_iterable;
+use function is_string;
+use function sprintf;
 
 /** @internal */
 final class Util
@@ -44,5 +50,90 @@ final class Util
         assert($logger instanceof LoggerInterface || $logger === null);
 
         return $logger;
+    }
+
+    /**
+     * Return the name of the globally configured failure transport or throw an exception
+     *
+     * @return non-empty-string
+     *
+     * @throws ConfigurationError If no global failure transport has been defined.
+     */
+    public static function getGlobalFailureTransportName(ContainerInterface $container): string
+    {
+        $config = self::applicationConfig($container);
+        $transportName = Dot::stringOrNull('symfony.messenger.failure_transport', $config);
+
+        if (! is_string($transportName) || $transportName === '') {
+            throw new ConfigurationError('No failure transport has been specified');
+        }
+
+        return $transportName;
+    }
+
+    public static function hasGlobalFailureTransport(ContainerInterface $container): bool
+    {
+        try {
+            self::getGlobalFailureTransportName($container);
+
+            return true;
+        } catch (ConfigurationError) {
+            return false;
+        }
+    }
+
+    /**
+     * Retrieve the global failure transport
+     *
+     * @throws ConfigurationError If the global failure transport is not present in the container.
+     */
+    public static function getGlobalFailureTransport(ContainerInterface $container): TransportInterface
+    {
+        $transportName = self::getGlobalFailureTransportName($container);
+        if (! $container->has($transportName)) {
+            throw new ConfigurationError(sprintf(
+                'The transport "%s" designated as the failure transport is not present in ' .
+                'the DI container',
+                $transportName,
+            ));
+        }
+
+        $transport = $container->get($transportName);
+        assert($transport instanceof TransportInterface);
+
+        return $transport;
+    }
+
+    /**
+     * Used to assert a Psr\Container argument is present for factories using __callStatic()
+     *
+     * @param array<array-key, mixed> $arguments
+     */
+    public static function assertStaticFactoryContainer(string $methodName, array $arguments): ContainerInterface
+    {
+        $container = $arguments[0] ?? null;
+        if (! $container instanceof ContainerInterface) {
+            throw new BadMethodCall(sprintf(
+                'The first argument to %s must be an instance of %s',
+                $methodName,
+                ContainerInterface::class,
+            ));
+        }
+
+        return $container;
+    }
+
+    /** @param non-empty-string $busIdentifier */
+    public static function messageBusOptions(ContainerInterface $container, string $busIdentifier): MessageBusOptions
+    {
+        $config = self::applicationConfig($container);
+        $options = Dot::arrayDefault(
+            sprintf('symfony|messenger|buses|%s', $busIdentifier),
+            $config,
+            [],
+            '|',
+        );
+
+        return new MessageBusOptions($options);
     }
 }

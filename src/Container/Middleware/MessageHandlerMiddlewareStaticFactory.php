@@ -4,16 +4,12 @@ declare(strict_types=1);
 
 namespace Netglue\PsrContainer\Messenger\Container\Middleware;
 
-use Netglue\PsrContainer\Messenger\Container\MessageBusOptionsRetrievalBehaviour;
-use Netglue\PsrContainer\Messenger\Container\StaticFactoryContainerAssertion;
+use Netglue\PsrContainer\Messenger\Container\Util;
 use Psr\Container\ContainerInterface;
 use Symfony\Component\Messenger\Middleware\HandleMessageMiddleware;
 
 final class MessageHandlerMiddlewareStaticFactory
 {
-    use MessageBusOptionsRetrievalBehaviour;
-    use StaticFactoryContainerAssertion;
-
     /** @param non-empty-string $busIdentifier */
     public function __construct(private string $busIdentifier)
     {
@@ -21,7 +17,7 @@ final class MessageHandlerMiddlewareStaticFactory
 
     public function __invoke(ContainerInterface $container): HandleMessageMiddleware
     {
-        $options = $this->options($container, $this->busIdentifier);
+        $options = Util::messageBusOptions($container, $this->busIdentifier);
         $locatorClass = $options->handlerLocator();
         $locator = $container->has($locatorClass) ? $container->get($locatorClass) : null;
 
@@ -45,7 +41,7 @@ final class MessageHandlerMiddlewareStaticFactory
      */
     public static function __callStatic(string $name, array $arguments): HandleMessageMiddleware
     {
-        $container = self::assertContainer($name, $arguments);
+        $container = Util::assertStaticFactoryContainer($name, $arguments);
 
         return (new self($name))($container);
     }
