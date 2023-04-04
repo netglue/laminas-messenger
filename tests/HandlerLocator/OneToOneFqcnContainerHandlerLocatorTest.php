@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Netglue\PsrContainer\MessengerTest\HandlerLocator;
 
+use Laminas\Stdlib\ArrayUtils;
 use Netglue\PsrContainer\Messenger\Exception\ConfigurationError;
 use Netglue\PsrContainer\Messenger\HandlerLocator\OneToOneFqcnContainerHandlerLocator;
 use PHPUnit\Framework\MockObject\MockObject;
@@ -13,11 +14,10 @@ use stdClass;
 use Symfony\Component\Messenger\Envelope;
 use Symfony\Component\Messenger\Handler\HandlerDescriptor;
 
-use function iterator_to_array;
-
 class OneToOneFqcnContainerHandlerLocatorTest extends TestCase
 {
-    private MockObject|ContainerInterface $container;
+    /** @var ContainerInterface&MockObject */
+    private ContainerInterface $container;
 
     protected function setUp(): void
     {
@@ -43,7 +43,7 @@ class OneToOneFqcnContainerHandlerLocatorTest extends TestCase
         $locator = new OneToOneFqcnContainerHandlerLocator($map, $this->container);
 
         $envelope = Envelope::wrap(new stdClass());
-        $descriptors = iterator_to_array($locator->getHandlers($envelope));
+        $descriptors = ArrayUtils::iteratorToArray($locator->getHandlers($envelope));
         self::assertCount(1, $descriptors);
         self::assertContainsOnlyInstancesOf(HandlerDescriptor::class, $descriptors);
     }
@@ -54,7 +54,7 @@ class OneToOneFqcnContainerHandlerLocatorTest extends TestCase
         $locator = new OneToOneFqcnContainerHandlerLocator($map, $this->container);
 
         $envelope = Envelope::wrap(new stdClass());
-        $descriptors = iterator_to_array($locator->getHandlers($envelope));
+        $descriptors = ArrayUtils::iteratorToArray($locator->getHandlers($envelope));
         self::assertCount(0, $descriptors);
     }
 
@@ -65,6 +65,6 @@ class OneToOneFqcnContainerHandlerLocatorTest extends TestCase
         $envelope = Envelope::wrap(new stdClass());
         $this->expectException(ConfigurationError::class);
         $this->expectExceptionMessage('Handler should be a string representing a single handler to retrieve from the container');
-        iterator_to_array($locator->getHandlers($envelope));
+        ArrayUtils::iteratorToArray($locator->getHandlers($envelope));
     }
 }

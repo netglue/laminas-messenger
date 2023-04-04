@@ -15,6 +15,7 @@ use Symfony\Component\Messenger\Command\FailedMessagesShowCommand;
 use function in_array;
 use function sprintf;
 
+/** @phpcs:disable SlevomatCodingStandard.Classes.RequireConstructorPropertyPromotion */
 final class FailureCommandAbstractFactory
 {
     use StaticFactoryContainerAssertion;
@@ -25,8 +26,11 @@ final class FailureCommandAbstractFactory
         FailedMessagesShowCommand::class,
     ];
 
-    /** @param value-of<self::CAN_CREATE> $commandName */
-    public function __construct(private string $commandName)
+    /** @var value-of<self::CAN_CREATE> */
+    private readonly string $commandName;
+
+    /** @param class-string $commandName */
+    public function __construct(string $commandName)
     {
         if (! in_array($commandName, self::CAN_CREATE, true)) {
             throw new InvalidArgument(sprintf(
@@ -34,6 +38,8 @@ final class FailureCommandAbstractFactory
                 $commandName,
             ));
         }
+
+        $this->commandName = $commandName;
     }
 
     public function __invoke(ContainerInterface $container): Command

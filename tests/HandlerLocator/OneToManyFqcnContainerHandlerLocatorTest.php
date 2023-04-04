@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Netglue\PsrContainer\MessengerTest\HandlerLocator;
 
+use Laminas\Stdlib\ArrayUtils;
 use Netglue\PsrContainer\Messenger\Exception\ConfigurationError;
 use Netglue\PsrContainer\Messenger\HandlerLocator\OneToManyFqcnContainerHandlerLocator;
 use Netglue\PsrContainer\MessengerTest\Fixture\TestEvent;
@@ -13,11 +14,10 @@ use Psr\Container\ContainerInterface;
 use stdClass;
 use Symfony\Component\Messenger\Envelope;
 
-use function iterator_to_array;
-
 class OneToManyFqcnContainerHandlerLocatorTest extends TestCase
 {
-    private MockObject|ContainerInterface $container;
+    /** @var ContainerInterface&MockObject */
+    private ContainerInterface $container;
 
     protected function setUp(): void
     {
@@ -32,7 +32,7 @@ class OneToManyFqcnContainerHandlerLocatorTest extends TestCase
         $locator = new OneToManyFqcnContainerHandlerLocator($handlers, $this->container);
         $this->expectException(ConfigurationError::class);
         $this->expectExceptionMessage('Expected an array of handler identifiers to retrieve from the container');
-        iterator_to_array($locator->getHandlers(new Envelope(new stdClass())));
+        ArrayUtils::iteratorToArray($locator->getHandlers(new Envelope(new stdClass())));
     }
 
     public function testThatHandlersReturnedWillMatchConfigured(): void

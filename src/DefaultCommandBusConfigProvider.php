@@ -4,9 +4,12 @@ declare(strict_types=1);
 
 namespace Netglue\PsrContainer\Messenger;
 
+use Laminas\ServiceManager\ConfigInterface;
+
+/** @psalm-import-type ServiceManagerConfigurationType from ConfigInterface */
 final class DefaultCommandBusConfigProvider
 {
-    /** @return mixed[] */
+    /** @return array<string, mixed> */
     public function __invoke(): array
     {
         return [
@@ -19,7 +22,7 @@ final class DefaultCommandBusConfigProvider
         ];
     }
 
-    /** @return mixed[] */
+    /** @return ServiceManagerConfigurationType */
     private function dependencies(): array
     {
         return [
@@ -32,7 +35,7 @@ final class DefaultCommandBusConfigProvider
         ];
     }
 
-    /** @return mixed[] */
+    /** @return array<string, mixed> */
     private function busConfig(): array
     {
         return [

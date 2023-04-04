@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Netglue\PsrContainer\MessengerTest;
 
+use Netglue\PsrContainer\Messenger\ConfigProvider;
 use Netglue\PsrContainer\Messenger\Exception\ServiceNotFound;
 use Netglue\PsrContainer\Messenger\RetryStrategyContainer;
 use PHPUnit\Framework\MockObject\MockObject;
@@ -13,9 +14,11 @@ use Psr\Container\ContainerInterface;
 use stdClass;
 use Symfony\Component\Messenger\Retry\MultiplierRetryStrategy;
 
+/** @psalm-import-type RetryStrategyConfig from ConfigProvider */
 class RetryStrategyContainerTest extends TestCase
 {
-    private MockObject|ContainerInterface $container;
+    /** @var ContainerInterface&MockObject */
+    private ContainerInterface $container;
 
     protected function setUp(): void
     {
@@ -24,7 +27,7 @@ class RetryStrategyContainerTest extends TestCase
         $this->container = $this->createMock(ContainerInterface::class);
     }
 
-    /** @param mixed[] $config */
+    /** @param array<string, RetryStrategyConfig> $config */
     private function subject(array $config): RetryStrategyContainer
     {
         return new RetryStrategyContainer(

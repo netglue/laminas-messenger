@@ -5,13 +5,14 @@ declare(strict_types=1);
 namespace Netglue\PsrContainer\MessengerTest\Container;
 
 use Netglue\PsrContainer\Messenger\Container\RetryStrategyContainerFactory;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use Prophecy\Prophecy\ObjectProphecy;
 use Psr\Container\ContainerInterface;
 
 class RetryStrategyContainerFactoryTest extends TestCase
 {
-    private ObjectProphecy|ContainerInterface $container;
+    /** @var ContainerInterface&MockObject */
+    private ContainerInterface $container;
 
     protected function setUp(): void
     {

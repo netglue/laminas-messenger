@@ -6,6 +6,7 @@ namespace Netglue\PsrContainer\MessengerTest;
 
 use Laminas\ConfigAggregator\ArrayProvider;
 use Laminas\ConfigAggregator\ConfigAggregator;
+use Laminas\ServiceManager\ConfigInterface;
 use Laminas\ServiceManager\ServiceManager;
 use Netglue\PsrContainer\Messenger\ConfigProvider;
 use Netglue\PsrContainer\Messenger\Container\TransportFactory;
@@ -17,13 +18,27 @@ use PHPUnit\Framework\TestCase;
 use Psr\Container\ContainerInterface;
 use Symfony\Component\Console\Tester\CommandTester;
 use Symfony\Component\Messenger\Command\ConsumeMessagesCommand;
-use Symfony\Component\Messenger\MessageBus;
 
-use function assert;
-
+/**
+ * @psalm-import-type ServiceManagerConfigurationType from ConfigInterface
+ * @psalm-type TestConfig = array{
+ *     symfony: array{
+ *         messenger: array{
+ *             transports: array<string, array>,
+ *             buses: array{
+ *                 event_bus: array{
+ *                     routes: array<string, list<string>>,
+ *                     handlers: array<string, list<string>>,
+ *                 },
+ *             },
+ *         },
+ *     },
+ *     dependencies: ServiceManagerConfigurationType,
+ * }
+ */
 class ServiceManagerEventBusIntegrationTest extends TestCase
 {
-    /** @var mixed[] */
+    /** @var TestConfig */
     private array $config;
 
     protected function setUp(): void
@@ -35,12 +50,13 @@ class ServiceManagerEventBusIntegrationTest extends TestCase
 
     private function container(): ServiceManager
     {
+        unset($this->config['dependencies']['services']['config']);
         $this->config['dependencies']['services']['config'] = $this->config;
 
         return new ServiceManager($this->config['dependencies']);
     }
 
-    /** @return mixed[] */
+    /** @return TestConfig */
     private function minimalCommandBusConfiguration(): array
     {
         $aggregator = new ConfigAggregator([
@@ -69,15 +85,9 @@ class ServiceManagerEventBusIntegrationTest extends TestCase
             ]),
         ]);
 
+        /** @psalm-var TestConfig */
+
         return $aggregator->getMergedConfig();
-    }
-
-    private function assertMessageBus(ContainerInterface $container, string $id): MessageBus
-    {
-        $bus = $container->get($id);
-        assert($bus instanceof MessageBus);
-
-        return $bus;
     }
 
     private function consumeOne(ContainerInterface $container, string $receiverTransport): void
@@ -94,8 +104,8 @@ class ServiceManagerEventBusIntegrationTest extends TestCase
     {
         $listenerOne = new EventListenerOne();
         $listenerTwo = new EventListenerTwo();
-        $this->assertFalse($listenerOne->triggered);
-        $this->assertFalse($listenerTwo->triggered);
+        self::assertFalse($listenerOne->triggered);
+        self::assertFalse($listenerTwo->triggered);
 
         $this->config['symfony']['messenger']['buses']['event_bus']['handlers'] = [
             TestEvent::class => [
@@ -103,21 +113,20 @@ class ServiceManagerEventBusIntegrationTest extends TestCase
                 EventListenerTwo::class,
             ],
         ];
-        $this->config['dependencies']['factories'][EventListenerOne::class] = static function () use ($listenerOne) {
-            return $listenerOne;
-        };
-        $this->config['dependencies']['factories'][EventListenerTwo::class] = static function () use ($listenerTwo) {
-            return $listenerTwo;
-        };
+        unset($this->config['dependencies']['factories'][EventListenerOne::class]);
+        $this->config['dependencies']['factories'][EventListenerOne::class]
+            = static fn (): EventListenerOne => $listenerOne;
+        $this->config['dependencies']['factories'][EventListenerTwo::class]
+            = static fn (): EventListenerTwo => $listenerTwo;
 
         $container = $this->container();
 
-        $bus = $this->assertMessageBus($container, 'event_bus');
+        $bus = ServiceManagerIntegrationTest::assertMessageBus($container, 'event_bus');
         $bus->dispatch(new TestEvent());
 
         $this->consumeOne($container, 'my_transport');
 
-        $this->assertTrue($listenerOne->triggered);
-        $this->assertTrue($listenerTwo->triggered);
+        self::assertTrue($listenerOne->triggered);
+        self::assertTrue($listenerTwo->triggered);
     }
 }
