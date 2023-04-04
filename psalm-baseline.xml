@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <files psalm-version="5.9.0@8b9ad1eb9e8b7d3101f949291da2b9f7767cd163">
   <file src="src/Container/Command/ConsumeCommandFactory.php">
+    <DeprecatedTrait>
+      <code>FailureTransportRetrievalBehaviour</code>
+    </DeprecatedTrait>
     <InvalidArgument>
       <code><![CDATA[$this->getFailureTransport($container)]]></code>
     </InvalidArgument>
@@ -51,6 +54,9 @@
     </MixedAssignment>
   </file>
   <file src="src/Container/Command/FailedMessagesRetryCommandFactory.php">
+    <DeprecatedTrait>
+      <code>FailureTransportRetrievalBehaviour</code>
+    </DeprecatedTrait>
     <MixedArgument>
       <code>$logger</code>
       <code>$logger</code>
@@ -67,6 +73,10 @@
     </MixedAssignment>
   </file>
   <file src="src/Container/Command/FailureCommandAbstractFactory.php">
+    <DeprecatedTrait>
+      <code>FailureTransportRetrievalBehaviour</code>
+      <code>StaticFactoryContainerAssertion</code>
+    </DeprecatedTrait>
     <DocblockTypeContradiction>
       <code>in_array($commandName, self::CAN_CREATE, true)</code>
     </DocblockTypeContradiction>
@@ -131,6 +141,10 @@
     </MixedAssignment>
   </file>
   <file src="src/Container/MessageBusStaticFactory.php">
+    <DeprecatedTrait>
+      <code>MessageBusOptionsRetrievalBehaviour</code>
+      <code>StaticFactoryContainerAssertion</code>
+    </DeprecatedTrait>
     <MixedAssignment>
       <code>$middleware[]</code>
     </MixedAssignment>
@@ -138,7 +152,16 @@
       <code>$middleware</code>
     </PossiblyInvalidArgument>
   </file>
+  <file src="src/Container/Middleware/BusNameStampMiddlewareStaticFactory.php">
+    <DeprecatedTrait>
+      <code>StaticFactoryContainerAssertion</code>
+    </DeprecatedTrait>
+  </file>
   <file src="src/Container/Middleware/MessageHandlerMiddlewareStaticFactory.php">
+    <DeprecatedTrait>
+      <code>MessageBusOptionsRetrievalBehaviour</code>
+      <code>StaticFactoryContainerAssertion</code>
+    </DeprecatedTrait>
     <InvalidStringClass>
       <code><![CDATA[new $locatorClass($options->handlers(), $container)]]></code>
     </InvalidStringClass>
@@ -151,6 +174,10 @@
     </MixedAssignment>
   </file>
   <file src="src/Container/Middleware/MessageSenderMiddlewareStaticFactory.php">
+    <DeprecatedTrait>
+      <code>MessageBusOptionsRetrievalBehaviour</code>
+      <code>StaticFactoryContainerAssertion</code>
+    </DeprecatedTrait>
     <MixedArgument>
       <code><![CDATA[$container->get(
                     $options->logger(),
@@ -174,6 +201,9 @@
     </MixedAssignment>
   </file>
   <file src="src/Container/TransportFactory.php">
+    <DeprecatedTrait>
+      <code>StaticFactoryContainerAssertion</code>
+    </DeprecatedTrait>
     <MixedArgument>
       <code><![CDATA[$options['options'] ?? []]]></code>
       <code>$serializer</code>
@@ -259,6 +289,9 @@
     </MixedAssignment>
   </file>
   <file src="tests/Container/MessageBusOptionsRetrievalBehaviourTest.php">
+    <DeprecatedTrait>
+      <code>MessageBusOptionsRetrievalBehaviour</code>
+    </DeprecatedTrait>
     <MixedAssignment>
       <code>$options</code>
     </MixedAssignment>
@@ -311,6 +344,9 @@
     </UndefinedInterfaceMethod>
   </file>
   <file src="tests/Container/StaticFactoryContainerAssertionTest.php">
+    <DeprecatedTrait>
+      <code>StaticFactoryContainerAssertion</code>
+    </DeprecatedTrait>
     <MixedMethodCall>
       <code>callStatic</code>
       <code>callStatic</code>
