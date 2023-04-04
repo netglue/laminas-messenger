@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace Netglue\PsrContainer\Messenger\Container\Command;
 
+use GSteel\Dot;
 use Netglue\PsrContainer\Messenger\Container\FailureTransportRetrievalBehaviour;
+use Netglue\PsrContainer\Messenger\Container\Util;
 use Netglue\PsrContainer\Messenger\RetryStrategyContainer;
 use Psr\Container\ContainerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcher;
@@ -22,10 +24,9 @@ final class ConsumeCommandFactory
 
     public function __invoke(ContainerInterface $container): ConsumeMessagesCommand
     {
-        $config = $container->has('config') ? $container->get('config') : [];
-        $logger = $config['symfony']['messenger']['logger'] ?? null;
-        $logger = $logger ? $container->get($logger) : null;
-        $receivers = $config['symfony']['messenger']['transports'] ?? [];
+        $config = Util::applicationConfig($container);
+        $logger = Util::defaultLoggerOrNull($container);
+        $receivers = Dot::arrayDefault('symfony.messenger.transports', $config, []);
 
         if ($this->hasFailureTransport($container)) {
             unset($receivers[$this->getFailureTransportName($container)]);

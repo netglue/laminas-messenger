@@ -11,18 +11,20 @@ use Symfony\Component\Messenger\Retry\MultiplierRetryStrategy;
 use Symfony\Component\Messenger\Retry\RetryStrategyInterface;
 
 use function array_key_exists;
-use function gettype;
-use function is_object;
+use function get_debug_type;
 use function sprintf;
 
+/** @psalm-import-type RetryStrategyConfig from ConfigProvider */
 final class RetryStrategyContainer implements ContainerInterface
 {
     /** @var RetryStrategyInterface[] */
     private array $strategiesIndexedByTransport = [];
 
-    /** @param mixed[] $strategyConfig */
-    public function __construct(private ContainerInterface $applicationServices, private array $strategyConfig)
-    {
+    /** @param array<string, RetryStrategyConfig> $strategyConfig */
+    public function __construct(
+        private readonly ContainerInterface $applicationServices,
+        private readonly array $strategyConfig,
+    ) {
     }
 
     /** @inheritDoc */
@@ -50,6 +52,7 @@ final class RetryStrategyContainer implements ContainerInterface
         $config = $this->strategyConfig[$id];
         $serviceName = $config['service'] ?? null;
         if ($serviceName) {
+            /** @psalm-var mixed $strategy */
             $strategy = $this->applicationServices->get($serviceName);
             if ($strategy instanceof RetryStrategyInterface) {
                 $this->strategiesIndexedByTransport[$id] = $strategy;
@@ -62,7 +65,7 @@ final class RetryStrategyContainer implements ContainerInterface
                 $serviceName,
                 $id,
                 RetryStrategyInterface::class,
-                is_object($strategy) ? $strategy::class : gettype($strategy),
+                get_debug_type($strategy),
             ));
         }
 

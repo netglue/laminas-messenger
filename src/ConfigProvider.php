@@ -4,12 +4,23 @@ declare(strict_types=1);
 
 namespace Netglue\PsrContainer\Messenger;
 
+use Laminas\ServiceManager\ConfigInterface;
 use Laminas\ServiceManager\Factory\InvokableFactory;
 use Symfony\Component\Messenger as SymfonyMessenger;
 
+/**
+ * @psalm-import-type ServiceManagerConfigurationType from ConfigInterface
+ * @psalm-type RetryStrategyConfig = array{
+ *     service?: string|null,
+ *     max_retries?: numeric|null,
+ *     delay?: numeric|null,
+ *     multiplier?: numeric|null,
+ *     max_delay?: numeric|null,
+ * }
+ */
 final class ConfigProvider
 {
-    /** @return mixed[] */
+    /** @return array<string, mixed> */
     public function __invoke(): array
     {
         return [
@@ -21,7 +32,7 @@ final class ConfigProvider
         ];
     }
 
-    /** @return mixed[] */
+    /** @return ServiceManagerConfigurationType */
     private function dependencies(): array
     {
         return [
@@ -34,7 +45,7 @@ final class ConfigProvider
         ];
     }
 
-    /** @return mixed[] */
+    /** @return array<string, mixed> */
     private function messengerConfig(): array
     {
         return [
@@ -47,7 +58,7 @@ final class ConfigProvider
         ];
     }
 
-    /** @return mixed[] */
+    /** @return array<string, array<string, class-string>> */
     private function consoleConfig(): array
     {
         return [

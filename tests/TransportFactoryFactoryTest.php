@@ -72,8 +72,10 @@ class TransportFactoryFactoryTest extends TestCase
     public function testThatConfiguredFactoryReturnsFactory(): void
     {
         $dsn = 'valid://foo';
-        $validFactory = $this->createStub(TransportFactoryInterface::class);
-        $validFactory->method('supports')
+        $validFactory = $this->createMock(TransportFactoryInterface::class);
+        $validFactory
+            ->expects(self::once())
+            ->method('supports')
             ->with($dsn, [])
             ->willReturn(true);
 

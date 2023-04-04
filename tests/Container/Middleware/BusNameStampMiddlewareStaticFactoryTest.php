@@ -12,8 +12,6 @@ use Symfony\Component\Messenger\Envelope;
 use Symfony\Component\Messenger\Middleware\StackMiddleware;
 use Symfony\Component\Messenger\Stamp\BusNameStamp;
 
-use function assert;
-
 class BusNameStampMiddlewareStaticFactoryTest extends TestCase
 {
     public function testCreatedMiddlewareHasCorrectIdentifier(): void
@@ -25,7 +23,6 @@ class BusNameStampMiddlewareStaticFactoryTest extends TestCase
         $stamped = $middleware->handle($envelope, new StackMiddleware());
         $stamp = $stamped->last(BusNameStamp::class);
         self::assertInstanceOf(BusNameStamp::class, $stamp);
-        assert($stamp instanceof BusNameStamp);
         self::assertSame('whatever', $stamp->getBusName());
     }
 }

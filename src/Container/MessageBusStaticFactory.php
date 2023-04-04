@@ -7,12 +7,16 @@ namespace Netglue\PsrContainer\Messenger\Container;
 use Psr\Container\ContainerInterface;
 use Symfony\Component\Messenger\MessageBus;
 use Symfony\Component\Messenger\MessageBusInterface;
+use Symfony\Component\Messenger\Middleware\MiddlewareInterface;
+
+use function assert;
 
 final class MessageBusStaticFactory
 {
     use MessageBusOptionsRetrievalBehaviour;
     use StaticFactoryContainerAssertion;
 
+    /** @param non-empty-string $id */
     public function __construct(private string $id)
     {
     }
@@ -23,17 +27,22 @@ final class MessageBusStaticFactory
         $middlewareNames = $options->middleware();
         $middleware = [];
         foreach ($middlewareNames as $name) {
-            $middleware[] = $container->get($name);
+            $service = $container->get($name);
+            assert($service instanceof MiddlewareInterface);
+            $middleware[] = $service;
         }
 
         return new MessageBus($middleware);
     }
 
-    /** @param mixed[] $arguments */
+    /**
+     * @param non-empty-string $name
+     * @param mixed[]          $arguments
+     */
     public static function __callStatic(string $name, array $arguments): MessageBusInterface
     {
         $container = self::assertContainer($name, $arguments);
 
-        return (new static($name))($container);
+        return (new self($name))($container);
     }
 }

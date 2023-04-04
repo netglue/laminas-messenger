@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Netglue\PsrContainer\Messenger\Container\Command;
 
 use Netglue\PsrContainer\Messenger\Container\FailureTransportRetrievalBehaviour;
+use Netglue\PsrContainer\Messenger\Container\Util;
 use Psr\Container\ContainerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -17,10 +18,6 @@ final class FailedMessagesRetryCommandFactory
 
     public function __invoke(ContainerInterface $container): FailedMessagesRetryCommand
     {
-        $config = $container->has('config') ? $container->get('config') : [];
-        $logger = $config['symfony']['messenger']['logger'] ?? null;
-        $logger = $logger ? $container->get($logger) : null;
-
         if ($container->has(EventDispatcherInterface::class)) {
             $dispatcher = $container->get(EventDispatcherInterface::class);
         } else {
@@ -32,7 +29,7 @@ final class FailedMessagesRetryCommandFactory
             $this->getFailureTransport($container),
             new RoutableMessageBus($container),
             $dispatcher,
-            $logger,
+            Util::defaultLoggerOrNull($container),
         );
     }
 }

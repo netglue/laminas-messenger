@@ -4,13 +4,16 @@ declare(strict_types=1);
 
 namespace Netglue\PsrContainer\Messenger;
 
+use GSteel\Dot;
 use Netglue\PsrContainer\Messenger\Container\DoctrineTransportFactory;
+use Netglue\PsrContainer\Messenger\Container\Util;
 use Netglue\PsrContainer\Messenger\Exception\ConfigurationError;
 use Netglue\PsrContainer\Messenger\Exception\MissingDependency;
 use Netglue\PsrContainer\Messenger\Exception\UnknownTransportScheme;
 use Psr\Container\ContainerInterface;
 use Symfony\Component\Messenger\Bridge\Amqp\Transport\AmqpTransportFactory;
 use Symfony\Component\Messenger\Bridge\Redis\Transport\RedisTransportFactory;
+use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Messenger\Transport\InMemoryTransportFactory;
 use Symfony\Component\Messenger\Transport\Sync\SyncTransportFactory;
 use Symfony\Component\Messenger\Transport\TransportFactoryInterface;
@@ -27,8 +30,7 @@ use function trim;
 
 use const PHP_URL_QUERY;
 
-/** @final */
-class TransportFactoryFactory
+final class TransportFactoryFactory
 {
     public function __invoke(string $dsn, ContainerInterface $container): TransportFactoryInterface
     {
@@ -57,13 +59,16 @@ class TransportFactoryFactory
                 return new RedisTransportFactory();
 
             case 'sync':
-                return new SyncTransportFactory($container->get(trim($config, '/')));
+                $messageBus = $container->get(trim($config, '/'));
+                assert($messageBus instanceof MessageBusInterface);
+
+                return new SyncTransportFactory($messageBus);
         }
 
         parse_str(parse_url($dsn, PHP_URL_QUERY) ?? '', $options);
 
-        $config = $container->has('config') ? $container->get('config') : [];
-        $transportFactories = $config['symfony']['messenger']['transport_factories'] ?? [];
+        $config = Util::applicationConfig($container);
+        $transportFactories = Dot::arrayDefault('symfony.messenger.transport_factories', $config, []);
         foreach ($transportFactories as $name) {
             assert(is_string($name));
             $factory = $container->get($name);

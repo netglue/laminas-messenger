@@ -14,6 +14,7 @@ final class MessageHandlerMiddlewareStaticFactory
     use MessageBusOptionsRetrievalBehaviour;
     use StaticFactoryContainerAssertion;
 
+    /** @param non-empty-string $busIdentifier */
     public function __construct(private string $busIdentifier)
     {
     }
@@ -38,7 +39,10 @@ final class MessageHandlerMiddlewareStaticFactory
         return $middleware;
     }
 
-    /** @param mixed[] $arguments */
+    /**
+     * @param non-empty-string $name
+     * @param mixed[]          $arguments
+     */
     public static function __callStatic(string $name, array $arguments): HandleMessageMiddleware
     {
         $container = self::assertContainer($name, $arguments);

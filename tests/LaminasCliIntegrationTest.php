@@ -19,6 +19,8 @@ use Symfony\Component\Console\Application;
 use Symfony\Component\Messenger\MessageBus;
 use Symfony\Component\Messenger\Transport\Sync\SyncTransport;
 
+use function array_keys;
+
 /** @psalm-import-type ServiceManagerConfigurationType from ConfigInterface */
 final class LaminasCliIntegrationTest extends TestCase
 {
@@ -29,7 +31,14 @@ final class LaminasCliIntegrationTest extends TestCase
         parent::setUp();
 
         $container = self::getContainer();
-        $commands = $container->get('config')['laminas-cli']['commands'] ?? [];
+        $config = $container->get('config');
+        self::assertIsArray($config);
+        $commands = $config['laminas-cli']['commands'] ?? [];
+        self::assertIsArray($commands);
+        self::assertContainsOnly('string', $commands);
+        self::assertContainsOnly('string', array_keys($commands));
+        /** @psalm-var array<string, string> $commands */
+
         $this->cliApplication = new Application();
         $this->cliApplication->setCommandLoader(new ContainerCommandLoader($container, $commands));
     }

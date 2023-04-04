@@ -16,7 +16,8 @@ class MessageBusOptionsRetrievalBehaviourTest extends TestCase
 {
     private object $subject;
 
-    private MockObject|ContainerInterface $container;
+    /** @var ContainerInterface&MockObject  */
+    private ContainerInterface $container;
 
     protected function setUp(): void
     {
@@ -25,6 +26,7 @@ class MessageBusOptionsRetrievalBehaviourTest extends TestCase
         $this->subject = new class () {
             use MessageBusOptionsRetrievalBehaviour;
 
+            /** @param non-empty-string $id */
             public function getOptions(ContainerInterface $container, string $id): MessageBusOptions
             {
                 return $this->options($container, $id);
@@ -47,6 +49,7 @@ class MessageBusOptionsRetrievalBehaviourTest extends TestCase
         $this->thereIsNoConfig();
 
         $options = $this->subject->getOptions($this->container, 'foo');
+        self::assertInstanceOf(MessageBusOptions::class, $options);
         $emptyOptions = new MessageBusOptions();
 
         self::assertEquals($emptyOptions->toArray(), $options->toArray());

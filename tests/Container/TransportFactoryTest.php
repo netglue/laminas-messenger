@@ -91,14 +91,10 @@ class TransportFactoryTest extends TestCase
         TransportFactory::__callStatic('foo', [$this->container]);
     }
 
-    private function factoryMock(): TransportFactoryFactory
+    /** @return callable(): TransportFactoryInterface */
+    private function factoryMock(): callable
     {
-        $factoryFactory = $this->createMock(TransportFactoryFactory::class);
-        $factoryFactory
-            ->method('__invoke')
-            ->willReturn($this->factory);
-
-        return $factoryFactory;
+        return fn (): TransportFactoryInterface => $this->factory;
     }
 
     /** @param mixed[] $config */
