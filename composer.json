@@ -23,6 +23,7 @@
         "gsteel/dot": "^1.6",
         "laminas/laminas-stdlib": "^3.6",
         "psr/container": "^1.0 || ^2.0",
+        "psr/log": "^2 || ^3",
         "symfony/console": "^5.4",
         "symfony/dependency-injection": "^5.3.8",
         "symfony/event-dispatcher": "^5.3.7",
