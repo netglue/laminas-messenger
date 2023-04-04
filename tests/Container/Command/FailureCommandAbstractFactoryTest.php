@@ -33,7 +33,6 @@ class FailureCommandAbstractFactoryTest extends TestCase
     {
         $this->expectException(InvalidArgument::class);
         $this->expectExceptionMessage('I cannot create commands of the type stdClass');
-        /** @psalm-suppress InvalidArgument */
         new FailureCommandAbstractFactory(stdClass::class);
     }
 

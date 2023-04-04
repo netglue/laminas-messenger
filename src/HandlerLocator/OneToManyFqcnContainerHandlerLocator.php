@@ -9,14 +9,17 @@ use Psr\Container\ContainerInterface;
 use Symfony\Component\Messenger\Envelope;
 use Symfony\Component\Messenger\Handler\HandlersLocatorInterface;
 
+use function assert;
 use function is_array;
+use function is_string;
 
-/** @final */
-class OneToManyFqcnContainerHandlerLocator implements HandlersLocatorInterface
+final class OneToManyFqcnContainerHandlerLocator implements HandlersLocatorInterface
 {
-    /** @param string[][] $handlers */
-    public function __construct(private iterable $handlers, private ContainerInterface $container)
-    {
+    /** @param iterable<string, list<string>|mixed> $handlers */
+    public function __construct(
+        private readonly iterable $handlers,
+        private readonly ContainerInterface $container,
+    ) {
     }
 
     /** @inheritDoc */
@@ -35,7 +38,9 @@ class OneToManyFqcnContainerHandlerLocator implements HandlersLocatorInterface
                 continue;
             }
 
+            /** @psalm-var mixed $handlerName */
             foreach ($handlers as $handlerName) {
+                assert(is_string($handlerName));
                 $singleLocator = new OneToOneFqcnContainerHandlerLocator(
                     [$messageName => $handlerName],
                     $this->container,

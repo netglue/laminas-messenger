@@ -4,15 +4,20 @@ declare(strict_types=1);
 
 namespace Netglue\PsrContainer\Messenger;
 
+use Laminas\ServiceManager\ConfigInterface;
 use Netglue\PsrContainer\Messenger\Container\Command\FailedMessagesRetryCommandFactory;
 use Netglue\PsrContainer\Messenger\Container\Command\FailureCommandAbstractFactory;
 use Symfony\Component\Messenger\Command\FailedMessagesRemoveCommand;
 use Symfony\Component\Messenger\Command\FailedMessagesRetryCommand;
 use Symfony\Component\Messenger\Command\FailedMessagesShowCommand;
 
-class FailureCommandsConfigProvider
+use function assert;
+use function is_string;
+
+/** @psalm-import-type ServiceManagerConfigurationType from ConfigInterface */
+final class FailureCommandsConfigProvider
 {
-    /** @return mixed[] */
+    /** @return array<string, mixed> */
     public function __invoke(): array
     {
         return [
@@ -21,7 +26,7 @@ class FailureCommandsConfigProvider
         ];
     }
 
-    /** @return mixed[] */
+    /** @return ServiceManagerConfigurationType */
     private function dependencies(): array
     {
         return [
@@ -33,15 +38,22 @@ class FailureCommandsConfigProvider
         ];
     }
 
-    /** @return mixed[] */
+    /** @return array<string, array<string, class-string>> */
     private function consoleConfig(): array
     {
         return [
             'commands' => [
-                FailedMessagesRemoveCommand::getDefaultName() => FailedMessagesRemoveCommand::class,
-                FailedMessagesRetryCommand::getDefaultName() => FailedMessagesRetryCommand::class,
-                FailedMessagesShowCommand::getDefaultName() => FailedMessagesShowCommand::class,
+                self::assertCommandName(FailedMessagesRemoveCommand::getDefaultName()) => FailedMessagesRemoveCommand::class,
+                self::assertCommandName(FailedMessagesRetryCommand::getDefaultName()) => FailedMessagesRetryCommand::class,
+                self::assertCommandName(FailedMessagesShowCommand::getDefaultName()) => FailedMessagesShowCommand::class,
             ],
         ];
+    }
+
+    private static function assertCommandName(string|null $name): string
+    {
+        assert(is_string($name) && $name !== '');
+
+        return $name;
     }
 }

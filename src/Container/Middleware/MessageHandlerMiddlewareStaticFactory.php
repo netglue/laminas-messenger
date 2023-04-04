@@ -9,12 +9,12 @@ use Netglue\PsrContainer\Messenger\Container\StaticFactoryContainerAssertion;
 use Psr\Container\ContainerInterface;
 use Symfony\Component\Messenger\Middleware\HandleMessageMiddleware;
 
-/** @final */
-class MessageHandlerMiddlewareStaticFactory
+final class MessageHandlerMiddlewareStaticFactory
 {
     use MessageBusOptionsRetrievalBehaviour;
     use StaticFactoryContainerAssertion;
 
+    /** @param non-empty-string $busIdentifier */
     public function __construct(private string $busIdentifier)
     {
     }
@@ -39,7 +39,10 @@ class MessageHandlerMiddlewareStaticFactory
         return $middleware;
     }
 
-    /** @param mixed[] $arguments */
+    /**
+     * @param non-empty-string $name
+     * @param mixed[]          $arguments
+     */
     public static function __callStatic(string $name, array $arguments): HandleMessageMiddleware
     {
         $container = self::assertContainer($name, $arguments);

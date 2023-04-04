@@ -9,8 +9,7 @@ use RuntimeException;
 
 use function sprintf;
 
-/** @final */
-class ServiceNotFound extends RuntimeException implements NotFoundExceptionInterface
+final class ServiceNotFound extends RuntimeException implements NotFoundExceptionInterface
 {
     public static function withRetryStrategy(string $transportName): self
     {

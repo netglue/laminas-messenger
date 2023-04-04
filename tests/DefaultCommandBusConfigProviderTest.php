@@ -22,11 +22,15 @@ class DefaultCommandBusConfigProviderTest extends TestCase
     public function testDefaultBusOptionsAreValid(): void
     {
         $config = $this->provider->__invoke();
-        $this->assertIsArray($config['symfony']['messenger']['buses']);
+        self::assertArrayHasKey('symfony', $config);
+        self::assertIsArray($config['symfony']);
+        self::assertArrayHasKey('messenger', $config['symfony']);
+        self::assertIsArray($config['symfony']['messenger']);
+        self::assertArrayHasKey('buses', $config['symfony']['messenger']);
+        self::assertIsArray($config['symfony']['messenger']['buses']);
         foreach ($config['symfony']['messenger']['buses'] as $optionArray) {
+            self::assertIsArray($optionArray);
             new MessageBusOptions($optionArray);
         }
-
-        $this->addToAssertionCount(1);
     }
 }

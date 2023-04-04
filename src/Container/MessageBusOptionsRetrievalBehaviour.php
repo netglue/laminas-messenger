@@ -13,9 +13,10 @@ use Psr\Container\ContainerInterface;
  */
 trait MessageBusOptionsRetrievalBehaviour
 {
+    /** @param non-empty-string $busIdentifier */
     private function options(ContainerInterface $container, string $busIdentifier): MessageBusOptions
     {
-        $config = $container->has('config') ? $container->get('config') : [];
+        $config = Util::applicationConfig($container);
         $config = $config['symfony']['messenger']['buses'][$busIdentifier] ?? [];
 
         return new MessageBusOptions($config);

@@ -7,6 +7,6 @@ namespace Netglue\PsrContainer\Messenger\Exception;
 use Psr\Container\ContainerExceptionInterface;
 use RuntimeException;
 
-class InvalidServiceType extends RuntimeException implements ContainerExceptionInterface
+final class InvalidServiceType extends RuntimeException implements ContainerExceptionInterface
 {
 }

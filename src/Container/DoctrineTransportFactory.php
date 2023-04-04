@@ -17,8 +17,7 @@ use Symfony\Component\Messenger\Transport\TransportInterface;
 use function sprintf;
 use function strpos;
 
-/** @final */
-class DoctrineTransportFactory implements TransportFactoryInterface
+final class DoctrineTransportFactory implements TransportFactoryInterface
 {
     public function __construct(private ContainerInterface $container)
     {

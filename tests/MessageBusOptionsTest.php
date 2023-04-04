@@ -29,8 +29,8 @@ class MessageBusOptionsTest extends TestCase
     public function testSetAndGetHandlers(): void
     {
         self::assertSame([], $this->options->handlers());
-        $this->options->setHandlers(['foo']);
-        self::assertSame(['foo'], $this->options->handlers());
+        $this->options->setHandlers(['foo' => ['bar']]);
+        self::assertSame(['foo' => ['bar']], $this->options->handlers());
     }
 
     public function testSetAndGetMiddleware(): void
@@ -43,8 +43,8 @@ class MessageBusOptionsTest extends TestCase
     public function testSetAndGetRoutes(): void
     {
         self::assertSame([], $this->options->routes());
-        $this->options->setRoutes(['foo']);
-        self::assertSame(['foo'], $this->options->routes());
+        $this->options->setRoutes(['foo' => ['bar']]);
+        self::assertSame(['foo' => ['bar']], $this->options->routes());
     }
 
     public function testSetAndGetZeroHandlerFlag(): void

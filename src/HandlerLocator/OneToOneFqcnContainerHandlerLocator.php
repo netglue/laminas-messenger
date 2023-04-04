@@ -12,14 +12,16 @@ use Symfony\Component\Messenger\Handler\HandlersLocatorInterface;
 use Symfony\Component\Messenger\Stamp\ReceivedStamp;
 
 use function assert;
+use function is_callable;
 use function is_string;
 
-/** @final */
-class OneToOneFqcnContainerHandlerLocator implements HandlersLocatorInterface
+final class OneToOneFqcnContainerHandlerLocator implements HandlersLocatorInterface
 {
-    /** @param string[] $handlers */
-    public function __construct(private iterable $handlers, private ContainerInterface $container)
-    {
+    /** @param iterable<string, string|mixed> $handlers */
+    public function __construct(
+        private readonly iterable $handlers,
+        private readonly ContainerInterface $container,
+    ) {
     }
 
     /** @inheritDoc */
@@ -38,7 +40,10 @@ class OneToOneFqcnContainerHandlerLocator implements HandlersLocatorInterface
                 continue;
             }
 
-            $descriptor = new HandlerDescriptor($this->container->get($handlerName));
+            $handler = $this->container->get($handlerName);
+            assert(is_callable($handler));
+
+            $descriptor = new HandlerDescriptor($handler);
             if (! $this->shouldHandle($envelope, $descriptor)) {
                 continue;
             }
@@ -57,7 +62,7 @@ class OneToOneFqcnContainerHandlerLocator implements HandlersLocatorInterface
         assert($received instanceof ReceivedStamp);
 
         $expectedTransport = $handlerDescriptor->getOption('from_transport');
-        if ($expectedTransport === null) {
+        if (! is_string($expectedTransport)) {
             return true;
         }
 

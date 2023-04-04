@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Netglue\PsrContainer\Messenger\Container;
 
+use GSteel\Dot;
 use Netglue\PsrContainer\Messenger\Exception\ConfigurationError;
 use Psr\Container\ContainerInterface;
 use Symfony\Component\Messenger\Transport\TransportInterface;
@@ -19,10 +20,13 @@ trait FailureTransportRetrievalBehaviour
 {
     private function hasFailureTransport(ContainerInterface $container): bool
     {
-        $config = $container->has('config') ? $container->get('config') : [];
-        $transportName = $config['symfony']['messenger']['failure_transport'] ?? null;
+        try {
+            $this->getFailureTransportName($container);
 
-        return is_string($transportName) && $container->has($transportName);
+            return true;
+        } catch (ConfigurationError) {
+            return false;
+        }
     }
 
     private function getFailureTransport(ContainerInterface $container): TransportInterface
@@ -39,12 +43,13 @@ trait FailureTransportRetrievalBehaviour
         return $container->get($transportName);
     }
 
+    /** @return non-empty-string */
     private function getFailureTransportName(ContainerInterface $container): string
     {
-        $config = $container->has('config') ? $container->get('config') : [];
-        $transportName = $config['symfony']['messenger']['failure_transport'] ?? null;
+        $config = Util::applicationConfig($container);
+        $transportName = Dot::stringOrNull('symfony.messenger.failure_transport', $config);
 
-        if (! $transportName) {
+        if (! is_string($transportName) || $transportName === '') {
             throw new ConfigurationError('No failure transport has been specified');
         }
 
