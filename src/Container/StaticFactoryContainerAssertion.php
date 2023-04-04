@@ -9,6 +9,10 @@ use Psr\Container\ContainerInterface;
 
 use function sprintf;
 
+/**
+ * @internal
+ * @deprecated This trait will be removed in version 2.0.0
+ */
 trait StaticFactoryContainerAssertion
 {
     /** @param mixed[] $arguments */

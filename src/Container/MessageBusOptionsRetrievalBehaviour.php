@@ -7,6 +7,10 @@ namespace Netglue\PsrContainer\Messenger\Container;
 use Netglue\PsrContainer\Messenger\MessageBusOptions;
 use Psr\Container\ContainerInterface;
 
+/**
+ * @internal
+ * @deprecated This trait will be removed in version 2.0.0
+ */
 trait MessageBusOptionsRetrievalBehaviour
 {
     /** @param non-empty-string $busIdentifier */

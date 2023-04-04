@@ -12,6 +12,10 @@ use Symfony\Component\Messenger\Transport\TransportInterface;
 use function is_string;
 use function sprintf;
 
+/**
+ * @internal
+ * @deprecated This trait will be removed in version 2.0.0
+ */
 trait FailureTransportRetrievalBehaviour
 {
     private function hasFailureTransport(ContainerInterface $container): bool
