@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Netglue\PsrContainer\Messenger\Container\Command;
 
 use GSteel\Dot;
-use Netglue\PsrContainer\Messenger\Container\FailureTransportRetrievalBehaviour;
 use Netglue\PsrContainer\Messenger\Container\Util;
 use Netglue\PsrContainer\Messenger\RetryStrategyContainer;
 use Psr\Container\ContainerInterface;
@@ -20,16 +19,14 @@ use function array_keys;
 
 final class ConsumeCommandFactory
 {
-    use FailureTransportRetrievalBehaviour;
-
     public function __invoke(ContainerInterface $container): ConsumeMessagesCommand
     {
         $config = Util::applicationConfig($container);
         $logger = Util::defaultLoggerOrNull($container);
         $receivers = Dot::arrayDefault('symfony.messenger.transports', $config, []);
 
-        if ($this->hasFailureTransport($container)) {
-            unset($receivers[$this->getFailureTransportName($container)]);
+        if (Util::hasGlobalFailureTransport($container)) {
+            unset($receivers[Util::getGlobalFailureTransportName($container)]);
         }
 
         if ($container->has(EventDispatcherInterface::class)) {
@@ -46,9 +43,9 @@ final class ConsumeCommandFactory
         ));
 
         // Attach Failure Queue Listener if a queue has been configured
-        if ($this->hasFailureTransport($container)) {
+        if (Util::hasGlobalFailureTransport($container)) {
             $dispatcher->addSubscriber(new SendFailedMessageToFailureTransportListener(
-                $this->getFailureTransport($container),
+                Util::getGlobalFailureTransport($container),
                 $logger,
             ));
         }

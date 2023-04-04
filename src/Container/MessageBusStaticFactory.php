@@ -13,9 +13,6 @@ use function assert;
 
 final class MessageBusStaticFactory
 {
-    use MessageBusOptionsRetrievalBehaviour;
-    use StaticFactoryContainerAssertion;
-
     /** @param non-empty-string $id */
     public function __construct(private string $id)
     {
@@ -23,7 +20,7 @@ final class MessageBusStaticFactory
 
     public function __invoke(ContainerInterface $container): MessageBusInterface
     {
-        $options = $this->options($container, $this->id);
+        $options = Util::messageBusOptions($container, $this->id);
         $middlewareNames = $options->middleware();
         $middleware = [];
         foreach ($middlewareNames as $name) {
@@ -41,7 +38,7 @@ final class MessageBusStaticFactory
      */
     public static function __callStatic(string $name, array $arguments): MessageBusInterface
     {
-        $container = self::assertContainer($name, $arguments);
+        $container = Util::assertStaticFactoryContainer($name, $arguments);
 
         return (new self($name))($container);
     }

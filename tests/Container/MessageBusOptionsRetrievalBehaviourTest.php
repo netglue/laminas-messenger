@@ -4,18 +4,14 @@ declare(strict_types=1);
 
 namespace Netglue\PsrContainer\MessengerTest\Container;
 
-use Netglue\PsrContainer\Messenger\Container\MessageBusOptionsRetrievalBehaviour;
+use Netglue\PsrContainer\Messenger\Container\Util;
 use Netglue\PsrContainer\Messenger\MessageBusOptions;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Psr\Container\ContainerInterface;
 
-use function assert;
-
 class MessageBusOptionsRetrievalBehaviourTest extends TestCase
 {
-    private object $subject;
-
     /** @var ContainerInterface&MockObject  */
     private ContainerInterface $container;
 
@@ -23,33 +19,17 @@ class MessageBusOptionsRetrievalBehaviourTest extends TestCase
     {
         parent::setUp();
 
-        $this->subject = new class () {
-            use MessageBusOptionsRetrievalBehaviour;
-
-            /** @param non-empty-string $id */
-            public function getOptions(ContainerInterface $container, string $id): MessageBusOptions
-            {
-                return $this->options($container, $id);
-            }
-        };
-
         $this->container = $this->createMock(ContainerInterface::class);
     }
 
-    private function thereIsNoConfig(): void
+    public function testOptionsAreReturnedWhenThereIsNoConfig(): void
     {
         $this->container->expects(self::atLeast(1))
             ->method('has')
             ->with('config')
             ->willReturn(false);
-    }
 
-    public function testOptionsAreReturnedWhenThereIsNoConfig(): void
-    {
-        $this->thereIsNoConfig();
-
-        $options = $this->subject->getOptions($this->container, 'foo');
-        self::assertInstanceOf(MessageBusOptions::class, $options);
+        $options = Util::messageBusOptions($this->container, 'foo');
         $emptyOptions = new MessageBusOptions();
 
         self::assertEquals($emptyOptions->toArray(), $options->toArray());
@@ -81,8 +61,7 @@ class MessageBusOptionsRetrievalBehaviourTest extends TestCase
             ],
         ]);
 
-        $options = $this->subject->getOptions($this->container, 'my_bus');
-        assert($options instanceof MessageBusOptions);
+        $options = Util::messageBusOptions($this->container, 'my_bus');
         self::assertSame('MyLogger', $options->logger());
     }
 }

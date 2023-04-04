@@ -18,8 +18,6 @@ use function sprintf;
 
 final class TransportFactory
 {
-    use StaticFactoryContainerAssertion;
-
     /** @param non-empty-string $id */
     public function __construct(private string $id)
     {
@@ -53,7 +51,7 @@ final class TransportFactory
      */
     public static function __callStatic(string $id, array $arguments): TransportInterface
     {
-        $container = self::assertContainer($id, $arguments);
+        $container = Util::assertStaticFactoryContainer($id, $arguments);
 
         return (new self($id))($container);
     }
