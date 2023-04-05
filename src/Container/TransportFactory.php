@@ -10,8 +10,10 @@ use Netglue\PsrContainer\Messenger\TransportFactoryFactory;
 use Psr\Container\ContainerInterface;
 use Symfony\Component\Messenger\Transport\Serialization\PhpSerializer;
 use Symfony\Component\Messenger\Transport\Serialization\SerializerInterface;
+use Symfony\Component\Messenger\Transport\TransportFactoryInterface;
 use Symfony\Component\Messenger\Transport\TransportInterface;
 
+use function assert;
 use function is_array;
 use function is_string;
 use function sprintf;
@@ -35,6 +37,7 @@ final class TransportFactory
         $serializer = $serializer instanceof SerializerInterface ? $serializer : new PhpSerializer();
         $factoryFactory = $container->get(TransportFactoryFactory::class);
         $factory = $factoryFactory($options['dsn'], $container);
+        assert($factory instanceof TransportFactoryInterface);
 
         $transportOptions = Dot::arrayDefault('options', $options, []);
 

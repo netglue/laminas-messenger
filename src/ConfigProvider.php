@@ -17,6 +17,24 @@ use Symfony\Component\Messenger as SymfonyMessenger;
  *     multiplier?: numeric|null,
  *     max_delay?: numeric|null,
  * }
+ * @psalm-type TransportSetup = array{
+ *     dsn: non-empty-string,
+ *     retry_strategy?: RetryStrategyConfig,
+ *     failure_transport?: non-empty-string|null,
+ * }
+ * @psalm-type BusConfig = array{
+ *     allows_zero_handlers: bool,
+ *     middleware: list<string>,
+ *     handler_locator: string,
+ *     handlers: array<string, string|list<string>>,
+ *     routes: array<string, list<string>>,
+ * }
+ * @psalm-type MessengerConfig = array{
+ *     logger?: string|null,
+ *     failure_transport?: string|null,
+ *     buses: array<string, BusConfig>,
+ *     transports: array<string, TransportSetup>,
+ * }
  */
 final class ConfigProvider
 {
@@ -37,6 +55,8 @@ final class ConfigProvider
     {
         return [
             'factories' => [
+                Container\FailureReceiversProvider::class => Container\FailureReceiversProviderFactory::class,
+                Container\FailureSendersProvider::class => Container\FailureSendersProviderFactory::class,
                 SymfonyMessenger\Command\ConsumeMessagesCommand::class => Container\Command\ConsumeCommandFactory::class,
                 SymfonyMessenger\Command\DebugCommand::class => Container\Command\DebugCommandFactory::class,
                 RetryStrategyContainer::class => Container\RetryStrategyContainerFactory::class,
@@ -45,7 +65,7 @@ final class ConfigProvider
         ];
     }
 
-    /** @return array<string, mixed> */
+    /** @return MessengerConfig */
     private function messengerConfig(): array
     {
         return [

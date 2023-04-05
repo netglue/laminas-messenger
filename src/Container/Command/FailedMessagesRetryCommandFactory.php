@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Netglue\PsrContainer\Messenger\Container\Command;
 
+use Netglue\PsrContainer\Messenger\Container\FailureReceiversProvider;
 use Netglue\PsrContainer\Messenger\Container\Util;
 use Psr\Container\ContainerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcher;
@@ -23,7 +24,7 @@ final class FailedMessagesRetryCommandFactory
 
         return new FailedMessagesRetryCommand(
             Util::getGlobalFailureTransportName($container),
-            Util::getGlobalFailureTransport($container),
+            $container->get(FailureReceiversProvider::class),
             new RoutableMessageBus($container),
             $dispatcher,
             Util::defaultLoggerOrNull($container),

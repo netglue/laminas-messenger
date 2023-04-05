@@ -6,6 +6,7 @@ namespace Netglue\PsrContainer\Messenger\Container;
 
 use GSteel\Dot;
 use Laminas\Stdlib\ArrayUtils;
+use Netglue\PsrContainer\Messenger\ConfigProvider;
 use Netglue\PsrContainer\Messenger\Exception\BadMethodCall;
 use Netglue\PsrContainer\Messenger\Exception\ConfigurationError;
 use Netglue\PsrContainer\Messenger\MessageBusOptions;
@@ -18,7 +19,12 @@ use function is_iterable;
 use function is_string;
 use function sprintf;
 
-/** @internal */
+/**
+ * @internal
+ *
+ * @psalm-import-type TransportSetup from ConfigProvider
+ * @psalm-import-type BusConfig from ConfigProvider
+ */
 final class Util
 {
     /**
@@ -126,14 +132,31 @@ final class Util
     /** @param non-empty-string $busIdentifier */
     public static function messageBusOptions(ContainerInterface $container, string $busIdentifier): MessageBusOptions
     {
-        $config = self::applicationConfig($container);
-        $options = Dot::arrayDefault(
-            sprintf('symfony|messenger|buses|%s', $busIdentifier),
-            $config,
-            [],
-            '|',
-        );
+        $config = self::busConfiguration($container);
+        $options = $config[$busIdentifier] ?? [];
 
         return new MessageBusOptions($options);
+    }
+
+    /** @return array<non-empty-string, TransportSetup> */
+    public static function transportConfiguration(ContainerInterface $container): array
+    {
+        $config = self::applicationConfig($container);
+
+        /** @var array<non-empty-string, TransportSetup> $transports */
+        $transports = Dot::arrayDefault('symfony.messenger.transports', $config, []);
+
+        return $transports;
+    }
+
+    /** @return array<non-empty-string, BusConfig> */
+    public static function busConfiguration(ContainerInterface $container): array
+    {
+        $config = self::applicationConfig($container);
+
+        /** @var array<non-empty-string, BusConfig> $buses */
+        $buses = Dot::arrayDefault('symfony.messenger.buses', $config, []);
+
+        return $buses;
     }
 }

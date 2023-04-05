@@ -10,6 +10,8 @@ use Laminas\ServiceManager\ConfigInterface;
 use Laminas\ServiceManager\Factory\InvokableFactory;
 use Laminas\ServiceManager\ServiceManager;
 use Netglue\PsrContainer\Messenger\ConfigProvider;
+use Netglue\PsrContainer\Messenger\Container\FailureReceiversProvider;
+use Netglue\PsrContainer\Messenger\Container\FailureSendersProvider;
 use Netglue\PsrContainer\Messenger\Container\TransportFactory;
 use Netglue\PsrContainer\Messenger\DefaultCommandBusConfigProvider;
 use Netglue\PsrContainer\Messenger\FailureCommandsConfigProvider;
@@ -143,12 +145,36 @@ class ServiceManagerIntegrationTest extends TestCase
         self::assertInstanceOf(TestCommand::class, $envelope->getMessage());
     }
 
+    /** @param array<string, mixed> $config */
+    private function mergeConfig(array $config): void
+    {
+        $aggregator = new ConfigAggregator([
+            new ArrayProvider($this->config),
+            new ArrayProvider($config),
+        ]);
+
+        /** @psalm-var TestConfig */
+
+        $this->config = $aggregator->getMergedConfig();
+    }
+
     private function setUpFailureTransport(): void
     {
-        $this->config['symfony']['messenger']['failure_transport'] = 'failure_transport';
-        $this->config['symfony']['messenger']['transports']['failure_transport'] = ['dsn' => 'in-memory:///'];
-        unset($this->config['dependencies']['factories']['failure_transport']);
-        $this->config['dependencies']['factories']['failure_transport'] = [TransportFactory::class, 'failure_transport'];
+        $this->mergeConfig([
+            'symfony' => [
+                'messenger' => [
+                    'failure_transport' => 'failure_transport',
+                    'transports' => [
+                        'failure_transport' => ['dsn' => 'in-memory:///'],
+                    ],
+                ],
+            ],
+            'dependencies' => [
+                'factories' => [
+                    'failure_transport' => [TransportFactory::class, 'failure_transport'],
+                ],
+            ],
+        ]);
     }
 
     private function consumeOne(ContainerInterface $container, string $receiverTransport): void
@@ -169,12 +195,51 @@ class ServiceManagerIntegrationTest extends TestCase
         self::assertCount(0, $queued, 'All messages should have been consumed');
     }
 
+    public function testThatTheFailureTransportIsAvailableInTheFailureReceiversProvider(): void
+    {
+        $this->setUpFailureTransport();
+
+        $container = $this->container();
+
+        $provider = $container->get(FailureReceiversProvider::class);
+
+        self::assertTrue($provider->has('failure_transport'));
+        self::assertInMemoryTransport($provider, 'failure_transport');
+    }
+
+    public function testThatTheFailureSenderTransportIsAvailableInTheFailureSendersProvider(): void
+    {
+        $this->setUpFailureTransport();
+
+        $container = $this->container();
+
+        $provider = $container->get(FailureSendersProvider::class);
+
+        self::assertTrue($provider->has('my_transport'));
+        self::assertInMemoryTransport($provider, 'my_transport');
+    }
+
     public function testThatFailedMessagesWillBeSentToFailureTransportWhenConfigured(): void
     {
         $this->setUpFailureTransport();
-        $this->config['symfony']['messenger']['buses']['command_bus']['handlers'] = [
-            TestCommand::class => ExceptionalCommandHandler::class,
-        ];
+        $this->mergeConfig([
+            'symfony' => [
+                'messenger' => [
+                    'buses' => [
+                        'command_bus' => [
+                            'handlers' => [
+                                TestCommand::class => ExceptionalCommandHandler::class,
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+            'dependencies' => [
+                'factories' => [
+                    ExceptionalCommandHandler::class => InvokableFactory::class,
+                ],
+            ],
+        ]);
 
         $container = $this->container();
         $bus = self::assertMessageBus($container, 'command_bus');
@@ -201,13 +266,7 @@ class ServiceManagerIntegrationTest extends TestCase
     #[DataProvider('failureCommandNames')]
     public function testThatAnExceptionWillBeThrownWhenTheFailureCommandsAreRegisteredWithoutAFailureTransportAvailable(): void
     {
-        $aggregator = new ConfigAggregator([
-            FailureCommandsConfigProvider::class,
-            new ArrayProvider($this->config),
-        ]);
-        /** @psalm-var TestConfig $this->config */
-        $this->config = $aggregator->getMergedConfig();
-
+        $this->mergeConfig((new FailureCommandsConfigProvider())->__invoke());
         $this->expectException(ContainerExceptionInterface::class);
         $this->expectExceptionMessage('No failure transport has been specified');
         self::assertMessageBus($this->container(), FailedMessagesRemoveCommand::class);

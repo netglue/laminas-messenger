@@ -59,8 +59,6 @@ final class OneToOneFqcnContainerHandlerLocator implements HandlersLocatorInterf
             return true;
         }
 
-        assert($received instanceof ReceivedStamp);
-
         $expectedTransport = $handlerDescriptor->getOption('from_transport');
         if (! is_string($expectedTransport)) {
             return true;
