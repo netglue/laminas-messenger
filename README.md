@@ -3,7 +3,6 @@
 # Mezzio/Laminas Factories for Symfony Messenger
 
 ![Continuous Integration](https://github.com/netglue/laminas-messenger/workflows/Continuous%20Integration/badge.svg)
-[![codecov](https://codecov.io/gh/netglue/laminas-messenger/branch/main/graph/badge.svg)](https://codecov.io/gh/netglue/laminas-messenger)
 [![Type Coverage](https://shepherd.dev/github/netglue/laminas-messenger/coverage.svg)](https://shepherd.dev/github/netglue/laminas-messenger)
 ### Introduction
 
