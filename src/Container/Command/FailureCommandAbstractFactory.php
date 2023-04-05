@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Netglue\PsrContainer\Messenger\Container\Command;
 
+use Netglue\PsrContainer\Messenger\Container\FailureReceiversProvider;
 use Netglue\PsrContainer\Messenger\Container\Util;
 use Netglue\PsrContainer\Messenger\Exception\InvalidArgument;
 use Psr\Container\ContainerInterface;
@@ -42,7 +43,7 @@ final class FailureCommandAbstractFactory
     {
         return new $this->commandName(
             Util::getGlobalFailureTransportName($container),
-            Util::getGlobalFailureTransport($container),
+            $container->get(FailureReceiversProvider::class),
         );
     }
 

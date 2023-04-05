@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Netglue\PsrContainer\Messenger\Container\Command;
 
 use GSteel\Dot;
+use Netglue\PsrContainer\Messenger\Container\FailureSendersProvider;
 use Netglue\PsrContainer\Messenger\Container\Util;
 use Netglue\PsrContainer\Messenger\RetryStrategyContainer;
 use Psr\Container\ContainerInterface;
@@ -25,10 +26,6 @@ final class ConsumeCommandFactory
         $logger = Util::defaultLoggerOrNull($container);
         $receivers = Dot::arrayDefault('symfony.messenger.transports', $config, []);
 
-        if (Util::hasGlobalFailureTransport($container)) {
-            unset($receivers[Util::getGlobalFailureTransportName($container)]);
-        }
-
         if ($container->has(EventDispatcherInterface::class)) {
             $dispatcher = $container->get(EventDispatcherInterface::class);
         } else {
@@ -42,13 +39,11 @@ final class ConsumeCommandFactory
             $logger,
         ));
 
-        // Attach Failure Queue Listener if a queue has been configured
-        if (Util::hasGlobalFailureTransport($container)) {
-            $dispatcher->addSubscriber(new SendFailedMessageToFailureTransportListener(
-                Util::getGlobalFailureTransport($container),
-                $logger,
-            ));
-        }
+        // Attach Failure Queue Listener. Messages will only be sent to the failure transport when one is configured
+        $dispatcher->addSubscriber(new SendFailedMessageToFailureTransportListener(
+            $container->get(FailureSendersProvider::class),
+            $logger,
+        ));
 
         return new ConsumeMessagesCommand(
             new RoutableMessageBus($container),
@@ -56,6 +51,8 @@ final class ConsumeCommandFactory
             $dispatcher,
             $logger,
             array_keys($receivers),
+            null,
+            array_keys(Util::busConfiguration($container)),
         );
     }
 }

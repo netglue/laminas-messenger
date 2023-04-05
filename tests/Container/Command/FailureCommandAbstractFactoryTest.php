@@ -5,28 +5,27 @@ declare(strict_types=1);
 namespace Netglue\PsrContainer\MessengerTest\Container\Command;
 
 use Netglue\PsrContainer\Messenger\Container\Command\FailureCommandAbstractFactory;
+use Netglue\PsrContainer\Messenger\Container\FailureReceiversProvider;
 use Netglue\PsrContainer\Messenger\Exception\ConfigurationError;
 use Netglue\PsrContainer\Messenger\Exception\InvalidArgument;
-use PHPUnit\Framework\MockObject\MockObject;
+use Netglue\PsrContainer\MessengerTest\InMemoryContainer;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
-use Psr\Container\ContainerInterface;
 use stdClass;
 use Symfony\Component\Messenger\Command\FailedMessagesRemoveCommand;
-use Symfony\Component\Messenger\MessageBus;
-use Symfony\Component\Messenger\Transport\Sync\SyncTransport;
+use Symfony\Component\Messenger\Command\FailedMessagesShowCommand;
 
 use function call_user_func;
 
 class FailureCommandAbstractFactoryTest extends TestCase
 {
-    /** @var ContainerInterface&MockObject */
-    private MockObject|ContainerInterface $container;
+    private InMemoryContainer $container;
 
     protected function setUp(): void
     {
         parent::setUp();
 
-        $this->container = $this->createMock(ContainerInterface::class);
+        $this->container = new InMemoryContainer();
     }
 
     public function testExceptionThrownInConstructForUnknownCommandClasses(): void
@@ -38,81 +37,41 @@ class FailureCommandAbstractFactoryTest extends TestCase
 
     public function testExceptionThrownWhenFailureTransportIsNotDefined(): void
     {
-        $this->container
-            ->expects(self::once())
-            ->method('get')
-            ->with('config')
-            ->willReturn([]);
-        $this->container
-            ->expects(self::once())
-            ->method('has')
-            ->with('config')
-            ->willReturn(true);
-
         $factory = new FailureCommandAbstractFactory(FailedMessagesRemoveCommand::class);
         $this->expectException(ConfigurationError::class);
         $this->expectExceptionMessage('No failure transport has been specified');
         $factory($this->container);
     }
 
-    public function testThatTheFailureTransportMustBePresentInTheContainer(): void
+    /** @return array<class-string, array{0: class-string}> */
+    public static function failureCommandProvider(): array
     {
-        $this->container
-            ->expects(self::atLeast(2))
-            ->method('has')
-            ->willReturnMap([
-                ['config', true],
-                ['failure', false],
-            ]);
-
-        $this->container
-            ->expects(self::atLeast(1))
-            ->method('get')
-            ->with('config')
-            ->willReturn([
-                'symfony' => [
-                    'messenger' => ['failure_transport' => 'failure'],
-                ],
-            ]);
-
-        $factory = new FailureCommandAbstractFactory(FailedMessagesRemoveCommand::class);
-        $this->expectException(ConfigurationError::class);
-        $this->expectExceptionMessage('The transport "failure" designated as the failure transport is not present in the DI container');
-        $factory($this->container);
+        return [
+            FailedMessagesRemoveCommand::class => [FailedMessagesRemoveCommand::class],
+            FailedMessagesShowCommand::class => [FailedMessagesShowCommand::class],
+        ];
     }
 
-    public function testCallStaticWillReturnCommandWhenConfigIsSane(): void
+    /** @param class-string $commandClass */
+    #[DataProvider('failureCommandProvider')]
+    public function testCallStaticWillReturnCommandWhenConfigIsSane(string $commandClass): void
     {
-        $transport = new SyncTransport(new MessageBus());
+        $providerContainer = new InMemoryContainer();
+        $provider = new FailureReceiversProvider($providerContainer, []);
 
-        $this->container
-            ->expects(self::atLeast(1))
-            ->method('get')
-            ->willReturnMap([
-                [
-                    'config',
-                    [
-                        'symfony' => [
-                            'messenger' => ['failure_transport' => 'failure'],
-                        ],
-                    ],
-                ],
-                ['failure', $transport],
-            ]);
+        $this->container->setService(FailureReceiversProvider::class, $provider);
+        $this->container->setService('config', [
+            'symfony' => [
+                'messenger' => ['failure_transport' => 'failure'],
+            ],
+        ]);
 
-        $this->container
-            ->expects(self::atLeast(2))
-            ->method('has')
-            ->willReturnMap([
-                ['config', true],
-                ['failure', true],
-            ]);
-
+        /** @psalm-var mixed $command */
         $command = call_user_func([
             FailureCommandAbstractFactory::class,
-            FailedMessagesRemoveCommand::class,
+            $commandClass,
         ], $this->container);
 
-        self::assertInstanceOf(FailedMessagesRemoveCommand::class, $command);
+        self::assertInstanceOf($commandClass, $command);
     }
 }

@@ -12,6 +12,7 @@ use Netglue\PsrContainer\Messenger\Exception\MissingDependency;
 use Netglue\PsrContainer\Messenger\Exception\UnknownTransportScheme;
 use Psr\Container\ContainerInterface;
 use Symfony\Component\Messenger\Bridge\Amqp\Transport\AmqpTransportFactory;
+use Symfony\Component\Messenger\Bridge\Doctrine\Transport\DoctrineTransport;
 use Symfony\Component\Messenger\Bridge\Redis\Transport\RedisTransportFactory;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Messenger\Transport\InMemoryTransportFactory;
@@ -46,6 +47,10 @@ final class TransportFactoryFactory
                 return new AmqpTransportFactory();
 
             case 'doctrine':
+                if (! class_exists(DoctrineTransport::class)) {
+                    throw MissingDependency::forTransport('doctrine', 'symfony/doctrine-messenger');
+                }
+
                 return new DoctrineTransportFactory($container);
 
             case 'in-memory':
