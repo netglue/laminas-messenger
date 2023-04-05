@@ -3,9 +3,12 @@
         "null", "true", "false",
         "static", "self", "parent",
         "array", "string", "int", "float", "bool", "iterable", "callable", "void", "object", "mixed", "never",
+        "Doctrine\\DBAL\\Connection",
         "Doctrine\\ORM\\EntityManager",
         "Laminas\\ServiceManager\\Factory\\InvokableFactory",
         "Symfony\\Component\\Messenger\\Bridge\\Amqp\\Transport\\AmqpTransportFactory",
+        "Symfony\\Component\\Messenger\\Bridge\\Doctrine\\Transport\\Connection",
+        "Symfony\\Component\\Messenger\\Bridge\\Doctrine\\Transport\\DoctrineTransport",
         "Symfony\\Component\\Messenger\\Bridge\\Redis\\Transport\\RedisTransportFactory"
     ]
 }
