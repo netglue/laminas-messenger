@@ -7,6 +7,7 @@ namespace Netglue\PsrContainer\Messenger;
 use Laminas\ServiceManager\ConfigInterface;
 use Laminas\ServiceManager\Factory\InvokableFactory;
 use Symfony\Component\Messenger as SymfonyMessenger;
+use Symfony\Component\Messenger\Handler\HandlersLocatorInterface;
 
 /**
  * @psalm-import-type ServiceManagerConfigurationType from ConfigInterface
@@ -25,9 +26,10 @@ use Symfony\Component\Messenger as SymfonyMessenger;
  * @psalm-type BusConfig = array{
  *     allows_zero_handlers: bool,
  *     middleware: list<string>,
- *     handler_locator: string,
+ *     handler_locator: class-string<HandlersLocatorInterface>,
  *     handlers: array<string, string|list<string>>,
  *     routes: array<string, list<string>>,
+ *     logger?: string|null,
  * }
  * @psalm-type MessengerConfig = array{
  *     logger?: string|null,

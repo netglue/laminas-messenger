@@ -6,7 +6,11 @@ namespace Netglue\PsrContainer\Messenger\Container\Middleware;
 
 use Netglue\PsrContainer\Messenger\Container\Util;
 use Psr\Container\ContainerInterface;
+use Psr\Log\LoggerInterface;
+use Symfony\Component\Messenger\Handler\HandlersLocatorInterface;
 use Symfony\Component\Messenger\Middleware\HandleMessageMiddleware;
+
+use function assert;
 
 final class MessageHandlerMiddlewareStaticFactory
 {
@@ -21,15 +25,15 @@ final class MessageHandlerMiddlewareStaticFactory
         $locatorClass = $options->handlerLocator();
         $locator = $container->has($locatorClass) ? $container->get($locatorClass) : null;
 
-        if (! $locator) {
+        if (! $locator instanceof HandlersLocatorInterface) {
             $locator = new $locatorClass($options->handlers(), $container);
         }
 
         $middleware = new HandleMessageMiddleware($locator, $options->allowsZeroHandlers());
         if ($options->logger()) {
-            $middleware->setLogger(
-                $container->get($options->logger()),
-            );
+            $logger = $container->get($options->logger());
+            assert($logger instanceof LoggerInterface);
+            $middleware->setLogger($logger);
         }
 
         return $middleware;
