@@ -66,10 +66,11 @@ class MessageBusOptionsTest extends TestCase
     {
         $this->expectException(InvalidArgument::class);
         $this->expectExceptionMessage('Handler locators must implement');
+        /** @psalm-suppress InvalidArgument */
         $this->options->setHandlerLocator(self::class);
     }
 
-    /** @return array<array-key, array{0: class-string}> */
+    /** @return array<array-key, array{0: class-string<HandlersLocatorInterface>}> */
     public static function handlerLocatorTypes(): iterable
     {
         return [
@@ -80,7 +81,7 @@ class MessageBusOptionsTest extends TestCase
         ];
     }
 
-    /** @param class-string $type */
+    /** @param class-string<HandlersLocatorInterface> $type */
     #[DataProvider('handlerLocatorTypes')]
     public function testValidKnownLocatorTypes(string $type): void
     {

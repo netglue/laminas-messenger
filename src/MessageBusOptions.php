@@ -24,7 +24,7 @@ final class MessageBusOptions extends AbstractOptions
     private array $routes = [];
     private string|null $logger = null;
     private bool $allowsZeroHandlers = false;
-    /** @var class-string */
+    /** @var class-string<HandlersLocatorInterface> */
     private string $handlerLocator = OneToManyFqcnContainerHandlerLocator::class;
 
     /** @param string[] $middleware */
@@ -51,6 +51,7 @@ final class MessageBusOptions extends AbstractOptions
         return $this->handlers;
     }
 
+    /** @param class-string<HandlersLocatorInterface> $handlerLocator */
     public function setHandlerLocator(string $handlerLocator): void
     {
         if (! is_a($handlerLocator, HandlersLocatorInterface::class, true)) {
@@ -63,6 +64,7 @@ final class MessageBusOptions extends AbstractOptions
         $this->handlerLocator = $handlerLocator;
     }
 
+    /** @return class-string<HandlersLocatorInterface> */
     public function handlerLocator(): string
     {
         return $this->handlerLocator;

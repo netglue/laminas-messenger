@@ -6,8 +6,11 @@ namespace Netglue\PsrContainer\Messenger\Container\Middleware;
 
 use Netglue\PsrContainer\Messenger\Container\Util;
 use Psr\Container\ContainerInterface;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\Messenger\Middleware\SendMessageMiddleware;
 use Symfony\Component\Messenger\Transport\Sender\SendersLocator;
+
+use function assert;
 
 final class MessageSenderMiddlewareStaticFactory
 {
@@ -27,11 +30,9 @@ final class MessageSenderMiddlewareStaticFactory
 
         $middleware = new SendMessageMiddleware($transportRouter);
         if ($options->logger()) {
-            $middleware->setLogger(
-                $container->get(
-                    $options->logger(),
-                ),
-            );
+            $logger = $container->get($options->logger());
+            assert($logger instanceof LoggerInterface);
+            $middleware->setLogger($logger);
         }
 
         return $middleware;
