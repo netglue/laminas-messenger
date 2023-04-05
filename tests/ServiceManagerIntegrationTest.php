@@ -23,14 +23,19 @@ use PHPUnit\Framework\TestCase;
 use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\ContainerInterface;
 use Symfony\Component\Console\Tester\CommandTester;
+use Symfony\Component\EventDispatcher\EventDispatcher;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Messenger\Command\ConsumeMessagesCommand;
 use Symfony\Component\Messenger\Command\FailedMessagesRemoveCommand;
 use Symfony\Component\Messenger\Command\FailedMessagesRetryCommand;
 use Symfony\Component\Messenger\Command\FailedMessagesShowCommand;
+use Symfony\Component\Messenger\Event\WorkerStartedEvent;
+use Symfony\Component\Messenger\EventListener\StopWorkerOnSigtermSignalListener;
 use Symfony\Component\Messenger\MessageBus;
 use Symfony\Component\Messenger\Transport\InMemoryTransport;
 
 use function assert;
+use function is_array;
 
 /**
  * @psalm-import-type ServiceManagerConfigurationType from ConfigInterface
@@ -270,5 +275,43 @@ class ServiceManagerIntegrationTest extends TestCase
         $this->expectException(ContainerExceptionInterface::class);
         $this->expectExceptionMessage('No failure transport has been specified');
         self::assertMessageBus($this->container(), FailedMessagesRemoveCommand::class);
+    }
+
+    public function testThatASigtermListenerIsSubscribedToTheConsumeCommand(): void
+    {
+        $dispatcher = new EventDispatcher();
+
+        $this->mergeConfig([
+            'dependencies' => [
+                'factories' => [
+                    EventDispatcherInterface::class => static fn (): EventDispatcherInterface => $dispatcher,
+                ],
+            ],
+        ]);
+
+        $container = $this->container();
+        $container->get(ConsumeMessagesCommand::class);
+
+        $listeners = [];
+
+        foreach ($dispatcher->getListeners(WorkerStartedEvent::class) as $entry) {
+            if (! is_array($entry)) {
+                break;
+            }
+
+            $try = $entry[0] ?? null;
+            if (! $try instanceof StopWorkerOnSigtermSignalListener) {
+                break;
+            }
+
+            $listeners[] = $try;
+        }
+
+        self::assertCount(1, $listeners);
+        self::assertInstanceOf(
+            StopWorkerOnSigtermSignalListener::class,
+            $listeners[0] ?? null,
+            'The SigTerm listener could not be found in the array of registered listeners',
+        );
     }
 }

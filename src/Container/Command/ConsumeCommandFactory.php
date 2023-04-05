@@ -14,6 +14,7 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Messenger\Command\ConsumeMessagesCommand;
 use Symfony\Component\Messenger\EventListener\SendFailedMessageForRetryListener;
 use Symfony\Component\Messenger\EventListener\SendFailedMessageToFailureTransportListener;
+use Symfony\Component\Messenger\EventListener\StopWorkerOnSigtermSignalListener;
 use Symfony\Component\Messenger\RoutableMessageBus;
 
 use function array_keys;
@@ -44,6 +45,9 @@ final class ConsumeCommandFactory
             $container->get(FailureSendersProvider::class),
             $logger,
         ));
+
+        // Always adds a listener to gracefully shut-down workers when SIGTERM is received
+        $dispatcher->addSubscriber(new StopWorkerOnSigtermSignalListener($logger));
 
         return new ConsumeMessagesCommand(
             new RoutableMessageBus($container),
