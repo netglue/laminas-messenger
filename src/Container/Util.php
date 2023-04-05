@@ -12,7 +12,6 @@ use Netglue\PsrContainer\Messenger\Exception\ConfigurationError;
 use Netglue\PsrContainer\Messenger\MessageBusOptions;
 use Psr\Container\ContainerInterface;
 use Psr\Log\LoggerInterface;
-use Symfony\Component\Messenger\Transport\TransportInterface;
 
 use function assert;
 use function is_iterable;
@@ -86,28 +85,6 @@ final class Util
         } catch (ConfigurationError) {
             return false;
         }
-    }
-
-    /**
-     * Retrieve the global failure transport
-     *
-     * @throws ConfigurationError If the global failure transport is not present in the container.
-     */
-    public static function getGlobalFailureTransport(ContainerInterface $container): TransportInterface
-    {
-        $transportName = self::getGlobalFailureTransportName($container);
-        if (! $container->has($transportName)) {
-            throw new ConfigurationError(sprintf(
-                'The transport "%s" designated as the failure transport is not present in ' .
-                'the DI container',
-                $transportName,
-            ));
-        }
-
-        $transport = $container->get($transportName);
-        assert($transport instanceof TransportInterface);
-
-        return $transport;
     }
 
     /**
