@@ -47,10 +47,6 @@
         "symfony/redis-messenger": "^5.4.22 || ^6.0",
         "vimeo/psalm": "^5.9"
     },
-    "conflict": {
-        "symfony/redis-messenger": ">=6",
-        "symfony/amqp-messenger": ">=6"
-    },
     "suggest": {
         "laminas/laminas-cli": "To auto-wire symfony cli commands into your DI container with laminas/laminas-cli",
         "symfony/amqp-messenger": "To use AMQP transports with Messenger",
