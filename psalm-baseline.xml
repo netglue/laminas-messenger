@@ -7,12 +7,17 @@
     </MixedAssignment>
   </file>
   <file src="src/Container/DoctrineTransportFactory.php">
-    <MixedInferredReturnType>
-      <code>TransportInterface</code>
-    </MixedInferredReturnType>
-    <UndefinedClass>
-      <code>Connection</code>
-    </UndefinedClass>
+    <InternalClass>
+      <code>Connection::buildConfiguration($dsn, $options)</code>
+      <code>new Connection($configuration, $driverConnection)</code>
+    </InternalClass>
+    <InternalMethod>
+      <code>Connection::buildConfiguration($dsn, $options)</code>
+      <code>new Connection($configuration, $driverConnection)</code>
+    </InternalMethod>
+    <MixedArgument>
+      <code><![CDATA[$configuration['connection']]]></code>
+    </MixedArgument>
   </file>
   <file src="src/Container/Middleware/MessageHandlerMiddlewareStaticFactory.php">
     <InvalidStringClass>
