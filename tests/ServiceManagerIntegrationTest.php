@@ -32,7 +32,8 @@ use Symfony\Component\Messenger\Command\FailedMessagesShowCommand;
 use Symfony\Component\Messenger\Event\WorkerStartedEvent;
 use Symfony\Component\Messenger\EventListener\StopWorkerOnSigtermSignalListener;
 use Symfony\Component\Messenger\MessageBus;
-use Symfony\Component\Messenger\Transport\InMemoryTransport;
+use Symfony\Component\Messenger\Transport\InMemory\InMemoryTransport;
+use Symfony\Component\Messenger\Transport\InMemoryTransport as DeprecatedInMemoryTransport;
 
 use function assert;
 use function is_array;
@@ -117,10 +118,10 @@ class ServiceManagerIntegrationTest extends TestCase
         return $bus;
     }
 
-    private static function assertInMemoryTransport(ContainerInterface $container, string $id): InMemoryTransport
+    private static function assertInMemoryTransport(ContainerInterface $container, string $id): DeprecatedInMemoryTransport|InMemoryTransport
     {
         $transport = $container->get($id);
-        assert($transport instanceof InMemoryTransport);
+        assert($transport instanceof DeprecatedInMemoryTransport || $transport instanceof InMemoryTransport);
 
         return $transport;
     }

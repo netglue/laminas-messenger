@@ -46,7 +46,6 @@
   </file>
   <file src="tests/ServiceManagerIntegrationTest.php">
     <DeprecatedClass>
-      <code>InMemoryTransport</code>
       <code>StopWorkerOnSigtermSignalListener::class</code>
     </DeprecatedClass>
   </file>
