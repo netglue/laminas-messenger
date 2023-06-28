@@ -1,6 +1,7 @@
 {
     "extensions": [
         "redis",
-        "igbinary"
+        "igbinary",
+        "amqp"
     ]
 }
