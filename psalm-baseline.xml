@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<files psalm-version="5.9.0@8b9ad1eb9e8b7d3101f949291da2b9f7767cd163">
+<files psalm-version="5.13.1@086b94371304750d1c673315321a55d15fc59015">
+  <file src="src/Container/Command/ConsumeCommandFactory.php">
+    <DeprecatedClass>
+      <code>new StopWorkerOnSigtermSignalListener($logger)</code>
+    </DeprecatedClass>
+  </file>
   <file src="src/Container/DoctrineTransportFactory.php">
     <InternalClass>
       <code>Connection::buildConfiguration($dsn, $options)</code>
@@ -12,6 +17,11 @@
     <MixedArgument>
       <code><![CDATA[$configuration['connection']]]></code>
     </MixedArgument>
+  </file>
+  <file src="src/TransportFactoryFactory.php">
+    <DeprecatedClass>
+      <code>new InMemoryTransportFactory()</code>
+    </DeprecatedClass>
   </file>
   <file src="tests/Container/TransportFactoryTest.php">
     <NoInterfaceProperties>
@@ -33,5 +43,16 @@
     <InternalMethod>
       <code>new ContainerCommandLoader($container, $commands)</code>
     </InternalMethod>
+  </file>
+  <file src="tests/ServiceManagerIntegrationTest.php">
+    <DeprecatedClass>
+      <code>InMemoryTransport</code>
+      <code>StopWorkerOnSigtermSignalListener::class</code>
+    </DeprecatedClass>
+  </file>
+  <file src="tests/TransportFactoryFactoryTest.php">
+    <DeprecatedClass>
+      <code>InMemoryTransportFactory::class</code>
+    </DeprecatedClass>
   </file>
 </files>
