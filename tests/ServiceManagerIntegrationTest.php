@@ -145,6 +145,7 @@ class ServiceManagerIntegrationTest extends TestCase
         $transport = self::assertInMemoryTransport($container, 'my_transport');
         $bus->dispatch(new TestCommand());
         $envelopes = $transport->get();
+        self::assertIsArray($envelopes);
         self::assertCount(1, $envelopes);
         $envelope = $envelopes[0];
         self::assertInstanceOf(TestCommand::class, $envelope->getMessage());
@@ -253,6 +254,7 @@ class ServiceManagerIntegrationTest extends TestCase
 
         $failure = self::assertInMemoryTransport($container, 'failure_transport');
         $envelopes = $failure->get();
+        self::assertIsArray($envelopes);
         self::assertCount(1, $envelopes, 'There should be 1 message stored in the failure queue');
         $envelope = $envelopes[0];
         self::assertInstanceOf(TestCommand::class, $envelope->getMessage());
