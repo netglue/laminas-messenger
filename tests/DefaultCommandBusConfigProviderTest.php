@@ -7,6 +7,7 @@ namespace Netglue\PsrContainer\MessengerTest;
 use Netglue\PsrContainer\Messenger\DefaultCommandBusConfigProvider;
 use Netglue\PsrContainer\Messenger\MessageBusOptions;
 use PHPUnit\Framework\TestCase;
+use Webmozart\Assert\Assert;
 
 class DefaultCommandBusConfigProviderTest extends TestCase
 {
@@ -30,6 +31,7 @@ class DefaultCommandBusConfigProviderTest extends TestCase
         self::assertIsArray($config['symfony']['messenger']['buses']);
         foreach ($config['symfony']['messenger']['buses'] as $optionArray) {
             self::assertIsArray($optionArray);
+            Assert::isMap($optionArray);
             new MessageBusOptions($optionArray);
         }
     }
