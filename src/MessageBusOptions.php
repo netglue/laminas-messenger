@@ -14,6 +14,7 @@ use function is_a;
 use function iterator_to_array;
 use function sprintf;
 
+/** @extends AbstractOptions<mixed> */
 final class MessageBusOptions extends AbstractOptions
 {
     /** @var string[] */
