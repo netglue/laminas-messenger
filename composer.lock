@@ -786,22 +786,23 @@
         },
         {
             "name": "symfony/messenger",
-            "version": "v6.3.5",
+            "version": "v6.3.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/messenger.git",
-                "reference": "fb29632c2abdc52f4f10f9402f8f93ebb8938234"
+                "reference": "6cd7045016ebf9c96fcb13e33e3250d466004a53"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/messenger/zipball/fb29632c2abdc52f4f10f9402f8f93ebb8938234",
-                "reference": "fb29632c2abdc52f4f10f9402f8f93ebb8938234",
+                "url": "https://api.github.com/repos/symfony/messenger/zipball/6cd7045016ebf9c96fcb13e33e3250d466004a53",
+                "reference": "6cd7045016ebf9c96fcb13e33e3250d466004a53",
                 "shasum": ""
             },
             "require": {
                 "php": ">=8.1",
                 "psr/log": "^1|^2|^3",
-                "symfony/clock": "^6.3"
+                "symfony/clock": "^6.3",
+                "symfony/deprecation-contracts": "^2.5|^3"
             },
             "conflict": {
                 "symfony/console": "<6.3",
@@ -815,7 +816,6 @@
                 "psr/cache": "^1.0|^2.0|^3.0",
                 "symfony/console": "^6.3",
                 "symfony/dependency-injection": "^5.4|^6.0",
-                "symfony/deprecation-contracts": "^2.5|^3",
                 "symfony/event-dispatcher": "^5.4|^6.0",
                 "symfony/http-kernel": "^5.4|^6.0",
                 "symfony/process": "^5.4|^6.0",
@@ -853,7 +853,7 @@
             "description": "Helps applications send and receive messages to/from other applications or via message queues",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/messenger/tree/v6.3.5"
+                "source": "https://github.com/symfony/messenger/tree/v6.3.6"
             },
             "funding": [
                 {
@@ -869,7 +869,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-09-29T16:11:24+00:00"
+            "time": "2023-10-20T05:42:09+00:00"
         },
         {
             "name": "symfony/polyfill-ctype",
@@ -1203,16 +1203,16 @@
         },
         {
             "name": "symfony/serializer",
-            "version": "v6.3.5",
+            "version": "v6.3.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/serializer.git",
-                "reference": "855fc058c8bdbb69f53834f2fdb3876c9bc0ab7c"
+                "reference": "8c5fb7144889839751ad9680cf4f183f60f8fbce"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/serializer/zipball/855fc058c8bdbb69f53834f2fdb3876c9bc0ab7c",
-                "reference": "855fc058c8bdbb69f53834f2fdb3876c9bc0ab7c",
+                "url": "https://api.github.com/repos/symfony/serializer/zipball/8c5fb7144889839751ad9680cf4f183f60f8fbce",
+                "reference": "8c5fb7144889839751ad9680cf4f183f60f8fbce",
                 "shasum": ""
             },
             "require": {
@@ -1277,7 +1277,7 @@
             "description": "Handles serializing and deserializing data structures, including object graphs, into array structures or other formats like XML and JSON.",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/serializer/tree/v6.3.5"
+                "source": "https://github.com/symfony/serializer/tree/v6.3.6"
             },
             "funding": [
                 {
@@ -1293,7 +1293,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-09-29T16:18:53+00:00"
+            "time": "2023-10-17T11:32:53+00:00"
         },
         {
             "name": "symfony/service-contracts",
@@ -1466,16 +1466,16 @@
         },
         {
             "name": "symfony/var-exporter",
-            "version": "v6.3.4",
+            "version": "v6.3.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/var-exporter.git",
-                "reference": "df1f8aac5751871b83d30bf3e2c355770f8f0691"
+                "reference": "374d289c13cb989027274c86206ddc63b16a2441"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/var-exporter/zipball/df1f8aac5751871b83d30bf3e2c355770f8f0691",
-                "reference": "df1f8aac5751871b83d30bf3e2c355770f8f0691",
+                "url": "https://api.github.com/repos/symfony/var-exporter/zipball/374d289c13cb989027274c86206ddc63b16a2441",
+                "reference": "374d289c13cb989027274c86206ddc63b16a2441",
                 "shasum": ""
             },
             "require": {
@@ -1520,7 +1520,7 @@
                 "serialize"
             ],
             "support": {
-                "source": "https://github.com/symfony/var-exporter/tree/v6.3.4"
+                "source": "https://github.com/symfony/var-exporter/tree/v6.3.6"
             },
             "funding": [
                 {
@@ -1536,7 +1536,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-08-16T18:14:47+00:00"
+            "time": "2023-10-13T09:16:49+00:00"
         }
     ],
     "packages-dev": [
@@ -6523,20 +6523,20 @@
         },
         {
             "name": "symfony/doctrine-messenger",
-            "version": "v6.3.1",
+            "version": "v6.3.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/doctrine-messenger.git",
-                "reference": "f1c253e24ae6d2bc4939b1439e074e6d2e73ecdb"
+                "reference": "9fec1e5af3b11432faf9f95d793c5e2f79b23df5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/doctrine-messenger/zipball/f1c253e24ae6d2bc4939b1439e074e6d2e73ecdb",
-                "reference": "f1c253e24ae6d2bc4939b1439e074e6d2e73ecdb",
+                "url": "https://api.github.com/repos/symfony/doctrine-messenger/zipball/9fec1e5af3b11432faf9f95d793c5e2f79b23df5",
+                "reference": "9fec1e5af3b11432faf9f95d793c5e2f79b23df5",
                 "shasum": ""
             },
             "require": {
-                "doctrine/dbal": "^2.13|^3.0",
+                "doctrine/dbal": "^2.13|^3|^4",
                 "php": ">=8.1",
                 "symfony/messenger": "^5.4|^6.0",
                 "symfony/service-contracts": "^2.5|^3"
@@ -6575,7 +6575,7 @@
             "description": "Symfony Doctrine Messenger Bridge",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/doctrine-messenger/tree/v6.3.1"
+                "source": "https://github.com/symfony/doctrine-messenger/tree/v6.3.6"
             },
             "funding": [
                 {
@@ -6591,7 +6591,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-06-24T11:51:27+00:00"
+            "time": "2023-10-12T15:02:41+00:00"
         },
         {
             "name": "symfony/filesystem",
