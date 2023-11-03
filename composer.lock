@@ -3340,21 +3340,21 @@
         },
         {
             "name": "laminas/laminas-cli",
-            "version": "1.8.0",
+            "version": "1.9.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laminas/laminas-cli.git",
-                "reference": "97930db3fd2550da0374a3ccbdc7f9b9d6177319"
+                "reference": "96bcaa4066166108e5c4401d9a5e7e6145eaf983"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laminas/laminas-cli/zipball/97930db3fd2550da0374a3ccbdc7f9b9d6177319",
-                "reference": "97930db3fd2550da0374a3ccbdc7f9b9d6177319",
+                "url": "https://api.github.com/repos/laminas/laminas-cli/zipball/96bcaa4066166108e5c4401d9a5e7e6145eaf983",
+                "reference": "96bcaa4066166108e5c4401d9a5e7e6145eaf983",
                 "shasum": ""
             },
             "require": {
                 "composer-runtime-api": "^2.0.0",
-                "php": "~8.0.0 || ~8.1.0 || ~8.2.0",
+                "php": "~8.1.0 || ~8.2.0 || ~8.3.0",
                 "psr/container": "^1.0 || ^2.0",
                 "symfony/console": "^5.3.7 || ^6.0",
                 "symfony/event-dispatcher": "^5.0 || ^6.0",
@@ -3363,12 +3363,12 @@
             },
             "require-dev": {
                 "laminas/laminas-coding-standard": "~2.5.0",
-                "laminas/laminas-mvc": "^3.6",
-                "laminas/laminas-servicemanager": "^3.20",
+                "laminas/laminas-mvc": "^3.6.1",
+                "laminas/laminas-servicemanager": "^3.22.1",
                 "mikey179/vfsstream": "2.0.x-dev",
-                "phpunit/phpunit": "^9.5.28",
+                "phpunit/phpunit": "^10.4.2",
                 "psalm/plugin-phpunit": "^0.18.4",
-                "vimeo/psalm": "^5.6"
+                "vimeo/psalm": "^5.15"
             },
             "bin": [
                 "bin/laminas"
@@ -3404,7 +3404,7 @@
                     "type": "community_bridge"
                 }
             ],
-            "time": "2023-02-02T10:57:32+00:00"
+            "time": "2023-11-02T13:45:26+00:00"
         },
         {
             "name": "laminas/laminas-config-aggregator",
@@ -4673,12 +4673,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/SecurityAdvisories.git",
-                "reference": "60b8c1d1250846f899e42ca6e43f299a8cd74d27"
+                "reference": "2f42c940aab53728fa307ebd78c42494fcd663d1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/60b8c1d1250846f899e42ca6e43f299a8cd74d27",
-                "reference": "60b8c1d1250846f899e42ca6e43f299a8cd74d27",
+                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/2f42c940aab53728fa307ebd78c42494fcd663d1",
+                "reference": "2f42c940aab53728fa307ebd78c42494fcd663d1",
                 "shasum": ""
             },
             "conflict": {
@@ -4820,7 +4820,7 @@
                 "ezsystems/ezplatform-richtext": ">=2.3,<2.3.7.1-dev",
                 "ezsystems/ezplatform-user": ">=1,<1.0.1",
                 "ezsystems/ezpublish-kernel": "<6.13.8.2-dev|>=7,<7.5.30",
-                "ezsystems/ezpublish-legacy": "<=2017.12.7.3|>=2018.06,<=2019.03.5.1",
+                "ezsystems/ezpublish-legacy": "<=2017.12.7.3|>=2018.6,<=2019.03.5.1",
                 "ezsystems/platform-ui-assets-bundle": ">=4.2,<4.2.3",
                 "ezsystems/repository-forms": ">=2.3,<2.3.2.1-dev|>=2.5,<2.5.15",
                 "ezyang/htmlpurifier": "<4.1.1",
@@ -4841,6 +4841,7 @@
                 "fluidtypo3/vhs": "<5.1.1",
                 "fof/byobu": ">=0.3.0.0-beta2,<1.1.7",
                 "fof/upload": "<1.2.3",
+                "foodcoopshop/foodcoopshop": "<3.6.1",
                 "fooman/tcpdf": "<6.2.22",
                 "forkcms/forkcms": "<5.11.1",
                 "fossar/tcpdf-parser": "<6.2.22",
@@ -5351,7 +5352,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-11-02T00:13:51+00:00"
+            "time": "2023-11-02T21:04:20+00:00"
         },
         {
             "name": "sebastian/cli-parser",
