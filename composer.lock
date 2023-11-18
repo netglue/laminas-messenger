@@ -2979,16 +2979,16 @@
         },
         {
             "name": "doctrine/orm",
-            "version": "2.17.0",
+            "version": "2.17.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/orm.git",
-                "reference": "e8afa9f80ce66ac728f63325d102adda01cbd6ff"
+                "reference": "1a4fe6e0bb67762370937a7e6cee3da40a9122d1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/orm/zipball/e8afa9f80ce66ac728f63325d102adda01cbd6ff",
-                "reference": "e8afa9f80ce66ac728f63325d102adda01cbd6ff",
+                "url": "https://api.github.com/repos/doctrine/orm/zipball/1a4fe6e0bb67762370937a7e6cee3da40a9122d1",
+                "reference": "1a4fe6e0bb67762370937a7e6cee3da40a9122d1",
                 "shasum": ""
             },
             "require": {
@@ -3074,9 +3074,9 @@
             ],
             "support": {
                 "issues": "https://github.com/doctrine/orm/issues",
-                "source": "https://github.com/doctrine/orm/tree/2.17.0"
+                "source": "https://github.com/doctrine/orm/tree/2.17.1"
             },
-            "time": "2023-11-15T23:04:41+00:00"
+            "time": "2023-11-17T06:25:40+00:00"
         },
         {
             "name": "doctrine/persistence",
@@ -4673,12 +4673,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/SecurityAdvisories.git",
-                "reference": "4bca2ea3f3d800c4a25ed3171b03980fa247521b"
+                "reference": "ed4318ac306a1a1d467d19c1a768ff17e2d454b1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/4bca2ea3f3d800c4a25ed3171b03980fa247521b",
-                "reference": "4bca2ea3f3d800c4a25ed3171b03980fa247521b",
+                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/ed4318ac306a1a1d467d19c1a768ff17e2d454b1",
+                "reference": "ed4318ac306a1a1d467d19c1a768ff17e2d454b1",
                 "shasum": ""
             },
             "conflict": {
@@ -4759,7 +4759,7 @@
                 "codeigniter4/shield": "<1.0.0.0-beta4",
                 "codiad/codiad": "<=2.8.4",
                 "composer/composer": "<1.10.27|>=2,<2.2.22|>=2.3,<2.6.4",
-                "concrete5/concrete5": "<=9.2.1",
+                "concrete5/concrete5": "<9.2.2",
                 "concrete5/core": "<8.5.8|>=9,<9.1",
                 "contao-components/mediaelement": ">=2.14.2,<2.21.1",
                 "contao/contao": ">=4,<4.4.56|>=4.5,<4.9.40|>=4.10,<4.11.7|>=4.13,<4.13.21|>=5.1,<5.1.4",
@@ -5367,7 +5367,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-11-15T21:04:09+00:00"
+            "time": "2023-11-17T23:04:10+00:00"
         },
         {
             "name": "sebastian/cli-parser",
