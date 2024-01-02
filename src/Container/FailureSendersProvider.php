@@ -14,6 +14,8 @@ use function array_map;
 
 /**
  * Maps receivers to failure transports
+ *
+ * @implements ServiceProviderInterface<TransportInterface>
  */
 final class FailureSendersProvider implements ServiceProviderInterface
 {

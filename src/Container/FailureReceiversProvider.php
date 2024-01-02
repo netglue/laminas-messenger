@@ -13,6 +13,7 @@ use function array_flip;
 use function array_map;
 use function in_array;
 
+/** @implements ServiceProviderInterface<TransportInterface> */
 final class FailureReceiversProvider implements ServiceProviderInterface
 {
     /** @param list<non-empty-string> $transportNames */

@@ -30,6 +30,8 @@ use function strpos;
  * example "doctrine://orm_default".
  *
  * For other options, consult the symfony docs at https://symfony.com/doc/current/messenger.html#doctrine-transport
+ *
+ * @implements TransportFactoryInterface<TransportInterface>
  */
 final class DoctrineTransportFactory implements TransportFactoryInterface
 {
