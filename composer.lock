@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "54d02369be86103b538992835e0a32dc",
+    "content-hash": "32f0560988327808b25bab16af56cac3",
     "packages": [
         {
             "name": "gsteel/dot",
