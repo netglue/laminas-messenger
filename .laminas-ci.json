@@ -1,5 +1,7 @@
 {
     "extensions": [
+        "amqp",
+        "pcntl",
         "redis",
         "igbinary",
         "amqp"

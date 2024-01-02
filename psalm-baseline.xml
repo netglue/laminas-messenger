@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<files psalm-version="5.15.0@5c774aca4746caf3d239d9c8cadb9f882ca29352">
+<files psalm-version="5.18.0@b113f3ed0259fd6e212d87c3df80eec95a6abf19">
   <file src="src/Container/Command/ConsumeCommandFactory.php">
     <DeprecatedClass>
+      <code>StopWorkerOnSigtermSignalListener::class</code>
       <code>new StopWorkerOnSigtermSignalListener($logger)</code>
     </DeprecatedClass>
   </file>
@@ -18,24 +19,6 @@
       <code><![CDATA[$configuration['connection']]]></code>
     </MixedArgument>
   </file>
-  <file src="src/TransportFactoryFactory.php">
-    <DeprecatedClass>
-      <code>new InMemoryTransportFactory()</code>
-    </DeprecatedClass>
-  </file>
-  <file src="tests/Container/TransportFactoryTest.php">
-    <NoInterfaceProperties>
-      <code><![CDATA[$this->factory->dsn]]></code>
-      <code><![CDATA[$this->factory->dsn]]></code>
-      <code><![CDATA[$this->factory->dsn]]></code>
-      <code><![CDATA[$this->factory->options]]></code>
-      <code><![CDATA[$this->factory->options]]></code>
-      <code><![CDATA[$this->factory->options]]></code>
-      <code><![CDATA[$this->factory->serializer]]></code>
-      <code><![CDATA[$this->factory->serializer]]></code>
-      <code><![CDATA[$this->factory->serializer]]></code>
-    </NoInterfaceProperties>
-  </file>
   <file src="tests/LaminasCliIntegrationTest.php">
     <InternalClass>
       <code>new ContainerCommandLoader($container, $commands)</code>
@@ -47,11 +30,7 @@
   <file src="tests/ServiceManagerIntegrationTest.php">
     <DeprecatedClass>
       <code>StopWorkerOnSigtermSignalListener::class</code>
-    </DeprecatedClass>
-  </file>
-  <file src="tests/TransportFactoryFactoryTest.php">
-    <DeprecatedClass>
-      <code>InMemoryTransportFactory::class</code>
+      <code>StopWorkerOnSigtermSignalListener::class</code>
     </DeprecatedClass>
   </file>
 </files>

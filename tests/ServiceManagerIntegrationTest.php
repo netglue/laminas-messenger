@@ -36,6 +36,7 @@ use Symfony\Component\Messenger\Transport\InMemory\InMemoryTransport;
 use Symfony\Component\Messenger\Transport\InMemoryTransport as DeprecatedInMemoryTransport;
 
 use function assert;
+use function class_exists;
 use function is_array;
 
 /**
@@ -282,6 +283,10 @@ class ServiceManagerIntegrationTest extends TestCase
 
     public function testThatASigtermListenerIsSubscribedToTheConsumeCommand(): void
     {
+        if (! class_exists(StopWorkerOnSigtermSignalListener::class)) {
+            self::markTestSkipped('The sigterm listener is only attached for v6 symfony messenger');
+        }
+
         $dispatcher = new EventDispatcher();
 
         $this->mergeConfig([
