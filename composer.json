@@ -27,7 +27,7 @@
         "symfony/console": "^6.0 || ^7.0",
         "symfony/dependency-injection": "^6.0 || ^7.0",
         "symfony/event-dispatcher": "^6.0 || ^7.0",
-        "symfony/messenger": "^6.0 || ^7.0",
+        "symfony/messenger": "^6.4 || ^7.0",
         "symfony/serializer": "^6.0 || ^7.0",
         "symfony/service-contracts": "^2 || ^3"
     },
