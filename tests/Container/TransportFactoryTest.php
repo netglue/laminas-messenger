@@ -19,6 +19,7 @@ use Symfony\Component\Messenger\Transport\TransportInterface;
 class TransportFactoryTest extends TestCase
 {
     private TransportInterface $transport;
+    /** @var TransportFactoryInterface<TransportInterface> */
     private TransportFactoryInterface $factory;
     /** @var MockObject&ContainerInterface */
     private ContainerInterface $container;
@@ -48,6 +49,8 @@ class TransportFactoryTest extends TestCase
                 return $envelope;
             }
         };
+
+        /** @psalm-suppress MissingTemplateParam Anyone know how to add templates to anonymous classes? */
         $this->factory = new class ($this->transport) implements TransportFactoryInterface {
             public SerializerInterface|null $serializer = null;
             public string|null $dsn = null;
