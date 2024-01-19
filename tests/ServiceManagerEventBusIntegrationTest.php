@@ -50,6 +50,7 @@ class ServiceManagerEventBusIntegrationTest extends TestCase
 
     private function container(): ServiceManager
     {
+        /** @psalm-suppress PossiblyNullArrayAccess */
         unset($this->config['dependencies']['services']['config']);
         $this->config['dependencies']['services']['config'] = $this->config;
 
@@ -113,6 +114,8 @@ class ServiceManagerEventBusIntegrationTest extends TestCase
                 EventListenerTwo::class,
             ],
         ];
+
+        /** @psalm-suppress PossiblyNullArrayAccess */
         unset($this->config['dependencies']['factories'][EventListenerOne::class]);
         $this->config['dependencies']['factories'][EventListenerOne::class]
             = static fn (): EventListenerOne => $listenerOne;

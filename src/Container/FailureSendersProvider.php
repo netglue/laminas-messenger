@@ -29,7 +29,7 @@ final class FailureSendersProvider implements ServiceProviderInterface
     public function get(string $id): TransportInterface
     {
         $failureTransport = $this->transportMap[$id] ?? null;
-        if (! $failureTransport || ! $this->has($id)) {
+        if ($failureTransport === null || ! $this->has($id)) {
             throw ServiceNotFound::forInvalidTransport($failureTransport ?? '[null]');
         }
 

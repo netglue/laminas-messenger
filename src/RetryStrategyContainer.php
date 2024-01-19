@@ -12,6 +12,7 @@ use Symfony\Component\Messenger\Retry\RetryStrategyInterface;
 
 use function array_key_exists;
 use function get_debug_type;
+use function is_string;
 use function sprintf;
 
 /** @psalm-import-type RetryStrategyConfig from ConfigProvider */
@@ -51,7 +52,7 @@ final class RetryStrategyContainer implements ContainerInterface
     {
         $config = $this->strategyConfig[$id];
         $serviceName = $config['service'] ?? null;
-        if ($serviceName) {
+        if (is_string($serviceName) && $serviceName !== '') {
             /** @psalm-var mixed $strategy */
             $strategy = $this->applicationServices->get($serviceName);
             if ($strategy instanceof RetryStrategyInterface) {

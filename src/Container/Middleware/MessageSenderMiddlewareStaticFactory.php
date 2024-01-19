@@ -29,7 +29,7 @@ final class MessageSenderMiddlewareStaticFactory
         );
 
         $middleware = new SendMessageMiddleware($transportRouter);
-        if ($options->logger()) {
+        if ($options->logger() !== null) {
             $logger = $container->get($options->logger());
             assert($logger instanceof LoggerInterface);
             $middleware->setLogger($logger);
