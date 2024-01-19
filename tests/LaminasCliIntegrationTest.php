@@ -8,7 +8,6 @@ use Generator;
 use Laminas\Cli\ContainerCommandLoader;
 use Laminas\ConfigAggregator\ArrayProvider;
 use Laminas\ConfigAggregator\ConfigAggregator;
-use Laminas\ServiceManager\ConfigInterface;
 use Laminas\ServiceManager\ServiceManager;
 use Netglue\PsrContainer\Messenger\ConfigProvider;
 use Netglue\PsrContainer\Messenger\FailureCommandsConfigProvider;
@@ -21,7 +20,7 @@ use Symfony\Component\Messenger\Transport\Sync\SyncTransport;
 
 use function array_keys;
 
-/** @psalm-import-type ServiceManagerConfigurationType from ConfigInterface */
+/** @psalm-import-type ServiceManagerConfiguration from ServiceManager */
 final class LaminasCliIntegrationTest extends TestCase
 {
     private Application $cliApplication;
@@ -61,10 +60,11 @@ final class LaminasCliIntegrationTest extends TestCase
         ]);
 
         $config = $aggregator->getMergedConfig();
-        /** @psalm-var ServiceManagerConfigurationType $dependencies */
+        /** @psalm-var ServiceManagerConfiguration $dependencies */
         $dependencies = $config['dependencies'];
-        unset($dependencies['services']['config']);
+        $dependencies['services'] ??= [];
         $dependencies['services']['config'] = $config;
+        /** @psalm-var ServiceManagerConfiguration $dependencies */
 
         return new ServiceManager($dependencies);
     }

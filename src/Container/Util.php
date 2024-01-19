@@ -51,7 +51,7 @@ final class Util
     {
         $config = self::applicationConfig($container);
         $loggerService = Dot::stringOrNull('symfony.messenger.logger', $config);
-        $logger = $loggerService ? $container->get($loggerService) : null;
+        $logger = $loggerService !== null ? $container->get($loggerService) : null;
         assert($logger instanceof LoggerInterface || $logger === null);
 
         return $logger;

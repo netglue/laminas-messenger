@@ -71,6 +71,7 @@ class ServiceManagerIntegrationTest extends TestCase
 
     private function container(): ServiceManager
     {
+        /** @psalm-suppress PossiblyNullArrayAccess */
         unset($this->config['dependencies']['services']['config']);
         $this->config['dependencies']['services']['config'] = $this->config;
 
@@ -139,6 +140,7 @@ class ServiceManagerIntegrationTest extends TestCase
         $this->config['symfony']['messenger']['buses']['command_bus']['handlers'] = [
             TestCommand::class => TestCommandHandler::class,
         ];
+        /** @psalm-suppress PossiblyNullArrayAccess */
         unset($this->config['dependencies']['factories'][TestCommandHandler::class]);
         $this->config['dependencies']['factories'][TestCommandHandler::class] = InvokableFactory::class;
 
