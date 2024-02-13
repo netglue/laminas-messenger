@@ -4826,12 +4826,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/SecurityAdvisories.git",
-                "reference": "0657710ddf6226e00182d8f26c3d4d7e73699008"
+                "reference": "d43a7a39cd198dc91cc1504532911eba15e6ac28"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/0657710ddf6226e00182d8f26c3d4d7e73699008",
-                "reference": "0657710ddf6226e00182d8f26c3d4d7e73699008",
+                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/d43a7a39cd198dc91cc1504532911eba15e6ac28",
+                "reference": "d43a7a39cd198dc91cc1504532911eba15e6ac28",
                 "shasum": ""
             },
             "conflict": {
@@ -5116,7 +5116,7 @@
                 "liftkit/database": "<2.13.2",
                 "limesurvey/limesurvey": "<3.27.19",
                 "livehelperchat/livehelperchat": "<=3.91",
-                "livewire/livewire": ">2.2.4,<2.2.6|>=3,<3.0.4",
+                "livewire/livewire": ">2.2.4,<2.2.6",
                 "lms/routes": "<2.1.1",
                 "localizationteam/l10nmgr": "<7.4|>=8,<8.7|>=9,<9.2",
                 "luyadev/yii-helpers": "<1.2.1",
@@ -5555,7 +5555,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-02-12T19:04:36+00:00"
+            "time": "2024-02-13T00:14:56+00:00"
         },
         {
             "name": "sebastian/cli-parser",
