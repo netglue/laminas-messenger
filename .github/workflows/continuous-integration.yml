@@ -23,7 +23,7 @@ jobs:
     name: "Check for missing dependencies"
     runs-on: "ubuntu-latest"
     steps:
-      - uses: actions/checkout@v4.1.4
+      - uses: actions/checkout@v4.1.5
       - uses: shivammathur/setup-php@2.30.4
         with:
           php-version: 8.1
