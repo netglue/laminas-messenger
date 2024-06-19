@@ -4836,12 +4836,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/SecurityAdvisories.git",
-                "reference": "a36c08c63614a0da558615424f8b37b3216416b6"
+                "reference": "22f9af2d843383f1c25638b07d8cbcf18482527e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/a36c08c63614a0da558615424f8b37b3216416b6",
-                "reference": "a36c08c63614a0da558615424f8b37b3216416b6",
+                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/22f9af2d843383f1c25638b07d8cbcf18482527e",
+                "reference": "22f9af2d843383f1c25638b07d8cbcf18482527e",
                 "shasum": ""
             },
             "conflict": {
@@ -5194,7 +5194,7 @@
                 "mojo42/jirafeau": "<4.4",
                 "mongodb/mongodb": ">=1,<1.9.2",
                 "monolog/monolog": ">=1.8,<1.12",
-                "moodle/moodle": "<4.3.4",
+                "moodle/moodle": "<4.3.5|>=4.4.0.0-beta,<4.4.1",
                 "mos/cimage": "<0.7.19",
                 "movim/moxl": ">=0.8,<=0.10",
                 "movingbytes/social-network": "<=1.2.1",
@@ -5631,7 +5631,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-06-17T23:04:35+00:00"
+            "time": "2024-06-18T22:04:21+00:00"
         },
         {
             "name": "sebastian/cli-parser",
