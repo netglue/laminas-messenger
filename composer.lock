@@ -4754,12 +4754,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/SecurityAdvisories.git",
-                "reference": "80e489d7669e5f7a4c56ca250489a0450d3d3219"
+                "reference": "d8b471f69a97a8929180bbface097ac2b4e70d05"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/80e489d7669e5f7a4c56ca250489a0450d3d3219",
-                "reference": "80e489d7669e5f7a4c56ca250489a0450d3d3219",
+                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/d8b471f69a97a8929180bbface097ac2b4e70d05",
+                "reference": "d8b471f69a97a8929180bbface097ac2b4e70d05",
                 "shasum": ""
             },
             "conflict": {
@@ -4797,7 +4797,7 @@
                 "athlon1600/php-proxy-app": "<=3",
                 "austintoddj/canvas": "<=3.4.2",
                 "auth0/wordpress": "<=4.6",
-                "automad/automad": "<=1.10.9",
+                "automad/automad": "<=2.0.0.0-alpha5",
                 "automattic/jetpack": "<9.8",
                 "awesome-support/awesome-support": "<=6.0.7",
                 "aws/aws-sdk-php": "<3.288.1",
@@ -5236,7 +5236,7 @@
                 "prestashop/ps_facetedsearch": "<3.4.1",
                 "prestashop/ps_linklist": "<3.1",
                 "privatebin/privatebin": "<1.4|>=1.5,<1.7.4",
-                "processwire/processwire": "<=3.0.210",
+                "processwire/processwire": "<=3.0.229",
                 "propel/propel": ">=2.0.0.0-alpha1,<=2.0.0.0-alpha7",
                 "propel/propel1": ">=1,<=1.7.1",
                 "pterodactyl/panel": "<1.11.6",
@@ -5557,7 +5557,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-07-18T00:16:06+00:00"
+            "time": "2024-07-19T23:04:29+00:00"
         },
         {
             "name": "sebastian/cli-parser",
