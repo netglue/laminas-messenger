@@ -4762,12 +4762,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/SecurityAdvisories.git",
-                "reference": "0cc79cfabcebf66307fe5a686367bc425a7b96b6"
+                "reference": "ee27abe60d541524cca97592ac68119cab33afce"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/0cc79cfabcebf66307fe5a686367bc425a7b96b6",
-                "reference": "0cc79cfabcebf66307fe5a686367bc425a7b96b6",
+                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/ee27abe60d541524cca97592ac68119cab33afce",
+                "reference": "ee27abe60d541524cca97592ac68119cab33afce",
                 "shasum": ""
             },
             "conflict": {
@@ -5412,6 +5412,7 @@
                 "tribalsystems/zenario": "<9.5.60602",
                 "truckersmp/phpwhois": "<=4.3.1",
                 "ttskch/pagination-service-provider": "<1",
+                "twbs/bootstrap": "<=3.4.1|>=4,<=4.6.2",
                 "twig/twig": "<1.44.7|>=2,<2.15.3|>=3,<3.4.3",
                 "typo3/cms": "<9.5.29|>=10,<10.4.35|>=11,<11.5.23|>=12,<12.2",
                 "typo3/cms-backend": "<4.1.14|>=4.2,<4.2.15|>=4.3,<4.3.7|>=4.4,<4.4.4|>=7,<=7.6.50|>=8,<=8.7.39|>=9,<=9.5.24|>=10,<=10.4.13|>=11,<=11.1",
@@ -5566,7 +5567,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-07-31T17:04:31+00:00"
+            "time": "2024-08-01T22:04:46+00:00"
         },
         {
             "name": "sebastian/cli-parser",
