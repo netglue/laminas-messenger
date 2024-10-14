@@ -6,7 +6,6 @@ namespace Netglue\PsrContainer\MessengerTest;
 
 use Laminas\ConfigAggregator\ArrayProvider;
 use Laminas\ConfigAggregator\ConfigAggregator;
-use Laminas\ServiceManager\ConfigInterface;
 use Laminas\ServiceManager\ServiceManager;
 use Netglue\PsrContainer\Messenger\ConfigProvider;
 use Netglue\PsrContainer\Messenger\Container\TransportFactory;
@@ -20,7 +19,7 @@ use Symfony\Component\Console\Tester\CommandTester;
 use Symfony\Component\Messenger\Command\ConsumeMessagesCommand;
 
 /**
- * @psalm-import-type ServiceManagerConfigurationType from ConfigInterface
+ * @psalm-import-type ServiceManagerConfiguration from ServiceManager
  * @psalm-type TestConfig = array{
  *     symfony: array{
  *         messenger: array{
@@ -33,7 +32,7 @@ use Symfony\Component\Messenger\Command\ConsumeMessagesCommand;
  *             },
  *         },
  *     },
- *     dependencies: ServiceManagerConfigurationType,
+ *     dependencies: ServiceManagerConfiguration,
  * }
  */
 class ServiceManagerEventBusIntegrationTest extends TestCase
