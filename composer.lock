@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "fe32b05504806ebbc409355c51b20b77",
+    "content-hash": "2f891cdb4392c7313a4c33e2871b292a",
     "packages": [
         {
             "name": "gsteel/dot",
@@ -7426,7 +7426,7 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": "~8.1 || ~8.2 || ~8.3"
+        "php": "~8.1 || ~8.2 || ~8.3 || ~8.4"
     },
     "platform-dev": {
         "ext-amqp": "*",
