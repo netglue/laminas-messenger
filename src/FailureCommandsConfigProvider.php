@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Netglue\PsrContainer\Messenger;
 
-use Laminas\ServiceManager\ConfigInterface;
+use Laminas\ServiceManager\ServiceManager;
 use Netglue\PsrContainer\Messenger\Container\Command\FailedMessagesRetryCommandFactory;
 use Netglue\PsrContainer\Messenger\Container\Command\FailureCommandAbstractFactory;
 use Symfony\Component\Messenger\Command\FailedMessagesRemoveCommand;
@@ -14,7 +14,7 @@ use Symfony\Component\Messenger\Command\FailedMessagesShowCommand;
 use function assert;
 use function is_string;
 
-/** @psalm-import-type ServiceManagerConfigurationType from ConfigInterface */
+/** @psalm-import-type ServiceManagerConfiguration from ServiceManager */
 final class FailureCommandsConfigProvider
 {
     /** @return array<string, mixed> */
@@ -26,7 +26,7 @@ final class FailureCommandsConfigProvider
         ];
     }
 
-    /** @return ServiceManagerConfigurationType */
+    /** @return ServiceManagerConfiguration */
     private function dependencies(): array
     {
         return [

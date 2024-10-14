@@ -6,7 +6,6 @@ namespace Netglue\PsrContainer\MessengerTest;
 
 use Laminas\ConfigAggregator\ArrayProvider;
 use Laminas\ConfigAggregator\ConfigAggregator;
-use Laminas\ServiceManager\ConfigInterface;
 use Laminas\ServiceManager\Factory\InvokableFactory;
 use Laminas\ServiceManager\ServiceManager;
 use Netglue\PsrContainer\Messenger\ConfigProvider;
@@ -40,7 +39,7 @@ use function class_exists;
 use function is_array;
 
 /**
- * @psalm-import-type ServiceManagerConfigurationType from ConfigInterface
+ * @psalm-import-type ServiceManagerConfiguration from ServiceManager
  * @psalm-type TestConfig = array{
  *     symfony: array{
  *         messenger: array{
@@ -54,7 +53,7 @@ use function is_array;
  *             },
  *         },
  *     },
- *     dependencies: ServiceManagerConfigurationType,
+ *     dependencies: ServiceManagerConfiguration,
  * }
  */
 class ServiceManagerIntegrationTest extends TestCase

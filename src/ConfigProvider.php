@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Netglue\PsrContainer\Messenger;
 
-use Laminas\ServiceManager\ConfigInterface;
 use Laminas\ServiceManager\Factory\InvokableFactory;
+use Laminas\ServiceManager\ServiceManager;
 use Symfony\Component\Messenger as SymfonyMessenger;
 use Symfony\Component\Messenger\Handler\HandlersLocatorInterface;
 
 /**
- * @psalm-import-type ServiceManagerConfigurationType from ConfigInterface
+ * @psalm-import-type ServiceManagerConfiguration from ServiceManager
  * @psalm-type RetryStrategyConfig = array{
  *     service?: string|null,
  *     max_retries?: numeric|null,
@@ -52,7 +52,7 @@ final class ConfigProvider
         ];
     }
 
-    /** @return ServiceManagerConfigurationType */
+    /** @return ServiceManagerConfiguration */
     private function dependencies(): array
     {
         return [
