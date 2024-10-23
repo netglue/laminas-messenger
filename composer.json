@@ -35,7 +35,7 @@
         "ext-amqp": "*",
         "ext-pcntl": "*",
         "doctrine/coding-standard": "^12.0",
-        "doctrine/orm": "^2.20.0",
+        "doctrine/orm": "^3.0.0",
         "laminas/laminas-cli": "^1.10",
         "laminas/laminas-config-aggregator": "^1.15",
         "laminas/laminas-servicemanager": "^4.2.0",
