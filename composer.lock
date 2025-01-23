@@ -4762,12 +4762,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/SecurityAdvisories.git",
-                "reference": "fb6b00411f2c212631318ab412b2208632e507ba"
+                "reference": "2135caa192c134f0a421ee680fa9c0e346841dbc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/fb6b00411f2c212631318ab412b2208632e507ba",
-                "reference": "fb6b00411f2c212631318ab412b2208632e507ba",
+                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/2135caa192c134f0a421ee680fa9c0e346841dbc",
+                "reference": "2135caa192c134f0a421ee680fa9c0e346841dbc",
                 "shasum": ""
             },
             "conflict": {
@@ -5274,6 +5274,7 @@
                 "prestashop/gamification": "<2.3.2",
                 "prestashop/prestashop": "<8.1.6",
                 "prestashop/productcomments": "<5.0.2",
+                "prestashop/ps_contactinfo": "<=3.3.2",
                 "prestashop/ps_emailsubscription": "<2.6.1",
                 "prestashop/ps_facetedsearch": "<3.4.1",
                 "prestashop/ps_linklist": "<3.1",
@@ -5623,7 +5624,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2025-01-21T22:04:49+00:00"
+            "time": "2025-01-22T19:04:49+00:00"
         },
         {
             "name": "sebastian/cli-parser",
