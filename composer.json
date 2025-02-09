@@ -47,7 +47,7 @@
         "symfony/amqp-messenger": "^6.4.8 || ^7.0",
         "symfony/doctrine-messenger": "^6.4.12 || ^7.0",
         "symfony/redis-messenger": "^6.4.11 || ^7.0",
-        "vimeo/psalm": "^5.26.1"
+        "vimeo/psalm": "^6.0.0"
     },
     "suggest": {
         "laminas/laminas-cli": "To auto-wire symfony cli commands into your DI container with laminas/laminas-cli",
