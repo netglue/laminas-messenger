@@ -4772,12 +4772,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/SecurityAdvisories.git",
-                "reference": "98ed8a7be061968455a548ceb0ba2790b11b119f"
+                "reference": "61a4c6fa210845b4f22b67c79f1833be64a34f29"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/98ed8a7be061968455a548ceb0ba2790b11b119f",
-                "reference": "98ed8a7be061968455a548ceb0ba2790b11b119f",
+                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/61a4c6fa210845b4f22b67c79f1833be64a34f29",
+                "reference": "61a4c6fa210845b4f22b67c79f1833be64a34f29",
                 "shasum": ""
             },
             "conflict": {
@@ -4819,6 +4819,7 @@
                 "athlon1600/php-proxy-app": "<=3",
                 "athlon1600/youtube-downloader": "<=4",
                 "austintoddj/canvas": "<=3.4.2",
+                "auth0/auth0-php": ">=8.0.0.0-beta1,<8.14",
                 "auth0/wordpress": "<=4.6",
                 "automad/automad": "<2.0.0.0-alpha5",
                 "automattic/jetpack": "<9.8",
@@ -5695,7 +5696,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2025-05-15T17:04:55+00:00"
+            "time": "2025-05-16T18:07:06+00:00"
         },
         {
             "name": "sebastian/cli-parser",
