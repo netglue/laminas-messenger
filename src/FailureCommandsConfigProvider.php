@@ -11,9 +11,6 @@ use Symfony\Component\Messenger\Command\FailedMessagesRemoveCommand;
 use Symfony\Component\Messenger\Command\FailedMessagesRetryCommand;
 use Symfony\Component\Messenger\Command\FailedMessagesShowCommand;
 
-use function assert;
-use function is_string;
-
 /** @psalm-import-type ServiceManagerConfiguration from ServiceManager */
 final class FailureCommandsConfigProvider
 {
@@ -43,17 +40,10 @@ final class FailureCommandsConfigProvider
     {
         return [
             'commands' => [
-                self::assertCommandName(FailedMessagesRemoveCommand::getDefaultName()) => FailedMessagesRemoveCommand::class,
-                self::assertCommandName(FailedMessagesRetryCommand::getDefaultName()) => FailedMessagesRetryCommand::class,
-                self::assertCommandName(FailedMessagesShowCommand::getDefaultName()) => FailedMessagesShowCommand::class,
+                'messenger:failed:remove' => FailedMessagesRemoveCommand::class,
+                'messenger:failed:retry' => FailedMessagesRetryCommand::class,
+                'messenger:failed:show' => FailedMessagesShowCommand::class,
             ],
         ];
-    }
-
-    private static function assertCommandName(string|null $name): string
-    {
-        assert(is_string($name) && $name !== '');
-
-        return $name;
     }
 }
