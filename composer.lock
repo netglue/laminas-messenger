@@ -4835,12 +4835,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/SecurityAdvisories.git",
-                "reference": "79c1c038b063d5cdbdc7fc954eb8d7d1e1886f6e"
+                "reference": "60bbb2fff15a77ab2eda09d7a420883f863938f8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/79c1c038b063d5cdbdc7fc954eb8d7d1e1886f6e",
-                "reference": "79c1c038b063d5cdbdc7fc954eb8d7d1e1886f6e",
+                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/60bbb2fff15a77ab2eda09d7a420883f863938f8",
+                "reference": "60bbb2fff15a77ab2eda09d7a420883f863938f8",
                 "shasum": ""
             },
             "conflict": {
@@ -5005,6 +5005,7 @@
                 "dolibarr/dolibarr": "<21.0.3",
                 "dompdf/dompdf": "<2.0.4",
                 "doublethreedigital/guest-entries": "<3.1.2",
+                "drupal-pattern-lab/unified-twig-extensions": "<=0.1",
                 "drupal/admin_audit_trail": "<1.0.5",
                 "drupal/ai": "<1.0.5",
                 "drupal/alogin": "<2.0.6",
@@ -5804,7 +5805,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2025-10-09T21:05:17+00:00"
+            "time": "2025-10-11T00:19:40+00:00"
         },
         {
             "name": "sebastian/cli-parser",
