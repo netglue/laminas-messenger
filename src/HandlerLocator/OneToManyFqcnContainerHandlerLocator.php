@@ -13,12 +13,12 @@ use function assert;
 use function is_array;
 use function is_string;
 
-final class OneToManyFqcnContainerHandlerLocator implements HandlersLocatorInterface
+final readonly class OneToManyFqcnContainerHandlerLocator implements HandlersLocatorInterface
 {
     /** @param iterable<string, list<string>|mixed> $handlers */
     public function __construct(
-        private readonly iterable $handlers,
-        private readonly ContainerInterface $container,
+        private iterable $handlers,
+        private ContainerInterface $container,
     ) {
     }
 

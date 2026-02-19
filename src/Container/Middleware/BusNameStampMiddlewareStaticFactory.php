@@ -8,7 +8,7 @@ use Netglue\PsrContainer\Messenger\Container\Util;
 use Psr\Container\ContainerInterface;
 use Symfony\Component\Messenger\Middleware\AddBusNameStampMiddleware;
 
-final class BusNameStampMiddlewareStaticFactory
+final readonly class BusNameStampMiddlewareStaticFactory
 {
     /** @param non-empty-string $busIdentifier */
     public function __construct(private string $busIdentifier)

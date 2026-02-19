@@ -16,7 +16,7 @@ use function in_array;
 use function sprintf;
 
 /** @phpcs:disable SlevomatCodingStandard.Classes.RequireConstructorPropertyPromotion */
-final class FailureCommandAbstractFactory
+final readonly class FailureCommandAbstractFactory
 {
     private const CAN_CREATE = [
         FailedMessagesRemoveCommand::class,
@@ -24,7 +24,7 @@ final class FailureCommandAbstractFactory
     ];
 
     /** @var value-of<self::CAN_CREATE> */
-    private readonly string $commandName;
+    private string $commandName;
 
     /** @param class-string $commandName */
     public function __construct(string $commandName)

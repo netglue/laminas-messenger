@@ -8,7 +8,7 @@ use Netglue\PsrContainer\Messenger\Exception\InvalidArgument;
 
 final class ExceptionalCommandHandler
 {
-    public function __invoke(TestCommand $command): void
+    public function __invoke(TestCommand $command): never
     {
         throw new InvalidArgument('Something went wrong');
     }

@@ -14,12 +14,12 @@ use function array_map;
 use function in_array;
 
 /** @implements ServiceProviderInterface<TransportInterface> */
-final class FailureReceiversProvider implements ServiceProviderInterface
+final readonly class FailureReceiversProvider implements ServiceProviderInterface
 {
     /** @param list<non-empty-string> $transportNames */
     public function __construct(
-        private readonly ContainerInterface $container,
-        private readonly array $transportNames,
+        private ContainerInterface $container,
+        private array $transportNames,
     ) {
     }
 
