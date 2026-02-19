@@ -22,21 +22,14 @@ use PHPUnit\Framework\TestCase;
 use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\ContainerInterface;
 use Symfony\Component\Console\Tester\CommandTester;
-use Symfony\Component\EventDispatcher\EventDispatcher;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Messenger\Command\ConsumeMessagesCommand;
 use Symfony\Component\Messenger\Command\FailedMessagesRemoveCommand;
 use Symfony\Component\Messenger\Command\FailedMessagesRetryCommand;
 use Symfony\Component\Messenger\Command\FailedMessagesShowCommand;
-use Symfony\Component\Messenger\Event\WorkerStartedEvent;
-use Symfony\Component\Messenger\EventListener\StopWorkerOnSigtermSignalListener;
 use Symfony\Component\Messenger\MessageBus;
 use Symfony\Component\Messenger\Transport\InMemory\InMemoryTransport;
-use Symfony\Component\Messenger\Transport\InMemoryTransport as DeprecatedInMemoryTransport;
 
 use function assert;
-use function class_exists;
-use function is_array;
 
 /**
  * @psalm-import-type ServiceManagerConfiguration from ServiceManager
@@ -119,10 +112,10 @@ class ServiceManagerIntegrationTest extends TestCase
         return $bus;
     }
 
-    private static function assertInMemoryTransport(ContainerInterface $container, string $id): DeprecatedInMemoryTransport|InMemoryTransport
+    private static function assertInMemoryTransport(ContainerInterface $container, string $id): InMemoryTransport
     {
         $transport = $container->get($id);
-        assert($transport instanceof DeprecatedInMemoryTransport || $transport instanceof InMemoryTransport);
+        assert($transport instanceof InMemoryTransport);
 
         return $transport;
     }
@@ -280,47 +273,5 @@ class ServiceManagerIntegrationTest extends TestCase
         $this->expectException(ContainerExceptionInterface::class);
         $this->expectExceptionMessage('No failure transport has been specified');
         self::assertMessageBus($this->container(), FailedMessagesRemoveCommand::class);
-    }
-
-    public function testThatASigtermListenerIsSubscribedToTheConsumeCommand(): void
-    {
-        if (! class_exists(StopWorkerOnSigtermSignalListener::class)) {
-            self::markTestSkipped('The sigterm listener is only attached for v6 symfony messenger');
-        }
-
-        $dispatcher = new EventDispatcher();
-
-        $this->mergeConfig([
-            'dependencies' => [
-                'factories' => [
-                    EventDispatcherInterface::class => static fn (): EventDispatcherInterface => $dispatcher,
-                ],
-            ],
-        ]);
-
-        $container = $this->container();
-        $container->get(ConsumeMessagesCommand::class);
-
-        $listeners = [];
-
-        foreach ($dispatcher->getListeners(WorkerStartedEvent::class) as $entry) {
-            if (! is_array($entry)) {
-                break;
-            }
-
-            $try = $entry[0] ?? null;
-            if (! $try instanceof StopWorkerOnSigtermSignalListener) {
-                break;
-            }
-
-            $listeners[] = $try;
-        }
-
-        self::assertCount(1, $listeners);
-        self::assertInstanceOf(
-            StopWorkerOnSigtermSignalListener::class,
-            $listeners[0] ?? null,
-            'The SigTerm listener could not be found in the array of registered listeners',
-        );
     }
 }

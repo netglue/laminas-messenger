@@ -14,11 +14,9 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Messenger\Command\ConsumeMessagesCommand;
 use Symfony\Component\Messenger\EventListener\SendFailedMessageForRetryListener;
 use Symfony\Component\Messenger\EventListener\SendFailedMessageToFailureTransportListener;
-use Symfony\Component\Messenger\EventListener\StopWorkerOnSigtermSignalListener;
 use Symfony\Component\Messenger\RoutableMessageBus;
 
 use function array_keys;
-use function class_exists;
 
 final class ConsumeCommandFactory
 {
@@ -46,15 +44,6 @@ final class ConsumeCommandFactory
             $container->get(FailureSendersProvider::class),
             $logger,
         ));
-
-        /**
-         * In Symfony v7, this listener has been removed. Now, the Consume command automatically listens for
-         * SIGTERM and SIGINT as part of the SignalableCommandInterface contract.
-         */
-        if (class_exists(StopWorkerOnSigtermSignalListener::class)) {
-            // Always adds a listener to gracefully shut-down workers when SIGTERM is received
-            $dispatcher->addSubscriber(new StopWorkerOnSigtermSignalListener($logger));
-        }
 
         return new ConsumeMessagesCommand(
             new RoutableMessageBus($container),

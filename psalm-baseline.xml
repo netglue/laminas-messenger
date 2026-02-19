@@ -1,19 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<files psalm-version="5.20.0@3f284e96c9d9be6fe6b15c79416e1d1903dcfef4">
-  <file src="src/Container/Command/ConsumeCommandFactory.php">
-    <DeprecatedClass>
-      <code>StopWorkerOnSigtermSignalListener::class</code>
-      <code>new StopWorkerOnSigtermSignalListener($logger)</code>
-    </DeprecatedClass>
-  </file>
+<files psalm-version="5.26.1@d747f6500b38ac4f7dfc5edbcae6e4b637d7add0">
   <file src="src/Container/DoctrineTransportFactory.php">
     <InternalClass>
-      <code>Connection::buildConfiguration($dsn, $options)</code>
-      <code>new Connection($configuration, $driverConnection)</code>
+      <code><![CDATA[Connection::buildConfiguration($dsn, $options)]]></code>
+      <code><![CDATA[new Connection($configuration, $driverConnection)]]></code>
     </InternalClass>
     <InternalMethod>
-      <code>Connection::buildConfiguration($dsn, $options)</code>
-      <code>new Connection($configuration, $driverConnection)</code>
+      <code><![CDATA[Connection::buildConfiguration($dsn, $options)]]></code>
+      <code><![CDATA[new Connection($configuration, $driverConnection)]]></code>
     </InternalMethod>
     <MixedArgument>
       <code><![CDATA[$configuration['connection']]]></code>
@@ -21,16 +15,10 @@
   </file>
   <file src="tests/LaminasCliIntegrationTest.php">
     <InternalClass>
-      <code>new ContainerCommandLoader($container, $commands)</code>
+      <code><![CDATA[new ContainerCommandLoader($container, $commands)]]></code>
     </InternalClass>
     <InternalMethod>
-      <code>new ContainerCommandLoader($container, $commands)</code>
+      <code><![CDATA[new ContainerCommandLoader($container, $commands)]]></code>
     </InternalMethod>
-  </file>
-  <file src="tests/ServiceManagerIntegrationTest.php">
-    <DeprecatedClass>
-      <code>StopWorkerOnSigtermSignalListener::class</code>
-      <code>StopWorkerOnSigtermSignalListener::class</code>
-    </DeprecatedClass>
   </file>
 </files>

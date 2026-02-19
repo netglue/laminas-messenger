@@ -9,26 +9,50 @@ on:
     tags:
 
 env:
-  default_php: '8.1'
-  php_extensions:
+  default_php: '8.2'
+  php_extensions: intl,bcmath
 
 jobs:
   ci:
     uses: laminas/workflow-continuous-integration/.github/workflows/continuous-integration.yml@1.x
 
-  #
-  # Use custom require-checker run - Laminas CI requires it's installed as a dev dependency for now.
-  #
   composer-require-checker:
     name: "Check for missing dependencies"
-    runs-on: "ubuntu-latest"
+    runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v6.0.2
+      - uses: actions/checkout@v6.0.1
+      - uses: shivammathur/setup-php@2.36.0
+
+        with:
+          php-version: ${{ env.default_php }}
+          ini-values: memory_limit=-1
+          extensions: ${{ env.php_extensions }}
+      - uses: ramsey/composer-install@3.1.1
+      - run: make require-checker-ci
+
+  composer-unused:
+    name: Check for Unused Dependencies
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6.0.1
       - uses: shivammathur/setup-php@2.36.0
         with:
-          php-version: 8.1
-          ini-values: memory_limit=-1
+          php-version: ${{ env.default_php }}
+          extensions: ${{ env.php_extensions }}
+          tools: composer
       - uses: ramsey/composer-install@3.1.1
-      - run: composer global config bin-dir /usr/local/bin
-      - run: composer global require -W maglnet/composer-require-checker
-      - run: /usr/local/bin/composer-require-checker --config-file=.github/composer-require-checker.json check
+      - run: make unused-ci
+
+  rector:
+    name: Rector on Default PHP
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6.0.1
+      - uses: shivammathur/setup-php@2.36.0
+        with:
+          php-version: ${{ env.default_php }}
+          extensions: ${{ env.php_extensions }}
+          tools: composer
+      - uses: ramsey/composer-install@3.1.1
+      - run: make rector-ci
