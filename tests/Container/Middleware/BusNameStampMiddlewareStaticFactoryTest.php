@@ -12,7 +12,7 @@ use Symfony\Component\Messenger\Envelope;
 use Symfony\Component\Messenger\Middleware\StackMiddleware;
 use Symfony\Component\Messenger\Stamp\BusNameStamp;
 
-class BusNameStampMiddlewareStaticFactoryTest extends TestCase
+final class BusNameStampMiddlewareStaticFactoryTest extends TestCase
 {
     public function testCreatedMiddlewareHasCorrectIdentifier(): void
     {

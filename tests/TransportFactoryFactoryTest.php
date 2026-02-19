@@ -20,7 +20,7 @@ use Symfony\Component\Messenger\Transport\InMemory\InMemoryTransportFactory;
 use Symfony\Component\Messenger\Transport\Sync\SyncTransportFactory;
 use Symfony\Component\Messenger\Transport\TransportFactoryInterface;
 
-class TransportFactoryFactoryTest extends TestCase
+final class TransportFactoryFactoryTest extends TestCase
 {
     /** @var ContainerInterface&MockObject */
     private ContainerInterface $container;

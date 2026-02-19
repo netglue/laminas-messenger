@@ -8,7 +8,7 @@ use Netglue\PsrContainer\Messenger\Container\FailureReceiversProviderFactory;
 use Netglue\PsrContainer\MessengerTest\InMemoryContainer;
 use PHPUnit\Framework\TestCase;
 
-class FailureReceiversProviderFactoryTest extends TestCase
+final class FailureReceiversProviderFactoryTest extends TestCase
 {
     private InMemoryContainer $container;
 

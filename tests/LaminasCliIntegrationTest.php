@@ -34,8 +34,8 @@ final class LaminasCliIntegrationTest extends TestCase
         self::assertIsArray($config);
         $commands = $config['laminas-cli']['commands'] ?? [];
         self::assertIsArray($commands);
-        self::assertContainsOnly('string', $commands);
-        self::assertContainsOnly('string', array_keys($commands));
+        self::assertContainsOnlyString($commands);
+        self::assertContainsOnlyString(array_keys($commands));
         /** @psalm-var array<string, string> $commands */
 
         $this->cliApplication = new Application();

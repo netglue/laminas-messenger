@@ -14,7 +14,7 @@ use stdClass;
 use Symfony\Component\Messenger\Envelope;
 use Symfony\Component\Messenger\Handler\HandlerDescriptor;
 
-class OneToOneFqcnContainerHandlerLocatorTest extends TestCase
+final class OneToOneFqcnContainerHandlerLocatorTest extends TestCase
 {
     /** @var ContainerInterface&MockObject */
     private ContainerInterface $container;

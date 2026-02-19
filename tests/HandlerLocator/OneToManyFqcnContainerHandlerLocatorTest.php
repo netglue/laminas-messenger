@@ -14,7 +14,7 @@ use Psr\Container\ContainerInterface;
 use stdClass;
 use Symfony\Component\Messenger\Envelope;
 
-class OneToManyFqcnContainerHandlerLocatorTest extends TestCase
+final class OneToManyFqcnContainerHandlerLocatorTest extends TestCase
 {
     /** @var ContainerInterface&MockObject */
     private ContainerInterface $container;

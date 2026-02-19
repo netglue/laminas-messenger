@@ -49,7 +49,7 @@ use function assert;
  *     dependencies: ServiceManagerConfiguration,
  * }
  */
-class ServiceManagerIntegrationTest extends TestCase
+final class ServiceManagerIntegrationTest extends TestCase
 {
     /** @var TestConfig */
     private array $config;

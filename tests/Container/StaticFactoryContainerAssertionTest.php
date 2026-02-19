@@ -9,7 +9,7 @@ use Netglue\PsrContainer\Messenger\Exception\BadMethodCall;
 use PHPUnit\Framework\TestCase;
 use Psr\Container\ContainerInterface;
 
-class StaticFactoryContainerAssertionTest extends TestCase
+final class StaticFactoryContainerAssertionTest extends TestCase
 {
     public function testExceptionThrownWhenAContainerIsNotTheFirstArgument(): void
     {

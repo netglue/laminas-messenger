@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Netglue\PsrContainer\MessengerTest\Fixture;
 
-class TestCommandHandler
+final class TestCommandHandler
 {
     public function __invoke(TestCommand $command): void
     {

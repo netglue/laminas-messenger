@@ -15,7 +15,7 @@ use Symfony\Component\Messenger\Transport\Serialization\PhpSerializer;
 use Symfony\Component\Messenger\Transport\TransportFactoryInterface;
 use Symfony\Component\Messenger\Transport\TransportInterface;
 
-class TransportFactoryTest extends TestCase
+final class TransportFactoryTest extends TestCase
 {
     private TransportInterface $transport;
     private TransportFactoryStub $factory;

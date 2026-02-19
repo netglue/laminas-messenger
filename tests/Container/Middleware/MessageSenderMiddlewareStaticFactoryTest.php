@@ -11,7 +11,7 @@ use Psr\Log\LoggerInterface;
 use ReflectionProperty;
 use Symfony\Component\Messenger\Middleware\SendMessageMiddleware;
 
-class MessageSenderMiddlewareStaticFactoryTest extends TestCase
+final class MessageSenderMiddlewareStaticFactoryTest extends TestCase
 {
     private InMemoryContainer $container;
     private MessageSenderMiddlewareStaticFactory $factory;

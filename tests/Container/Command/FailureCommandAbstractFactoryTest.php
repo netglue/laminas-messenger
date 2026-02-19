@@ -17,7 +17,7 @@ use Symfony\Component\Messenger\Command\FailedMessagesShowCommand;
 
 use function call_user_func;
 
-class FailureCommandAbstractFactoryTest extends TestCase
+final class FailureCommandAbstractFactoryTest extends TestCase
 {
     private InMemoryContainer $container;
 

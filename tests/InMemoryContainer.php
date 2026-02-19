@@ -17,12 +17,20 @@ final class InMemoryContainer implements ContainerInterface
         $this->services[$id] = $service;
     }
 
-    /** @inheritDoc */
+    /**
+     * @psalm-param string|class-string<T> $id
+     *
+     * @psalm-return ($id is class-string ? T : mixed)
+     *
+     * @template T
+     */
     public function get(string $id)
     {
         if (! isset($this->services[$id])) {
             throw new ServiceNotFound('Service ' . $id . ' not found');
         }
+
+        /** @psalm-suppress MixedReturnStatement */
 
         return $this->services[$id];
     }

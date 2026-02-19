@@ -7,7 +7,7 @@ namespace Netglue\PsrContainer\MessengerTest\Exception;
 use Netglue\PsrContainer\Messenger\Exception\MissingDependency;
 use PHPUnit\Framework\TestCase;
 
-class MissingDependencyTest extends TestCase
+final class MissingDependencyTest extends TestCase
 {
     public function testThatTheTransportAndPackageArePresentForTransportRelatedErrorMessages(): void
     {

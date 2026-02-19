@@ -70,7 +70,10 @@ final class TransportFactoryFactory
                 return new SyncTransportFactory($messageBus);
         }
 
-        parse_str(parse_url($dsn, PHP_URL_QUERY) ?? '', $options);
+        $parseUrl = parse_url($dsn, PHP_URL_QUERY);
+        assert($parseUrl === null || is_string($parseUrl));
+
+        parse_str($parseUrl ?? '', $options);
 
         $config = Util::applicationConfig($container);
         $transportFactories = Dot::arrayDefault('symfony.messenger.transport_factories', $config, []);
