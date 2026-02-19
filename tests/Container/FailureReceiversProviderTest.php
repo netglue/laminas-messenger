@@ -10,7 +10,7 @@ use PHPUnit\Framework\TestCase;
 use Psr\Container\ContainerInterface;
 use Symfony\Component\Messenger\Transport\TransportInterface;
 
-class FailureReceiversProviderTest extends TestCase
+final class FailureReceiversProviderTest extends TestCase
 {
     public function testThatProvidedServicesAreAllConsideredTransports(): void
     {
@@ -76,6 +76,7 @@ class FailureReceiversProviderTest extends TestCase
             ['homer'],
         );
 
+        /** @ */
         self::assertSame($transport, $provider->get('homer'));
     }
 }

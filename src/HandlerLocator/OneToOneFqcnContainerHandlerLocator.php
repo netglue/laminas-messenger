@@ -15,12 +15,12 @@ use function assert;
 use function is_callable;
 use function is_string;
 
-final class OneToOneFqcnContainerHandlerLocator implements HandlersLocatorInterface
+final readonly class OneToOneFqcnContainerHandlerLocator implements HandlersLocatorInterface
 {
     /** @param iterable<string, string|mixed> $handlers */
     public function __construct(
-        private readonly iterable $handlers,
-        private readonly ContainerInterface $container,
+        private iterable $handlers,
+        private ContainerInterface $container,
     ) {
     }
 

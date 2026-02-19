@@ -9,6 +9,7 @@
     findUnusedPsalmSuppress="true"
     findUnusedCode="false"
     findUnusedBaselineEntry="true"
+    ensureOverrideAttribute="false"
 >
     <projectFiles>
         <directory name="src"/>
@@ -19,6 +20,8 @@
     </projectFiles>
     <plugins>
         <pluginClass class="Psalm\PhpUnitPlugin\Plugin"/>
-        <pluginClass class="Lctrs\PsalmPsrContainerPlugin\Plugin"/>
     </plugins>
+    <stubs>
+        <file name=".psr-container.php.stub" />
+    </stubs>
 </psalm>

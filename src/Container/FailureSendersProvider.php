@@ -17,12 +17,12 @@ use function array_map;
  *
  * @implements ServiceProviderInterface<TransportInterface>
  */
-final class FailureSendersProvider implements ServiceProviderInterface
+final readonly class FailureSendersProvider implements ServiceProviderInterface
 {
     /** @param array<non-empty-string, non-empty-string> $transportMap */
     public function __construct(
-        private readonly ContainerInterface $container,
-        private readonly array $transportMap,
+        private ContainerInterface $container,
+        private array $transportMap,
     ) {
     }
 

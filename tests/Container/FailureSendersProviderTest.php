@@ -11,7 +11,7 @@ use PHPUnit\Framework\TestCase;
 use Psr\Container\ContainerInterface;
 use Symfony\Component\Messenger\Transport\TransportInterface;
 
-class FailureSendersProviderTest extends TestCase
+final class FailureSendersProviderTest extends TestCase
 {
     public function testThatTheProvidedServicesHaveTheExpectedValues(): void
     {

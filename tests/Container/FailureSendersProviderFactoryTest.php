@@ -9,7 +9,7 @@ use Netglue\PsrContainer\MessengerTest\InMemoryContainer;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Messenger\Transport\TransportInterface;
 
-class FailureSendersProviderFactoryTest extends TestCase
+final class FailureSendersProviderFactoryTest extends TestCase
 {
     private InMemoryContainer $container;
     private FailureSendersProviderFactory $factory;

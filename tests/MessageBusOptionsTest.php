@@ -15,7 +15,7 @@ use Symfony\Component\Messenger\Handler\HandlersLocatorInterface;
 
 use function is_a;
 
-class MessageBusOptionsTest extends TestCase
+final class MessageBusOptionsTest extends TestCase
 {
     private MessageBusOptions $options;
 

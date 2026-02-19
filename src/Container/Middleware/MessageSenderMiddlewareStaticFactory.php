@@ -12,10 +12,10 @@ use Symfony\Component\Messenger\Transport\Sender\SendersLocator;
 
 use function assert;
 
-final class MessageSenderMiddlewareStaticFactory
+final readonly class MessageSenderMiddlewareStaticFactory
 {
     /** @param non-empty-string $busIdentifier */
-    public function __construct(private readonly string $busIdentifier)
+    public function __construct(private string $busIdentifier)
     {
     }
 

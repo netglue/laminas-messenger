@@ -1,0 +1,10 @@
+{
+    "symbol-whitelist" : [
+        "Doctrine\\DBAL\\Connection",
+        "Doctrine\\ORM\\EntityManager",
+        "Symfony\\Component\\Messenger\\Bridge\\Amqp\\Transport\\AmqpTransportFactory",
+        "Symfony\\Component\\Messenger\\Bridge\\Doctrine\\Transport\\Connection",
+        "Symfony\\Component\\Messenger\\Bridge\\Doctrine\\Transport\\DoctrineTransport",
+        "Symfony\\Component\\Messenger\\Bridge\\Redis\\Transport\\RedisTransportFactory"
+    ]
+}

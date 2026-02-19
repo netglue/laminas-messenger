@@ -12,7 +12,7 @@ use Symfony\Component\Messenger\Middleware\HandleMessageMiddleware;
 
 use function assert;
 
-final class MessageHandlerMiddlewareStaticFactory
+final readonly class MessageHandlerMiddlewareStaticFactory
 {
     /** @param non-empty-string $busIdentifier */
     public function __construct(private string $busIdentifier)

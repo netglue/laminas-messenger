@@ -35,7 +35,7 @@ use Symfony\Component\Messenger\Command\ConsumeMessagesCommand;
  *     dependencies: ServiceManagerConfiguration,
  * }
  */
-class ServiceManagerEventBusIntegrationTest extends TestCase
+final class ServiceManagerEventBusIntegrationTest extends TestCase
 {
     /** @var TestConfig */
     private array $config;

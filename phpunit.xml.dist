@@ -2,14 +2,14 @@
 <phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:noNamespaceSchemaLocation="vendor/phpunit/phpunit/phpunit.xsd"
          bootstrap="vendor/autoload.php"
-         displayDetailsOnSkippedTests="true"
-         displayDetailsOnIncompleteTests="true"
-         displayDetailsOnTestsThatTriggerWarnings="true"
-         displayDetailsOnTestsThatTriggerNotices="true"
-         displayDetailsOnTestsThatTriggerDeprecations="true"
-         displayDetailsOnTestsThatTriggerErrors="true"
+         displayDetailsOnAllIssues="true"
+         failOnPhpunitWarning="true"
+         failOnDeprecation="true"
+         failOnNotice="true"
+         failOnPhpunitDeprecation="true"
+         failOnWarning="true"
          colors="true">
-    <source>
+    <source ignoreIndirectDeprecations="true">
         <include>
             <directory suffix=".php">./src</directory>
         </include>

@@ -9,7 +9,7 @@ use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Psr\Container\ContainerInterface;
 
-class RetryStrategyContainerFactoryTest extends TestCase
+final class RetryStrategyContainerFactoryTest extends TestCase
 {
     /** @var ContainerInterface&MockObject */
     private ContainerInterface $container;

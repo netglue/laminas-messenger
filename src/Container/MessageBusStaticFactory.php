@@ -11,7 +11,7 @@ use Symfony\Component\Messenger\Middleware\MiddlewareInterface;
 
 use function assert;
 
-final class MessageBusStaticFactory
+final readonly class MessageBusStaticFactory
 {
     /** @param non-empty-string $id */
     public function __construct(private string $id)

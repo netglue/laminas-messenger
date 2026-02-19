@@ -17,7 +17,7 @@ use Symfony\Component\Messenger\Transport\TransportInterface;
 
 use function assert;
 use function sprintf;
-use function strpos;
+use function str_starts_with;
 
 /**
  * A transport factory for doctrine connections
@@ -33,7 +33,7 @@ use function strpos;
  *
  * @implements TransportFactoryInterface<TransportInterface>
  */
-final class DoctrineTransportFactory implements TransportFactoryInterface
+final readonly class DoctrineTransportFactory implements TransportFactoryInterface
 {
     public function __construct(private ContainerInterface $container)
     {
@@ -67,6 +67,6 @@ final class DoctrineTransportFactory implements TransportFactoryInterface
     /** @param mixed[] $options */
     public function supports(string $dsn, array $options): bool
     {
-        return strpos($dsn, 'doctrine://') === 0;
+        return str_starts_with($dsn, 'doctrine://');
     }
 }

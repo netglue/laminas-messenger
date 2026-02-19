@@ -13,7 +13,7 @@ use ReflectionProperty;
 use Symfony\Component\Messenger\Handler\HandlersLocatorInterface;
 use Symfony\Component\Messenger\Middleware\HandleMessageMiddleware;
 
-class MessageHandlerMiddlewareStaticFactoryTest extends TestCase
+final class MessageHandlerMiddlewareStaticFactoryTest extends TestCase
 {
     private InMemoryContainer $container;
     private MessageHandlerMiddlewareStaticFactory $factory;

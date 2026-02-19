@@ -15,7 +15,7 @@ use stdClass;
 use Symfony\Component\Messenger\Retry\MultiplierRetryStrategy;
 
 /** @psalm-import-type RetryStrategyConfig from ConfigProvider */
-class RetryStrategyContainerTest extends TestCase
+final class RetryStrategyContainerTest extends TestCase
 {
     /** @var ContainerInterface&MockObject */
     private ContainerInterface $container;

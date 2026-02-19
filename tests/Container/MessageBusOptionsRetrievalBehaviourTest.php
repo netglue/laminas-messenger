@@ -10,7 +10,7 @@ use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Psr\Container\ContainerInterface;
 
-class MessageBusOptionsRetrievalBehaviourTest extends TestCase
+final class MessageBusOptionsRetrievalBehaviourTest extends TestCase
 {
     /** @var ContainerInterface&MockObject  */
     private ContainerInterface $container;

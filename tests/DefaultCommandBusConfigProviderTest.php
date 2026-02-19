@@ -9,7 +9,7 @@ use Netglue\PsrContainer\Messenger\MessageBusOptions;
 use PHPUnit\Framework\TestCase;
 use Webmozart\Assert\Assert;
 
-class DefaultCommandBusConfigProviderTest extends TestCase
+final class DefaultCommandBusConfigProviderTest extends TestCase
 {
     private DefaultCommandBusConfigProvider $provider;
 

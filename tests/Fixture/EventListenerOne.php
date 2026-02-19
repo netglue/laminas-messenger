@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Netglue\PsrContainer\MessengerTest\Fixture;
 
-class EventListenerOne
+final class EventListenerOne
 {
     public bool $triggered = false;
 
