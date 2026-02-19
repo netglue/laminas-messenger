@@ -33,7 +33,7 @@
     "require-dev": {
         "ext-amqp": "*",
         "ext-pcntl": "*",
-        "doctrine/coding-standard": "^13.0.1",
+        "doctrine/coding-standard": "^14.0.0",
         "doctrine/orm": "^2.20.9",
         "laminas/laminas-cli": "^1.14",
         "laminas/laminas-config-aggregator": "^1.19",
