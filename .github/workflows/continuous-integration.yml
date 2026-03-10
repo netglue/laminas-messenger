@@ -28,7 +28,7 @@ jobs:
           php-version: ${{ env.default_php }}
           ini-values: memory_limit=-1
           extensions: ${{ env.php_extensions }}
-      - uses: ramsey/composer-install@3.1.1
+      - uses: ramsey/composer-install@3.2.0
       - run: make require-checker-ci
 
   composer-unused:
@@ -41,7 +41,7 @@ jobs:
           php-version: ${{ env.default_php }}
           extensions: ${{ env.php_extensions }}
           tools: composer
-      - uses: ramsey/composer-install@3.1.1
+      - uses: ramsey/composer-install@3.2.0
       - run: make unused-ci
 
   rector:
@@ -54,5 +54,5 @@ jobs:
           php-version: ${{ env.default_php }}
           extensions: ${{ env.php_extensions }}
           tools: composer
-      - uses: ramsey/composer-install@3.1.1
+      - uses: ramsey/composer-install@3.2.0
       - run: make rector-ci
