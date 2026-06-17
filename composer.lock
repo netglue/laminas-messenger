@@ -5383,12 +5383,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/SecurityAdvisories.git",
-                "reference": "810e1d8cfbc718df8dacf74b62b7b9a1780b9698"
+                "reference": "6cf5f0de69e31a1ddc9724bf1ee6776beaa827c7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/810e1d8cfbc718df8dacf74b62b7b9a1780b9698",
-                "reference": "810e1d8cfbc718df8dacf74b62b7b9a1780b9698",
+                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/6cf5f0de69e31a1ddc9724bf1ee6776beaa827c7",
+                "reference": "6cf5f0de69e31a1ddc9724bf1ee6776beaa827c7",
                 "shasum": ""
             },
             "conflict": {
@@ -6023,7 +6023,7 @@
                 "phpoffice/phpexcel": "<=1.8.2",
                 "phpoffice/phpspreadsheet": "<=1.30.4|>=2,<=2.1.15|>=2.2,<=2.4.4|>=3,<=3.10.4|>=4,<=5.6",
                 "phppgadmin/phppgadmin": "<=7.13",
-                "phpseclib/phpseclib": "<=2.0.53|>=3,<=3.0.51",
+                "phpseclib/phpseclib": "<=2.0.54|>=3,<=3.0.53",
                 "phpservermon/phpservermon": "<3.6",
                 "phpsysinfo/phpsysinfo": "<3.4.3",
                 "phpunit/phpunit": "<8.5.52|>=9,<9.6.33|>=10,<10.5.62|>=11,<11.5.50|>=12,<12.5.8|>=12.5.21,<12.5.22|>=13.1.5,<13.1.6",
@@ -6471,7 +6471,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-06-12T20:48:39+00:00"
+            "time": "2026-06-16T16:34:38+00:00"
         },
         {
             "name": "sebastian/cli-parser",
