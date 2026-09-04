@@ -38,7 +38,7 @@
         "laminas/laminas-cli": "^1.14",
         "laminas/laminas-config-aggregator": "^1.19",
         "phpunit/phpunit": "^11.5.55",
-        "psalm/plugin-phpunit": "^0.19.0",
+        "psalm/plugin-phpunit": "^0.20.0",
         "roave/security-advisories": "dev-latest",
         "symfony/amqp-messenger": "^7.4.4 || ^8.0",
         "symfony/doctrine-messenger": "^7.4.5 || ^8.0",
