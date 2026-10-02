@@ -33,6 +33,7 @@
     "require-dev": {
         "ext-amqp": "*",
         "ext-pcntl": "*",
+        "boundwize/structarmed": "^0.18.9",
         "doctrine/coding-standard": "^14.0.0",
         "doctrine/orm": "^2.20.9 || ^3.0",
         "laminas/laminas-cli": "^1.14",

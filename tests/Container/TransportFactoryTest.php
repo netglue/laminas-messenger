@@ -27,7 +27,7 @@ final class TransportFactoryTest extends TestCase
         parent::setUp();
 
         $this->container = $this->createMock(ContainerInterface::class);
-        $this->transport = new class () implements TransportInterface {
+        $this->transport = new class implements TransportInterface {
             // phpcs:ignore
             public function get() : iterable
             {
