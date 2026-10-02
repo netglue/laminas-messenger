@@ -63,7 +63,7 @@ final class FailureSendersProviderTest extends TestCase
     public function testAnExceptionIsThrownWhenTheMappedTransportIsNotATransport(): void
     {
         $container = new InMemoryContainer();
-        $container->setService('failure', new class () {
+        $container->setService('failure', new class {
         });
 
         $provider = new FailureSendersProvider($container, ['bart' => 'failure']);

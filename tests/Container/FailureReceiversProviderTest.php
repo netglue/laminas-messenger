@@ -49,7 +49,7 @@ final class FailureReceiversProviderTest extends TestCase
         $container->expects(self::once())
             ->method('get')
             ->with('homer')
-            ->willReturn(new class () {
+            ->willReturn(new class {
             });
 
         $provider = new FailureReceiversProvider(
