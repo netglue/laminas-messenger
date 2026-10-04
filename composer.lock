@@ -2502,16 +2502,16 @@
         },
         {
             "name": "boundwize/structarmed",
-            "version": "0.18.9",
+            "version": "0.18.10",
             "source": {
                 "type": "git",
                 "url": "https://github.com/boundwize/structarmed.git",
-                "reference": "49465f0c678f81ee29051df7a6d756678874339f"
+                "reference": "f2a94d3b58230e0356e8be7e23fe0037a39dee15"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/boundwize/structarmed/zipball/49465f0c678f81ee29051df7a6d756678874339f",
-                "reference": "49465f0c678f81ee29051df7a6d756678874339f",
+                "url": "https://api.github.com/repos/boundwize/structarmed/zipball/f2a94d3b58230e0356e8be7e23fe0037a39dee15",
+                "reference": "f2a94d3b58230e0356e8be7e23fe0037a39dee15",
                 "shasum": ""
             },
             "require": {
@@ -2568,7 +2568,7 @@
             ],
             "support": {
                 "issues": "https://github.com/boundwize/structarmed/issues",
-                "source": "https://github.com/boundwize/structarmed/tree/0.18.9"
+                "source": "https://github.com/boundwize/structarmed/tree/0.18.10"
             },
             "funding": [
                 {
@@ -2576,7 +2576,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-10-01T12:16:20+00:00"
+            "time": "2026-10-03T02:54:03+00:00"
         },
         {
             "name": "composer/pcre",
