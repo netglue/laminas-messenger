@@ -124,6 +124,7 @@
                     "type": "other"
                 }
             ],
+            "abandoned": "Reintegrated into icanhazstring/composer-unused",
             "time": "2026-01-29T13:38:57+00:00",
             "published-time": "2026-01-29T13:39:17+00:00"
         },
